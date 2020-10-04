@@ -21,9 +21,9 @@ public class CodiFuerzaBruta {
                     if(abecedari[i] == text.charAt(j)){
                         if((i - pLletra) < 0){
                             res = pLletra - i;
-                            System.out.println(abecedari[abecedari.length - res]);
+                            System.out.print(abecedari[abecedari.length - res]);
                         } else{
-                            System.out.println(abecedari[i-pLletra]);
+                            System.out.print(abecedari[i-pLletra]);
                         }
                     }
                 }
