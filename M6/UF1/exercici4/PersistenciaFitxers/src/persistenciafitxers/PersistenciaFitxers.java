@@ -1,5 +1,12 @@
 package persistenciafitxers;
 
+/*
+*File: PersistenciFitxers.java
+*Author: Maria Navarro
+*Date: 18-10-2020
+*Description: Activitat 4 Practica UF1
+*/
+
 import java.io.File;
 import java.io.IOException;
 import javax.xml.parsers.DocumentBuilder;
@@ -13,7 +20,7 @@ import org.xml.sax.SAXException;
 
 public class PersistenciaFitxers {
 
-    public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
+    public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException{
       
         // per a carregar en memòria un arxiu xml
         File arxiu = new File("exercici4.xml");
