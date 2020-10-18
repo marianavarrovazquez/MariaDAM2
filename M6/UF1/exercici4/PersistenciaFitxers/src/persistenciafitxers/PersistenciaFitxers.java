@@ -1,6 +1,7 @@
 package persistenciafitxers;
 
 import java.io.File;
+import java.io.IOException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -8,23 +9,46 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 public class PersistenciaFitxers {
 
-    public static void main(String[] args) throws ParserConfigurationException {
+    public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
+      
         // per a carregar en memòria un arxiu xml
-        File file = new File("C:\\Users\\maria\\OneDrive\\Escritorio\\DAM2\\M6\\UF1\\exercici4\\exercici4.xml");
+        File arxiu = new File("exercici4.xml");
+        // Creo una instancia de DocumentBuilderFactory
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        // Creo un documentBuilder
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        Document doc = dBuilder.parse(file);
+        // Obtengo el documento, a partir del XML
+        Document doc = dBuilder.parse(arxiu);
 
         //per obtenir el node arrel
         Element nodeArrel = doc.getDocumentElement();
-
+        
         //Per obtenir els nodes fill d’un node useu el mètode getChildNodes()
-        //Per obtenir els atributs d’un node, useu el mètode getAttributes()
-        //Per obtenir el nom, el tipus i el valor d’un node, cerqueu els mètodes apropiats.
-
+        NodeList nodeChild =  doc.getChildNodes();
+        
+        for (int i = 0; i < nodeChild.getLength(); i++) {
+            Node node = nodeChild.item(i);
+            System.out.println("Node: " + node.getNodeName());
+            
+            System.out.println("fills: \n");
+            // Recorro sus hijos
+            for(int j = 0; j < node.getChildNodes().getLength(); j++){
+                Node fills = node.getChildNodes().item(j);
+                System.out.println("Node fill: " + fills.getNodeName() + " Valor: "+ fills.getTextContent());
+            }
+            
+            System.out.println("atributs: \n");
+            // Recorro sus atributos
+            for(int k = 0; k < node.getAttributes().getLength() ;k++){
+                Node atribut = node.getAttributes().item(k);
+                System.out.println("Nom Atribut " + atribut.getNodeName() + " Valor: " + atribut.getTextContent());
+            }
+            
+            System.out.println("\n");
+        }        
     }
-    
 }
