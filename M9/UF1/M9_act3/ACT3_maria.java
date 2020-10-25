@@ -9,6 +9,13 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+/*
+*File: ACT3_maria.java
+*Author: Maria Navarro
+*Date: 25-10-2020
+*Description: Activitat 3 Practica UF1 M9
+*/
+
 public class ACT3_maria {
     public static void main(String[] args) {
         Scanner scan = new Scanner (System.in);
