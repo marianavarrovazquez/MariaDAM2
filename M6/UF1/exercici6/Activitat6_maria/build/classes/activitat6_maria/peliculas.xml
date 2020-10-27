@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<peliculas>
+	<pelicula id="1">
+		<titulo>Bright</titulo>
+		<director>David Ayer</director>
+		<actor>Will Smith</actor>
+		<fecha>2017</fecha>
+		<duracion>117</duracion>
+		<genero>accion</genero>
+	</pelicula>
+	
+	<pelicula id="2">
+		<titulo>Corazones de acero</titulo>
+		<director>David Ayer</director>
+		<actor>Brad Pitt</actor>
+		<fecha>2014</fecha>
+		<duracion>134</duracion>
+		<genero>belica</genero>
+	</pelicula>
+	
+	<pelicula id="3">
+		<titulo>Fast and Furious 6</titulo>
+		<director>Justin Lin</director>
+		<actor>Vin Diesel</actor>
+		<fecha>2013</fecha>
+		<duracion>130</duracion>
+		<genero>accion</genero>
+	</pelicula>
+</peliculas>
