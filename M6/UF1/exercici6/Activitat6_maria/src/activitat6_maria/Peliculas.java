@@ -7,9 +7,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 class Peliculas {
+    
     private Pelicula[] pelicula;
     
-    public Pelicula[] getPelicula() {
+    public Pelicula[] getPeliculas() {
         return pelicula;
     }
     
