@@ -131,4 +131,8 @@ public class RSA {
 	String content = this.readFileAsString(path);
 	this.setPrivateKeyString(content);
     }
+
+    private String readFileAsString(String path) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
