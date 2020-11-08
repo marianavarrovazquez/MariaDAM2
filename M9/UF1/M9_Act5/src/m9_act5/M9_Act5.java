@@ -4,7 +4,6 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.util.Arrays;
 import java.util.Scanner;
 import javax.crypto.Cipher;
 
@@ -16,63 +15,68 @@ import javax.crypto.Cipher;
 */
 
 public class M9_Act5 {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         Scanner scan = new Scanner (System.in);
 	String text;
 	String textDes;
         String textEncr;
+        int longitudC = 512;
         
 	//DEMANEM LA FRASE
-	System.out.println("TEXT:");
+	System.out.println("TEXT: ");
 	text = scan.nextLine();
         byte[] arrayText = text.getBytes();
         
 	//GENEREM LES CLAUS
-        KeyPair clau = randomGenerate(512);
+        KeyPair clau = randomGenerate(longitudC);
         PrivateKey clauPrivada = clau.getPrivate();
         PublicKey clauPublica = clau.getPublic();
 	
+        //ENCRIPTACIÓ I DESENCRIPTACIÓ
 	byte[] arrayTextE = encryptData(arrayText, clauPublica);
         textEncr = new String(arrayTextE);
+        
         byte[] arrayTextD = decryptData(arrayTextE, clauPrivada);
         textDes = new String(arrayTextD);
         
-        System.out.println("\nPublica: " + clauPublica + "\n Privada: " + clauPrivada + "\n Frase encriptada: " + textEncr + "\n Frase desencriptada: " + textDes + "\n");
+        System.out.println("\nPublica: " + clauPublica + "\n Privada: " + clauPrivada + "\n Frase introduida per teclat: " + text + "\n Frase encriptada: " + textEncr + "\n Frase desencriptada: " + textDes + "\n");
+   
+        
     }
 
     public static KeyPair randomGenerate(int longitudC) {
-	KeyPair clau = null;
-	try {
-            KeyPairGenerator clauGen = KeyPairGenerator.getInstance("RSA");
-            clauGen.initialize(longitudC);
-            clau = clauGen.genKeyPair();
+        KeyPair keys = null;
+        try {
+            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
+            keyGen.initialize(longitudC);
+            keys = keyGen.genKeyPair();
         } catch (Exception ex) {
             System.err.println("Generador no disponible.");
-        }
-        return clau;
+	}
+        return keys;
     }
 	
-    public static byte[] encryptData(byte[] data, PublicKey clauPublica) {
+    public static byte[] encryptData(byte[] data, PublicKey clauPubica) {
         byte[] encryptedData = null;
         try {
             Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding","SunJCE");
-            cipher.init(Cipher.ENCRYPT_MODE, clauPublica);
+            cipher.init(Cipher.ENCRYPT_MODE, clauPubica);
             encryptedData = cipher.doFinal(data);
-        } catch (Exception ex) {
+        }  catch (Exception ex) {
             System.err.println("Error xifrant: " + ex);
-        }
+        }  
         return encryptedData;
     }
-    
+
     public static byte[] decryptData(byte[] data, PrivateKey clauPrivada) {
-        byte[] encryptedData = null;
+        byte[] decryptedData = null;
         try {
             Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding","SunJCE");
             cipher.init(Cipher.DECRYPT_MODE, clauPrivada);
-            encryptedData = cipher.doFinal(data);
+            decryptedData = cipher.doFinal(data);
         } catch (Exception ex) {
-            System.err.println("Error xifrant: " + ex);
+            System.err.println("Error desxifrant: " + ex);
         }
-        return encryptedData;
+        return decryptedData;
     }
 }
