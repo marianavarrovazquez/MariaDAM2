@@ -26,7 +26,7 @@ import javax.crypto.spec.SecretKeySpec;
 *File: Act4_maria.java
 *Author: Maria Navarro
 *Date: 25-10-2020
-*Description: Activitat 5 Practica UF1
+*Description: Activitat 4 Practica UF1 m6
 */
 
 public class Act4_maria {
