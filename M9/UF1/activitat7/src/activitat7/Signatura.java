@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package activitat7;
 
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.security.KeyPair;
@@ -39,10 +35,13 @@ public class Signatura {
         
         System.out.println("Generant claus publiques i privades (arxius clauPublica i clauPrivada)...OK");
         System.out.println("Introdueix el missatge a signar:");
+       
         frase = scan.nextLine();
         byte[] textBytes = frase.getBytes();
+        byte[] signatura = signData(textBytes, clauPrivada);
         
-        
+        ArxiuBytes(textBytes, "missatge");
+        ArxiuBytes(signatura, "firma");
         
         System.out.println("Signant el missatge...OK");
 	System.out.println("Generant arxiu firma_missatge...OK");
@@ -61,12 +60,12 @@ public class Signatura {
         return clau;
     }
     
-    public byte[] signData(byte[] data, PrivateKey priv) {
+    public static byte[] signData(byte[] textBytes, PrivateKey clauPrivada) {
         byte[] signature = null;
         try {
             Signature signer = Signature.getInstance("SHA1withRSA");
-            signer.initSign(priv);
-            signer.update(data);
+            signer.initSign(clauPrivada);
+            signer.update(textBytes);
             signature = signer.sign();
         }
         catch (Exception ex) {
@@ -78,9 +77,9 @@ public class Signatura {
     public static void publicKeyFile(PublicKey clauPublica) throws IOException {
         Base64.Encoder encoder = Base64.getEncoder();
         try (FileWriter out = new FileWriter("clauPublica")) {
-            out.write("—-COMENÇA LA CLAU PRIVADA RSA—- \n");
+            out.write("—-COMENÇA LA CLAU PUBLICA RSA—- \n");
             out.write(encoder.encodeToString(clauPublica.getEncoded()));
-            out.write("—-FINAL LA CLAU PRIVADA RSA—-");
+            out.write("—-FINAL LA CLAU PUBLICA RSA—-");
         } catch (IOException ex) {
             System.out.println("ERROR guardant clau privada");
         }
@@ -96,5 +95,14 @@ public class Signatura {
             System.out.println("ERROR guardant clau privada");
         }
 
+    }
+
+    private static void ArxiuBytes(byte[] data, String NomArxiu) {
+        try (FileOutputStream fos = new FileOutputStream(NomArxiu)) {
+            fos.write(data);
+            fos.close();        
+        } catch (Exception ex) {
+           System.out.println("No se ha guardado el mensaje"); 
+        }
     }
 }
