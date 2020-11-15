@@ -37,9 +37,13 @@ public class Signatura {
         System.out.println("Introdueix el missatge a signar:");
         frase = scan.nextLine();
         
+        //TRANSFORMEM LA FRASE A BYTES
         byte[] textBytes = frase.getBytes();
+        
+        //CREEM LA VARIABLE SIGNATURA ON L
         byte[] signatura = signData(textBytes, clauPrivada);
         
+        //CRIDEM AL METODE PER CREAR ELS ARXIUS FIRMA I MISSATGE
         ArxiuBytes(textBytes, "missatge");
         ArxiuBytes(signatura, "firma");
         
@@ -48,6 +52,7 @@ public class Signatura {
 	System.out.println("Generant arxiu missatge...OK");
     }
     
+    //LLANCEM UN RANDOM
     public static KeyPair randomGenerate(int longitudC) {
         KeyPair clau = null;
         try {
@@ -60,6 +65,7 @@ public class Signatura {
         return clau;
     }
     
+    //SIGNEM LES DADES
     public static byte[] signData(byte[] textBytes, PrivateKey clauPrivada) {
         byte[] signature = null;
         try {
@@ -74,6 +80,7 @@ public class Signatura {
         return signature;
     }
 
+    //CREEM LA CLAU PUBLICA
     public static void publicKeyFile(KeyPair clau) throws IOException {
         try { 
             X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(clau.getPublic().getEncoded());
@@ -87,6 +94,7 @@ public class Signatura {
 
     }
 
+    //CREEM LA CLAU PRIVADA
     public static void privateKeyFile(KeyPair clau) throws IOException {  
         try {
             PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(clau.getPrivate().getEncoded());
@@ -99,6 +107,7 @@ public class Signatura {
         }
     }
 
+    //CREEM EL METODE PER CREAR ELS ARXIUS MISSATGE I FIRMA
     public static void ArxiuBytes(byte[] data, String NomArxiu) {
         try (FileOutputStream fos = new FileOutputStream(NomArxiu)) {
             fos.write(data);

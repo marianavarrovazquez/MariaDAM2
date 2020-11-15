@@ -11,7 +11,7 @@ import java.security.Signature;
 import java.security.spec.X509EncodedKeySpec;
 
 /*
-*File: Notaria.java
+*File: Signatura.java
 *Author: Maria Navarro
 *Date: 15-11-2020
 *Description: Activitat 7 Practica UF1 M9
@@ -36,6 +36,7 @@ public class Notaria {
         validat = validarText(validar);
     }
      
+    //VALIDAR SIGNATURA
     public static boolean validateSignature(byte[] data, byte[] signature, PublicKey pub) {
         boolean isValid = false;
         try {
@@ -50,6 +51,7 @@ public class Notaria {
         return isValid;
     }
     
+    //RECUPERAR CLAU PUBLICA
     public static PublicKey recuperarCP (PublicKey clauPublica) {
         try {
             File filePublicKey = new File("clauPublica");
@@ -67,6 +69,7 @@ public class Notaria {
         return clauPublica;
     }
 
+    //TEXT PER VALIDAR SI ESTA SIGNAT CORRECTAMENT
     public static boolean validarText(boolean validar) {
         if(validar){
             System.out.println("Comprovant signatura de l’arxiu missatge...OK");
