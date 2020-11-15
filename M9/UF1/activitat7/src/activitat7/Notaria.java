@@ -11,7 +11,7 @@ import java.security.Signature;
 import java.security.spec.X509EncodedKeySpec;
 
 /*
-*File: Signatura.java
+*File: Notaria.java
 *Author: Maria Navarro
 *Date: 15-11-2020
 *Description: Activitat 7 Practica UF1 M9
