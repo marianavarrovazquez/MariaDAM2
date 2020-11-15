@@ -1,14 +1,14 @@
 package activitat7;
 
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Signature;
-import java.util.Base64;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.Scanner;
 
 /*
@@ -30,13 +30,13 @@ public class Signatura {
         PrivateKey clauPrivada = clau.getPrivate();
         PublicKey clauPublica = clau.getPublic();
       
-        publicKeyFile(clauPublica);
-        privateKeyFile(clauPrivada);
+        publicKeyFile(clau);
+        privateKeyFile(clau);
         
         System.out.println("Generant claus publiques i privades (arxius clauPublica i clauPrivada)...OK");
         System.out.println("Introdueix el missatge a signar:");
-       
         frase = scan.nextLine();
+        
         byte[] textBytes = frase.getBytes();
         byte[] signatura = signData(textBytes, clauPrivada);
         
@@ -74,34 +74,36 @@ public class Signatura {
         return signature;
     }
 
-    public static void publicKeyFile(PublicKey clauPublica) throws IOException {
-        Base64.Encoder encoder = Base64.getEncoder();
-        try (FileWriter out = new FileWriter("clauPublica")) {
-            out.write("—-COMENÇA LA CLAU PUBLICA RSA—- \n");
-            out.write(encoder.encodeToString(clauPublica.getEncoded()));
-            out.write("—-FINAL LA CLAU PUBLICA RSA—-");
-        } catch (IOException ex) {
-            System.out.println("ERROR guardant clau privada");
+    public static void publicKeyFile(KeyPair clau) throws IOException {
+        try { 
+            X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(clau.getPublic().getEncoded());
+            FileOutputStream fos = new FileOutputStream("clauPublica");
+            fos.write(x509EncodedKeySpec.getEncoded());
+            fos.close();
         }
-    }
-
-    public static void privateKeyFile(PrivateKey clauPrivada) throws IOException {  
-        Base64.Encoder encoder = Base64.getEncoder();
-        try (FileWriter out = new FileWriter("clauPrivada")) {
-            out.write("—-COMENÇA LA CLAU PRIVADA RSA—- \n");
-            out.write(encoder.encodeToString(clauPrivada.getEncoded()));
-            out.write("—-FINAL LA CLAU PRIVADA RSA—-");
-        } catch (IOException ex) {
-            System.out.println("ERROR guardant clau privada");
+        catch (Exception e) { 
+            System.out.println("ERROR guardant clau publica"); 
         }
 
     }
 
-    private static void ArxiuBytes(byte[] data, String NomArxiu) {
+    public static void privateKeyFile(KeyPair clau) throws IOException {  
+        try {
+            PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(clau.getPrivate().getEncoded());
+            FileOutputStream fos = new FileOutputStream("clauPrivada");
+            fos.write(pkcs8EncodedKeySpec.getEncoded());
+            fos.close();
+            }
+        catch (Exception e) { 
+            System.out.println("ERROR guardant clau privada"); 
+        }
+    }
+
+    public static void ArxiuBytes(byte[] data, String NomArxiu) {
         try (FileOutputStream fos = new FileOutputStream(NomArxiu)) {
             fos.write(data);
             fos.close();        
-        } catch (Exception ex) {
+        } catch (IOException ex) {
            System.out.println("No se ha guardado el mensaje"); 
         }
     }
