@@ -7,12 +7,6 @@ package persistenciafitxers;
 *Description: Activitat 4 Practica UF1
 */
 
-
-
-
-
-
-//hadjek
 import java.io.File;
 import java.io.IOException;
 import javax.xml.parsers.DocumentBuilder;
@@ -20,7 +14,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -30,7 +23,7 @@ public class PersistenciaFitxers {
     public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException{
       
         // per a carregar en memòria un arxiu xml
-        File arxiu = new File("alumnes.xml");
+        File arxiu = new File("exercici4.xml");
         // Creo una instancia de DocumentBuilderFactory
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         // Creo un documentBuilder
@@ -49,55 +42,20 @@ public class PersistenciaFitxers {
             System.out.println("Node: " + node.getNodeName());
             
             System.out.println("fills: \n");
-            /*
-                // Recorro sus hijos
-                if(node.hasChildNodes()){
-                    NodeList fills = node.getChildNodes();
-                    for(int k = 0; k < fills.getLength() ;k++){
-                        if (node.getNodeType() == Node.ELEMENT_NODE){
-                            System.out.println("Nom " + node.getNodeName() + " Valor: " + node.getTextContent());
-                        }
-                    }
-                }
-        
-                System.out.println("atributs: \n");
-                // Recorro sus atributos
-                if(node.hasAttributes()){
-                    NamedNodeMap attributes = node.getAttributes();
-                    for(int k = 0; k < node.getAttributes().getLength() ;k++){
-                        System.out.println("Nom Atribut " + attributes.item(k).getNodeName() + " Valor: " + attributes.item(k).getTextContent());
-                    }
-                }
-            */
+            // Recorro sus hijos
+            for(int j = 0; j < node.getChildNodes().getLength(); j++){
+                Node fills = node.getChildNodes().item(j);
+                System.out.println("Node fill: " + fills.getNodeName() + " Valor: "+ fills.getTextContent());
+            }
+            
+            System.out.println("atributs: \n");
+            // Recorro sus atributos
+            for(int k = 0; k < node.getAttributes().getLength() ;k++){
+                Node atribut = node.getAttributes().item(k);
+                System.out.println("Nom Atribut " + atribut.getNodeName() + " Valor: " + atribut.getTextContent());
+            }
+            
             System.out.println("\n");
         }        
     }
-    
-    
-    
- /*   public static boolean mostraElements(Element node) {
-        
-        System.out.println("Node: [" + node.getNodeName() + "] : " + node.getTextContent());
-        
-        if(node.hasAttributes()){
-            NamedNodeMap attributes = node.getAttributes();
-            for(int k = 0; k < node.getAttributes().getLength() ;k++){
-                System.out.println("Nom Atribut " + attributes.item(k).getNodeName() + " Valor: " + attributes.item(k).getTextContent());
-            }
-        }
-        
-        if(node.hasChildNodes()){
-            NodeList fills = node.getChildNodes();
-            for(int k = 0; k < fills.getLength() ;k++){
-                Node nodo = fills.item(k);
-                if (nodo.getNodeType() == Node.ELEMENT_NODE){
-                    mostraElements((Element)node);
-                }
-            }
-        }
-        
-        return false;
-        
-    }*/
-
 }
