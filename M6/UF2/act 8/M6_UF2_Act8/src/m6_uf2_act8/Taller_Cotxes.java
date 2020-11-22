@@ -13,10 +13,14 @@ public class Taller_Cotxes {
     public static void main(String[] args) throws ParseException {
         Scanner scan = new Scanner(System.in);
         
+        //variable per llistar
+        int opcio;
+        
         //boolean per continuar els bucles
         boolean continua = true;
+        
         //contador per continuar el bucle
-        int contador = 0;
+        int contador;
                 
         //camp per propietari i vehicles
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -45,7 +49,7 @@ public class Taller_Cotxes {
             System.out.println("Nom del propietari: ");
             nom = scan.nextLine();
             
-            System.out.println("Data de naixement del propietari: ");
+            System.out.println("Data de naixement del propietari \"dd/MM/yyyy\" : ");
             dNaixement = scan.next();
             //convertim el string a date
             Date dataN = sdf.parse(dNaixement);
@@ -53,10 +57,10 @@ public class Taller_Cotxes {
             System.out.println("Telefon de contacte del propietari: ");
             tlf = scan.nextInt();
             
-            System.out.println("Si el propietari pateix alguna minusvalidesa introdueix SI || si no te cap introdueix NO");
+            System.out.println("Si el propietari pateix alguna minusvalidesa introdueix true || si no te cap introdueix false");
             minusvalid = scan.nextBoolean();
             
-            //creem la clae propietaris i indiquem els camps que te
+            //creem la classe propietaris i indiquem els camps que te
             Propietaris propietari;
             propietari = new Propietaris(nom, dataN, tlf, minusvalid);
             
@@ -71,14 +75,16 @@ public class Taller_Cotxes {
                 continua = false;
             }            
         }
+        
         continua = true;
         
         System.out.println("Introdueix el/s vehicle/s");        
         while(continua == true) {
             System.out.println("Marca del vehicle: ");
             marca = scan.nextLine();
+            scan.nextLine();
             
-            System.out.println("Data de fabricació del vehicle: ");
+            System.out.println("Data de fabricació del vehicle \"dd/MM/yyyy\": ");
             dFabricacio = scan.next();
             //convertim el string a date
             Date dataF = sdf.parse(dFabricacio);
@@ -86,10 +92,10 @@ public class Taller_Cotxes {
             System.out.println("Numero de portes del vehicle: ");
             portes = scan.nextInt();
             
-            System.out.println("Si el vehicle consumeix diesel introdueix SI || introdueix NO en el cas de que utilitzi gasolina");
+            System.out.println("Si el vehicle consumeix diesel introdueix true || introdueix false en el cas de que utilitzi gasolina");
             diesel = scan.nextBoolean();
             
-            //creem la clae propietaris i indiquem els camps que te
+            //creem la classe vehicles i indiquem els camps que te
             Vehicles vehicle;
             vehicle = new Vehicles(marca, dataF, portes, diesel);
             
@@ -104,10 +110,41 @@ public class Taller_Cotxes {
                 continua = false;
             }            
         }
-        
+        //tanquem la bdoo
         em.getTransaction().commit();
         continua = true;
         
-        
+        //llistar les dades dels vehicles i dels propietaris de la bdoo
+        while(continua == true) {
+            System.out.println("1 = Si vols llistar per propietaris || 2 = Si vols llistar per vehicles ");
+            opcio = scan.nextInt();
+            
+            if(opcio == 1) {
+                //consulta a la bdoo
+                TypedQuery<Propietaris> query = em.createQuery("SELECT propietari FROM Propietaris propietari", Propietaris.class);
+                List<Propietaris> resultat = query.getResultList();
+                for (Propietaris propietari : resultat) {
+                    //mostrem la consulta per pantalla
+                    System.out.println(propietari);
+                }
+            } else {
+                //consulta a la bdoo
+                TypedQuery<Vehicles> query = em.createQuery("SELECT vehicle FROM Vehicles vehicle", Vehicles.class);
+                List<Vehicles> resultat = query.getResultList();
+                for (Vehicles vehicle : resultat) {
+                    //mostrem la consulta per pantalla
+                    System.out.println(vehicle);
+                }
+            }
+            
+            System.out.println("Vols continuar? SI:1 / NO:0");
+            contador = scan.nextInt();
+            
+            if (contador == 1) {
+                continua = true;
+            } else {
+                continua = false;
+            }  
+        }
     }
 }
