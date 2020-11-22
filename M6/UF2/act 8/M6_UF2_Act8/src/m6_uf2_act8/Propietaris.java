@@ -39,5 +39,44 @@ class Propietaris implements Serializable {
         
     }
 
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public Date getDataN() {
+        return dataN;
+    }
+
+    public void setDataN(Date dataN) {
+        this.dataN = dataN;
+    }
+
+    public int getTlf() {
+        return tlf;
+    }
+
+    public void setTlf(int tlf) {
+        this.tlf = tlf;
+    }
+
+    public boolean isMinusvalid() {
+        return minusvalid;
+    }
+
+    public void setMinusvalid(boolean minusvalid) {
+        this.minusvalid = minusvalid;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
     
 }
