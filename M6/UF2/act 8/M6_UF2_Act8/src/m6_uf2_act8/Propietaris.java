@@ -79,4 +79,14 @@ class Propietaris implements Serializable {
         this.id = id;
     }
     
+    @Override
+    public String toString() {
+        return "Propietaris <-- " 
+                + "\n Id = " + id 
+                + "\n Nom = " + nom 
+                + "\n Data de naixement = " + dataN 
+                + "\n Telefon de contacte = " + tlf 
+                + "\n Minusvalidesa = " + minusvalid 
+                + " -->";
+    }
 }
