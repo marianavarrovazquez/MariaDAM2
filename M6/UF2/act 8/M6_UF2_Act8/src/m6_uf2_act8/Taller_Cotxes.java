@@ -10,8 +10,10 @@ import java.util.*;
  * @author maria
  */
 public class Taller_Cotxes {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         Scanner scan = new Scanner(System.in);
+        
+        //boolean per continuar els bucles
         boolean continua = true;
         
         //camp per propietari i vehicles
@@ -21,7 +23,7 @@ public class Taller_Cotxes {
         String nom;
         String dNaixement; //el transformare en data mes endavant
         int tlf;
-        boolean minusvalidesa;
+        boolean minusvalid;
         
         //camps vehicles
         String marca;
@@ -37,7 +39,27 @@ public class Taller_Cotxes {
         //comença a guardar informació a la bdoo
         em.getTransaction().begin();
         
-        
+        while(continua == true) {
+            System.out.println("Nom del propietari: ");
+            nom = scan.nextLine();
+            
+            System.out.println("Data de naixement del propietari: ");
+            dNaixement = scan.next();
+            //convertim el string a date
+            Date data = sdf.parse(dNaixement);
+            System.out.println("Telefon de contacte del propietari: ");
+            tlf = scan.nextInt();
+            
+            System.out.println("Si el propietari pateix alguna minusvalidesa introdueix SI || si no te cap introdueix NO");
+            minusvalid = scan.nextBoolean();
+            
+            //creem la clae propietaris i indiquem els camps que te
+            Propietaris propietari;
+            propietari = new Propietaris(nom, data, tlf, minusvalid);
+            
+            em.persist(propietari);
+            
+        }   
         
     }
 }
