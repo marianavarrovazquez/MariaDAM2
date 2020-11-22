@@ -39,5 +39,54 @@ class Vehicles implements Serializable {
         
     }
     
+    public void setId(long id) {
+        this.id = id;
+    }
     
+    public long getId() {
+        return id;
+    }
+    
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public Date getDataF() {
+        return dataF;
+    }
+
+    public void setDataF(Date dataF) {
+        this.dataF = dataF;
+    }
+
+    public int getPortes() {
+        return portes;
+    }
+
+    public void setPortes(int portes) {
+        this.portes = portes;
+    }
+
+    public boolean isDiesel() {
+        return diesel;
+    }
+
+    public void setDiesel(boolean diesel) {
+        this.diesel = diesel;
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicles <-- " 
+                + "\n Id = " + id 
+                + "\n Marca = " + marca 
+                + "\n Data de fabricació = " + dataF 
+                + "\n Número de portes del vehicle = " + portes 
+                + "\n diesel = " + diesel 
+                + " -->";
+    }
 }
