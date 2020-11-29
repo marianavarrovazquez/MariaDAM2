@@ -8,6 +8,7 @@ package m6_act1_maria;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,13 +16,27 @@ import java.sql.SQLException;
  */
 public class M6_act1_maria {
     
-    Connection conexio = null;
-    String sDriver = "com.mysql.jdbc.Driver";
-    String sURL = "jdbc:mysql://localhost:3306/";
+    public static final String sDriver = "com.mysql.cj.jdbc.Driver";
+    public static final String sURL = "jdbc:mysql://localhost:3306/";
+    public static final String sUSERNAME = "root";
+    public static final String sPASSWORD = "";
     
-    public Connection conexioJDBC () throws SQLException, ClassNotFoundException {
-        Class.forName(sDriver);
-        conexio = DriverManager.getConnection(sURL,"root","");
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+        Connection conexio = null;
+        conexio = conexioJDBC();
+    }
+    
+    public static Connection conexioJDBC () throws SQLException, ClassNotFoundException {
+        Connection conexio = null;
+        
+        try {
+            Class.forName(sDriver);
+            conexio = DriverManager.getConnection(sURL,sUSERNAME,sPASSWORD);
+            JOptionPane.showMessageDialog(null, "Conexio feta");
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+        
         return conexio;
     }
 }
