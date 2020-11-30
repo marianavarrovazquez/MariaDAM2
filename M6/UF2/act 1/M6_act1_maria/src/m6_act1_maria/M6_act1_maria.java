@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 public class M6_act1_maria {
     
     public static final String sDriver = "com.mysql.cj.jdbc.Driver";
-    public static final String sURL = "jdbc:mysql://localhost:3306/";
+    public static final String sURL = "jdbc:mysql://localhost:3306/activitat1_m6";
     public static final String sUSERNAME = "root";
     public static final String sPASSWORD = "";
     
