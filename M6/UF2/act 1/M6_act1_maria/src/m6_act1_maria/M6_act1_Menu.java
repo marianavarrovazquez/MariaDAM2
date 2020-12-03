@@ -32,7 +32,7 @@ public class M6_act1_Menu extends javax.swing.JFrame {
         BInserir = new javax.swing.JButton();
         BModificar = new javax.swing.JButton();
         BEsborrar = new javax.swing.JButton();
-        BMostrar = new javax.swing.JButton();
+        BSortir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -41,13 +41,18 @@ public class M6_act1_Menu extends javax.swing.JFrame {
         Lmenu.setText("******************Menu******************");
 
         BInserir.setBackground(new java.awt.Color(204, 204, 204));
-        BInserir.setText("Inserir Alumne");
+        BInserir.setText("Inserir");
         BInserir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         BInserir.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         BInserir.setName(""); // NOI18N
+        BInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BInserirActionPerformed(evt);
+            }
+        });
 
         BModificar.setBackground(new java.awt.Color(204, 204, 255));
-        BModificar.setText("Modificar Alumne");
+        BModificar.setText("Modificar");
         BModificar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         BModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -56,12 +61,17 @@ public class M6_act1_Menu extends javax.swing.JFrame {
         });
 
         BEsborrar.setBackground(new java.awt.Color(204, 204, 255));
-        BEsborrar.setText("Esborrar Alumne");
+        BEsborrar.setText("Esborrar");
         BEsborrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        BMostrar.setBackground(new java.awt.Color(204, 204, 255));
-        BMostrar.setText("Mostrar Alumne");
-        BMostrar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        BSortir.setBackground(new java.awt.Color(204, 204, 255));
+        BSortir.setText("Sortir");
+        BSortir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        BSortir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BSortirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -74,7 +84,7 @@ public class M6_act1_Menu extends javax.swing.JFrame {
                     .addComponent(BInserir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(BEsborrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BMostrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(BSortir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -89,7 +99,7 @@ public class M6_act1_Menu extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(BEsborrar)
                 .addGap(28, 28, 28)
-                .addComponent(BMostrar)
+                .addComponent(BSortir)
                 .addGap(31, 31, 31))
         );
 
@@ -109,7 +119,22 @@ public class M6_act1_Menu extends javax.swing.JFrame {
 
     private void BModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BModificarActionPerformed
         // TODO add your handling code here:
+        M6_act1_modificar menuModificar = new M6_act1_modificar();
+        menuModificar.setVisible(true);
+        dispose();
     }//GEN-LAST:event_BModificarActionPerformed
+
+    private void BInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BInserirActionPerformed
+        // TODO add your handling code here:
+        M6_act1_Inserir menuInserir = new M6_act1_Inserir();
+        menuInserir.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_BInserirActionPerformed
+
+    private void BSortirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BSortirActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_BSortirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,7 +175,7 @@ public class M6_act1_Menu extends javax.swing.JFrame {
     private javax.swing.JButton BEsborrar;
     private javax.swing.JButton BInserir;
     private javax.swing.JButton BModificar;
-    private javax.swing.JButton BMostrar;
+    private javax.swing.JButton BSortir;
     private javax.swing.JLabel Lmenu;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables

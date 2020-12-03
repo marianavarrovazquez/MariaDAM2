@@ -9,12 +9,12 @@ package m6_act1_maria;
  *
  * @author maria
  */
-public class M6_ac1_InserirAlumne extends javax.swing.JFrame {
+public class M6_act1_InserirAlumne extends javax.swing.JFrame {
 
     /**
      * Creates new form M6_ac1_InserirAlumne
      */
-    public M6_ac1_InserirAlumne() {
+    public M6_act1_InserirAlumne() {
         initComponents();
     }
 
@@ -27,6 +27,8 @@ public class M6_ac1_InserirAlumne extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         LNom = new javax.swing.JLabel();
         LDni = new javax.swing.JLabel();
@@ -42,9 +44,13 @@ public class M6_ac1_InserirAlumne extends javax.swing.JFrame {
         tfCPostal = new javax.swing.JTextField();
         BInsereix = new javax.swing.JButton();
 
+        jLabel1.setText("jLabel1");
+
+        jTextField1.setText("jTextField1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(211, 118, 118));
+        jPanel1.setBackground(new java.awt.Color(238, 190, 190));
 
         LNom.setText("Nom: ");
 
@@ -57,6 +63,12 @@ public class M6_ac1_InserirAlumne extends javax.swing.JFrame {
         LAPostal.setText("Adreça postal:");
 
         LCPostal.setText("Codi postal:");
+
+        tfNom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfNomActionPerformed(evt);
+            }
+        });
 
         tfDataN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,12 +128,10 @@ public class M6_ac1_InserirAlumne extends javax.swing.JFrame {
                                         .addGap(1, 1, 1))
                                     .addComponent(tfDataN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(LSexe)
-                                .addGap(0, 0, 0))
+                                .addComponent(LSexe))
                             .addComponent(tfSexe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(LAPostal)
-                        .addGap(0, 0, 0))
+                        .addComponent(LAPostal))
                     .addComponent(tfAPostal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -152,6 +162,10 @@ public class M6_ac1_InserirAlumne extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfDataNActionPerformed
 
+    private void tfNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfNomActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -169,20 +183,21 @@ public class M6_ac1_InserirAlumne extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(M6_ac1_InserirAlumne.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(M6_act1_InserirAlumne.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(M6_ac1_InserirAlumne.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(M6_act1_InserirAlumne.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(M6_ac1_InserirAlumne.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(M6_act1_InserirAlumne.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(M6_ac1_InserirAlumne.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(M6_act1_InserirAlumne.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new M6_ac1_InserirAlumne().setVisible(true);
+                new M6_act1_InserirAlumne().setVisible(true);
             }
         });
     }
@@ -195,7 +210,9 @@ public class M6_ac1_InserirAlumne extends javax.swing.JFrame {
     private javax.swing.JLabel LDni;
     private javax.swing.JLabel LNom;
     private javax.swing.JLabel LSexe;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField tfAPostal;
     private javax.swing.JTextField tfCPostal;
     private javax.swing.JTextField tfDataN;
