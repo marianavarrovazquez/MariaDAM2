@@ -5,6 +5,15 @@
  */
 package m6_act1_maria;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import static m6_act1_maria.M6_act1_maria.conexioJDBC;
+
 /**
  *
  * @author maria
@@ -43,6 +52,7 @@ public class M6_act1_InserirAlumne extends javax.swing.JFrame {
         tfAPostal = new javax.swing.JTextField();
         tfCPostal = new javax.swing.JTextField();
         BInsereix = new javax.swing.JButton();
+        BTornar = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -77,33 +87,48 @@ public class M6_act1_InserirAlumne extends javax.swing.JFrame {
         });
 
         BInsereix.setText("Insereix");
+        BInsereix.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BInsereixActionPerformed(evt);
+            }
+        });
+
+        BTornar.setText("Tornar");
+        BTornar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTornarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LNom)
-                    .addComponent(LDni)
-                    .addComponent(LDataN)
-                    .addComponent(LSexe)
-                    .addComponent(LAPostal)
-                    .addComponent(LCPostal))
-                .addGap(16, 16, 16)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tfAPostal, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfNom, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfDni, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfSexe, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfDataN, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfCPostal))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(LNom)
+                        .addComponent(LDni)
+                        .addComponent(LDataN)
+                        .addComponent(LSexe)
+                        .addComponent(LAPostal)
+                        .addComponent(LCPostal))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(BTornar)
+                        .addGap(44, 44, 44)))
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(BInsereix, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfAPostal, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                    .addComponent(tfNom)
+                    .addComponent(tfDni)
+                    .addComponent(tfSexe)
+                    .addComponent(tfDataN)
+                    .addComponent(tfCPostal, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(25, 25, 25))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(107, 107, 107)
-                .addComponent(BInsereix, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(107, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,17 +163,17 @@ public class M6_act1_InserirAlumne extends javax.swing.JFrame {
                     .addComponent(tfCPostal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LCPostal))
                 .addGap(18, 18, 18)
-                .addComponent(BInsereix)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BInsereix)
+                    .addComponent(BTornar))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,6 +191,54 @@ public class M6_act1_InserirAlumne extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNomActionPerformed
 
+    private void BTornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTornarActionPerformed
+        // TODO add your handling code here:
+        M6_act1_Menu menu = new M6_act1_Menu();
+        menu.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_BTornarActionPerformed
+
+    private void BInsereixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BInsereixActionPerformed
+        // TODO add your handling code here:
+        ResultSet comparar;
+        Statement stmt = null;
+        Statement stmtInsert = null; 
+        M6_act1_maria connect  = new M6_act1_maria();
+
+        if (!tfNom.getText().equals("") && !tfDni.getText().equals("") && !tfDataN.getText().equals("") && !tfSexe.getText().equals("") && !tfAPostal.getText().equals("") && !tfCPostal.getText().equals("")) {
+
+            try {
+            
+                connect .conexioJDBC();
+                stmt = connect.conexioJDBC().createStatement();
+                comparar = stmt.executeQuery("SELECT codipostal FROM poblacions WHERE codipostal = '" + tfCPostal.getText() + "'");
+
+                if(comparar.next()){
+                    stmtInsert = connect.conexioJDBC().createStatement();
+                    stmtInsert.execute("INSERT INTO alumnes VALUES ('" + tfNom.getText() + "','" + tfDni.getText() + "','" + tfDataN.getText() + "','" + tfSexe.getText() + "','" 
+                            + tfAPostal.getText() + "'," + tfCPostal.getText() + ")");
+                } else {
+                    JOptionPane.showMessageDialog(null,"Aquest codi postal no correspon a cap població");
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(M6_act1_InserirAlumne.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(M6_act1_InserirAlumne.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Falten camps per omplir");
+        }
+        buidar();
+    }//GEN-LAST:event_BInsereixActionPerformed
+
+    public void buidar(){
+        tfNom.setText("");
+        tfDni.setText("");
+        tfDataN.setText("");
+        tfSexe.setText("");
+        tfAPostal.setText("");
+        tfCPostal.setText("");       
+    }
     /**
      * @param args the command line arguments
      */
@@ -204,6 +277,7 @@ public class M6_act1_InserirAlumne extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BInsereix;
+    private javax.swing.JButton BTornar;
     private javax.swing.JLabel LAPostal;
     private javax.swing.JLabel LCPostal;
     private javax.swing.JLabel LDataN;
