@@ -18,13 +18,13 @@ public class M9_UF2_act2_maria_hector {
     Calendar calendario = new GregorianCalendar();
     System.out.println("Inici: "+ calendario.get(Calendar.HOUR_OF_DAY) + ":" + calendario.get(Calendar.MINUTE) +
         ":" + calendario.get(Calendar.SECOND));
-    // Crea un pool de 2 fils
+    // Crea un pool de 4 fils
     final ScheduledExecutorService schExService = Executors.newScheduledThreadPool(4);
     // Crea objecte Runnable.
     final Runnable ob = new M9_UF2_act2_maria_hector().new ExecutaFil();
-    // Programa Fil, s’inicia als 2 segons i després es va executant cada 3 segons
+    // Programa Fil, s’inicia als 5 segons i després es va executant cada 6 segons
     schExService.scheduleWithFixedDelay(ob, 5, 6, TimeUnit.SECONDS);
-    // Espera per acabar 10 segons
+    // Espera per acabar 30 segons
     schExService.awaitTermination(30, TimeUnit.SECONDS);
     // shutdown .
     schExService.shutdownNow();
