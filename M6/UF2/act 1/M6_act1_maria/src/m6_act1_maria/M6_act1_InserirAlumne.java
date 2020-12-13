@@ -211,7 +211,7 @@ public class M6_act1_InserirAlumne extends javax.swing.JFrame {
             
                 connect .conexioJDBC();
                 stmt = connect.conexioJDBC().createStatement();
-                comparar = stmt.executeQuery("SELECT codipostal FROM poblacions WHERE codipostal = '" + tfCPostal.getText() + "'");
+                comparar = stmt.executeQuery("SELECT Codi postal FROM població WHERE Codi postal = '" + tfCPostal.getText() + "'");
 
                 if(comparar.next()){
                     stmtInsert = connect.conexioJDBC().createStatement();

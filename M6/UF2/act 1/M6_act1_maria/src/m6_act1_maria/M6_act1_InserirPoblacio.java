@@ -5,12 +5,10 @@
  */
 package m6_act1_maria;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.*;
 import javax.swing.JOptionPane;
+
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -18,6 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class M6_act1_InserirPoblacio extends javax.swing.JFrame {
 
+    
     /**
      * Creates new form M6_act1_InserirPoblacio
      */
@@ -115,33 +114,22 @@ public class M6_act1_InserirPoblacio extends javax.swing.JFrame {
 
     private void BInsereixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BInsereixActionPerformed
         // TODO add your handling code here:
-        ResultSet comparar;
-        Statement stmt = null;
-        Statement stmtInsert = null; 
         M6_act1_maria connect  = new M6_act1_maria();
         
-        if (!tfCPostal.getText().equals("") && !tfPoblacio.getText().equals("")) {
-            try {
-                connect .conexioJDBC();
-                stmt = connect.conexioJDBC().createStatement();
-                comparar = stmt.executeQuery("SELECT codipostal FROM poblacions WHERE codipostal = '" + tfCPostal.getText() + "'");
-                
-                if(comparar.next()){
-                    JOptionPane.showMessageDialog(null, "Aquest codi postal ja ha estat registrat");
-                } else {
-                    stmtInsert = connect.conexioJDBC().createStatement();
-                    stmtInsert.execute("INSERT INTO poblacions VALUES (" + tfCPostal.getText() + ",'" + tfPoblacio.getText() + ")");
-                }
-                
-            } catch (SQLException ex) {
-                Logger.getLogger(M6_act1_InserirAlumne.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(M6_act1_InserirPoblacio.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Falten camps per omplir");
+        try {
+            connect .conexioJDBC();
+//            PreparedStatement preparedStatement = connect.prepareStatement("INSERT INTO població VALUES (Codi postal,Nom de la població) VALUES (?,?)");
+            PreparedStatement preparedStatement = connect.prepareStatement("INSERT INTO població VALUES (" + tfCPostal.getText() + "," + tfPoblacio.getText() + ")");
+            preparedStatement.setString(1,tfCPostal.getText());
+            preparedStatement.setString(2,tfPoblacio.getText());
+            preparedStatement.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Població creada!"); 
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e); 
+        } catch (Exception e) {
+          JOptionPane.showMessageDialog(null, e);
         }
-        
     }//GEN-LAST:event_BInsereixActionPerformed
 
     public void buidar(){
