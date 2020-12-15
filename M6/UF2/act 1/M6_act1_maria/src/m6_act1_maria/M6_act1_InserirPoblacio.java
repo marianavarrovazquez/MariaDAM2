@@ -9,19 +9,23 @@ import java.sql.*;
 import javax.swing.JOptionPane;
 
 import java.sql.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author maria
  */
 public class M6_act1_InserirPoblacio extends javax.swing.JFrame {
-
+        M6_act1_maria connect  = new M6_act1_maria();
+        Connection conection;
     
     /**
      * Creates new form M6_act1_InserirPoblacio
      */
-    public M6_act1_InserirPoblacio() {
+    public M6_act1_InserirPoblacio() throws SQLException, ClassNotFoundException {
         initComponents();
+        this.conection = connect.conexioJDBC();
     }
 
     /**
@@ -114,21 +118,19 @@ public class M6_act1_InserirPoblacio extends javax.swing.JFrame {
 
     private void BInsereixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BInsereixActionPerformed
         // TODO add your handling code here:
-        M6_act1_maria connect  = new M6_act1_maria();
+  
         
         try {
-            connect .conexioJDBC();
-//            PreparedStatement preparedStatement = connect.prepareStatement("INSERT INTO població VALUES (Codi postal,Nom de la població) VALUES (?,?)");
-            PreparedStatement preparedStatement = connect.prepareStatement("INSERT INTO població VALUES (" + tfCPostal.getText() + "," + tfPoblacio.getText() + ")");
-            preparedStatement.setString(1,tfCPostal.getText());
-            preparedStatement.setString(2,tfPoblacio.getText());
-            preparedStatement.executeUpdate();
-            
+            Statement comando=conection.createStatement();
+
+            comando.executeUpdate("INSERT INTO població VALUES (" + tfCPostal.getText() + ",'" + tfPoblacio.getText() + "')");
+            conection.close();
+            tfCPostal.setText("");
+            tfPoblacio.setText("");
+
             JOptionPane.showMessageDialog(null, "Població creada!"); 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e); 
-        } catch (Exception e) {
-          JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_BInsereixActionPerformed
 
@@ -166,7 +168,13 @@ public class M6_act1_InserirPoblacio extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new M6_act1_InserirPoblacio().setVisible(true);
+                try {
+                    new M6_act1_InserirPoblacio().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(M6_act1_InserirPoblacio.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(M6_act1_InserirPoblacio.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
