@@ -130,9 +130,9 @@ public class M6_act1_Menu extends javax.swing.JFrame {
 
     private void BModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BModificarActionPerformed
         // TODO add your handling code here:
-        M6_act1_Modificar menuModificar = new M6_act1_Modificar();
-        menuModificar.setVisible(true);
-        dispose();
+    //    M6_act1_Modificar menuModificar = new M6_act1_Modificar();
+    //    menuModificar.setVisible(true);
+    //    dispose();
     }//GEN-LAST:event_BModificarActionPerformed
 
     private void BInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BInserirActionPerformed
