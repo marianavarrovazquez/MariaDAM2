@@ -5,17 +5,30 @@
  */
 package m6_act1_maria;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author maria
  */
 public class M6_act1_ModificarAlumne extends javax.swing.JFrame {
-
+    M6_act1_maria connect  = new M6_act1_maria();
+    Connection conection;
     /**
      * Creates new form M6_act1_ModificarAlumne
      */
-    public M6_act1_ModificarAlumne() {
+    public M6_act1_ModificarAlumne() throws SQLException, ClassNotFoundException {
+        this.conection = connect.conexioJDBC();
         initComponents();
+        mostrarTabla();
     }
 
     /**
@@ -28,18 +41,173 @@ public class M6_act1_ModificarAlumne extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        tfNom = new javax.swing.JTextField();
+        tfDni = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        tfDataN = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        tfAPostal = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        tfSexe = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        tfCPostal = new javax.swing.JTextField();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        bModificar = new javax.swing.JToggleButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable = new javax.swing.JTable();
+        bGuardar = new javax.swing.JButton();
+        jLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel2.setBackground(new java.awt.Color(242, 186, 230));
+
+        jLabel1.setText("Nom:");
+
+        jLabel2.setText("Dni: ");
+
+        jLabel3.setText("Data de naixement:");
+
+        jLabel4.setText("Adreça postal:");
+
+        tfAPostal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfAPostalActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Sexe:");
+
+        jLabel6.setText("Codi postal:");
+
+        jToggleButton1.setText("Tornar");
+
+        bModificar.setText("Modificar");
+        bModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bModificarActionPerformed(evt);
+            }
+        });
+
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(jTable);
+
+        bGuardar.setText("Guardar");
+        bGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bGuardarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(94, 94, 94)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfDni)
+                            .addComponent(tfNom)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(tfSexe, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfAPostal, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfDataN)
+                            .addComponent(tfCPostal))))
+                .addGap(24, 24, 24))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jToggleButton1)
+                .addGap(201, 201, 201)
+                .addComponent(bModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bGuardar)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(tfNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(tfDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(tfDataN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(tfAPostal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(tfSexe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(tfCPostal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jToggleButton1)
+                    .addComponent(bModificar)
+                    .addComponent(bGuardar))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 353, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 268, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -56,6 +224,100 @@ public class M6_act1_ModificarAlumne extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarActionPerformed
+        // TODO add your handling code here:
+        int row = jTable.getSelectedRow();
+
+        if ( row >= 0){
+            jLabel.setText(jTable.getValueAt(row, 1).toString());
+            tfNom.setText(jTable.getValueAt(row, 0).toString());
+            tfDni.setText(jTable.getValueAt(row, 1).toString());
+            tfDataN.setText(jTable.getValueAt(row, 2).toString());
+            tfAPostal.setText(jTable.getValueAt(row, 3).toString());
+            tfSexe.setText(jTable.getValueAt(row, 4).toString());
+            tfCPostal.setText(jTable.getValueAt(row, 5).toString());
+        } else {
+            JOptionPane.showMessageDialog(null, "No has sel·leccionat cap fila");
+        }
+    }//GEN-LAST:event_bModificarActionPerformed
+
+    private void tfAPostalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfAPostalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfAPostalActionPerformed
+
+    private void bGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGuardarActionPerformed
+        // TODO add your handling code here:
+         ResultSet comparaStmt;
+        Statement stmt = null;
+        try {
+            // TODO add your handling code here:
+            
+            stmt = conection.createStatement();
+            comparaStmt = stmt.executeQuery("SELECT codiPostal FROM població WHERE codiPostal = '" + tfCPostal.getText() + "'");
+            
+            if (comparaStmt.next()) {
+                PreparedStatement pps = conection.prepareStatement("UPDATE alumnes SET nom = '" + tfNom.getText() +
+                    "' ,dni = '" + tfDni.getText() + "', dataDeNaixement = '" + tfDataN.getText()
+                    + "', adrecaPostal = '" + tfAPostal.getText() + "', sexe = '" + tfSexe.getText() +
+                    "' ,codiPostal  = '" + tfCPostal.getText() + "' WHERE dni = '" + jLabel.getText() + "'");
+                pps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Dades actualitzades");
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Aquest codi postal no correspon a cap població");
+            }
+            
+            buidar();
+            mostrarTabla();
+        } catch (SQLException ex) {
+            Logger.getLogger(M6_act1_ModificarAlumne.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bGuardarActionPerformed
+
+    
+    public void mostrarTabla(){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Nom");
+        model.addColumn("Dni");
+        model.addColumn("Naixement");
+        model.addColumn("Adreça Postal");
+        model.addColumn("Sexe");
+        model.addColumn("Codi Postal");
+        
+        jTable.setModel(model);
+        String datos[] = new String[6];
+        String sql = "SELECT * FROM alumnes";
+        Statement st;
+        
+        try {
+            st = conection.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                datos[5] = rs.getString(6);
+                model.addRow(datos);
+            }
+            jTable.setModel(model);
+        } catch (Exception e) {
+        
+        } 
+        
+    
+    }
+    
+    public void buidar(){
+        tfNom.setText("");
+        tfDni.setText("");
+        tfDataN.setText("");
+        tfAPostal.setText("");
+        tfSexe.setText("");
+        tfCPostal.setText("");      
+        jLabel.setText("");
+    }
     /**
      * @param args the command line arguments
      */
@@ -86,12 +348,37 @@ public class M6_act1_ModificarAlumne extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new M6_act1_ModificarAlumne().setVisible(true);
+                try {
+                    new M6_act1_ModificarAlumne().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(M6_act1_ModificarAlumne.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(M6_act1_ModificarAlumne.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bGuardar;
+    private javax.swing.JToggleButton bModificar;
+    private javax.swing.JLabel jLabel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JTextField tfAPostal;
+    private javax.swing.JTextField tfCPostal;
+    private javax.swing.JTextField tfDataN;
+    private javax.swing.JTextField tfDni;
+    private javax.swing.JTextField tfNom;
+    private javax.swing.JTextField tfSexe;
     // End of variables declaration//GEN-END:variables
 }

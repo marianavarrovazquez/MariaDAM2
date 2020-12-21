@@ -14,22 +14,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 /**
  *
  * @author maria
  */
-public class M6_act1_ModificarPoblacio extends javax.swing.JFrame {
+public class M6_act1_EliminarPoblacions extends javax.swing.JFrame {
     M6_act1_maria connect  = new M6_act1_maria();
     Connection conection;
-    
-    
-    
     /**
-     * Creates new form M6_act1_ModificarPoblacio
+     * Creates new form M6_act1_EliminarPoblacions
      */
-    public M6_act1_ModificarPoblacio() throws SQLException, ClassNotFoundException {
+    public M6_act1_EliminarPoblacions() throws SQLException, ClassNotFoundException {
         this.conection = connect.conexioJDBC();
         initComponents();
         mostrarTabla();
@@ -49,12 +45,10 @@ public class M6_act1_ModificarPoblacio extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         tfCPostal = new javax.swing.JTextField();
         tfPoblacio = new javax.swing.JTextField();
-        bModificar = new javax.swing.JButton();
-        bTornar = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTableModificarP = new javax.swing.JTable();
-        jGuardarP = new javax.swing.JButton();
-        jLabel = new javax.swing.JLabel();
+        bEliminar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableEliminarP = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,16 +56,16 @@ public class M6_act1_ModificarPoblacio extends javax.swing.JFrame {
 
         jLabel2.setText("Nom poblacio:");
 
-        bModificar.setText("Modificar");
-        bModificar.addActionListener(new java.awt.event.ActionListener() {
+        bEliminar.setText("Eliminar");
+        bEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bModificarActionPerformed(evt);
+                bEliminarActionPerformed(evt);
             }
         });
 
-        bTornar.setText("Tornar");
+        jButton2.setText("Tornar");
 
-        jTableModificarP.setModel(new javax.swing.table.DefaultTableModel(
+        jTableEliminarP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -82,66 +76,50 @@ public class M6_act1_ModificarPoblacio extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane2.setViewportView(jTableModificarP);
-
-        jGuardarP.setText("Guardar");
-        jGuardarP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jGuardarPActionPerformed(evt);
-            }
-        });
+        jScrollPane1.setViewportView(jTableEliminarP);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bTornar)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 8, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jButton2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(bModificar)
-                                .addGap(64, 64, 64)
-                                .addComponent(jGuardarP)
-                                .addGap(18, 18, 18))
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jlCodiP)
                                     .addComponent(jLabel2))
-                                .addGap(34, 34, 34)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfCPostal, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                                    .addComponent(tfPoblacio))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel)
-                        .addGap(44, 44, 44))))
+                                .addGap(44, 44, 44)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(bEliminar)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(tfCPostal)
+                                        .addComponent(tfPoblacio, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)))))))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jlCodiP)
                     .addComponent(tfCPostal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(tfPoblacio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bModificar)
-                    .addComponent(jGuardarP)
-                    .addComponent(jLabel))
+                .addComponent(bEliminar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(bTornar)
+                .addComponent(jButton2)
                 .addContainerGap())
         );
 
@@ -155,84 +133,71 @@ public class M6_act1_ModificarPoblacio extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarActionPerformed
+    private void bEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEliminarActionPerformed
         // TODO add your handling code here:
-        int fila = jTableModificarP.getSelectedRow();
-        if(fila >= 0){
-            tfCPostal.setText(jTableModificarP.getValueAt(fila, 0).toString());
-            tfPoblacio.setText(jTableModificarP.getValueAt(fila, 1).toString());
-            jLabel.setText(jTableModificarP.getValueAt(fila, 0).toString());
-        } else {
-            JOptionPane.showMessageDialog(null, "No has seleccionat cap fila");
-        }
-
-    }//GEN-LAST:event_bModificarActionPerformed
-
-    private void jGuardarPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGuardarPActionPerformed
-        // TODO add your handling code here:
-        Statement stmt = null;
-        ResultSet rs;
+        int fila = jTableEliminarP.getSelectedRow();
+        String codigo = jTableEliminarP.getValueAt(fila, 1).toString();
         int cont = 0;
-        int bolean = 0;
-        ResultSet compara;
+        Statement stmt;
+        ResultSet rs;
+        int dialogButton = 0;
         
         try {
             stmt = conection.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM alumnes WHERE codiPostal = " +
-                    jLabel.getText());
+            rs = stmt.executeQuery("SELECT * FROM alumnes WHERE codiPostal = " + codigo);
+            
             while(rs.next()){
                 cont++;
             }
         } catch (SQLException ex) {
-            Logger.getLogger(M6_act1_ModificarPoblacio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(M6_act1_EliminarPoblacions.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        JOptionPane.showConfirmDialog (null, "Es modificaran " + cont+ " alumnes, vols continuar?","WARNING", bolean);
-            if(bolean == JOptionPane.YES_NO_OPTION) {
-                try {
-                    stmt = conection.createStatement();
-                    compara = stmt.executeQuery("SELECT codiPostal FROM població WHERE codiPostal = " + tfCPostal.getText() + "");
-
-                    if (compara.next()) {
-                        JOptionPane.showMessageDialog(null, "Aquest codi postal ja ha estat registrat");
-                    } else {
-                        
-                        PreparedStatement pps = conection.prepareStatement("UPDATE població SET codiPostal = " + tfCPostal.getText() + ", poblacio = '" 
-                                + tfPoblacio.getText() + "' WHERE codiPostal = " + jLabel.getText() + "");
+         
+        JOptionPane.showConfirmDialog (null, "S'esborraran " + cont + "alumnes, vols continuar?","WARNING", dialogButton);
+            if(dialogButton == JOptionPane.YES_NO_OPTION) {
+                if (fila >= 0) {
+                    try {
+                        PreparedStatement pps = conection.prepareStatement("DELETE FROM població WHERE codiPostal = " + codigo + "");
                         pps.executeUpdate();
-                        JOptionPane.showMessageDialog(null, "Dades actualitzades");
+                        JOptionPane.showMessageDialog(null, "Dades esborrades");
+                        buidar();
+                        mostrarTabla();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(M6_act1_EliminarPoblacions.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    buidar();
-                    mostrarTabla();
-                } catch (SQLException ex) {
-                    Logger.getLogger(M6_act1_ModificarPoblacio.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            if(bolean == JOptionPane.NO_OPTION) {
+            if(dialogButton == JOptionPane.NO_OPTION) {
                   buidar();
             }
         try {
             mostrarTabla();
         } catch (SQLException ex) {
-            Logger.getLogger(M6_act1_ModificarPoblacio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(M6_act1_EliminarPoblacions.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jGuardarPActionPerformed
+    }//GEN-LAST:event_bEliminarActionPerformed
+
+    public void buidar(){
+        tfCPostal.setText("");
+        tfPoblacio.setText("");
+    }
     
     public void mostrarTabla() throws SQLException {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Codi Postal");
         model.addColumn("Població");
         
-        jTableModificarP.setModel(model); 
+        jTableEliminarP.setModel(model); 
         String[] datos  = new String[2];
         String sql = "SELECT * FROM població";
         Statement st;
+        System.out.println("hola2");
         try {
             st = conection.createStatement();
             
@@ -242,20 +207,13 @@ public class M6_act1_ModificarPoblacio extends javax.swing.JFrame {
                 datos[1] = rs.getString(2);
                 model.addRow(datos);
             }
-            jTableModificarP.setModel(model);
+            System.out.println("hola");
+            jTableEliminarP.setModel(model);
         } catch (Exception e) {
         
         }
         
-        
-        
     }
-    
-    public void buidar(){
-        tfCPostal.setText("");
-        tfPoblacio.setText("");
-    }
-    
     /**
      * @param args the command line arguments
      */
@@ -273,13 +231,13 @@ public class M6_act1_ModificarPoblacio extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(M6_act1_ModificarPoblacio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(M6_act1_EliminarPoblacions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(M6_act1_ModificarPoblacio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(M6_act1_EliminarPoblacions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(M6_act1_ModificarPoblacio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(M6_act1_EliminarPoblacions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(M6_act1_ModificarPoblacio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(M6_act1_EliminarPoblacions.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -287,25 +245,23 @@ public class M6_act1_ModificarPoblacio extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new M6_act1_ModificarPoblacio().setVisible(true);
+                    new M6_act1_EliminarPoblacions().setVisible(true);
                 } catch (SQLException ex) {
-                    Logger.getLogger(M6_act1_ModificarPoblacio.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(M6_act1_EliminarPoblacions.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(M6_act1_ModificarPoblacio.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(M6_act1_EliminarPoblacions.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bModificar;
-    private javax.swing.JButton bTornar;
-    private javax.swing.JButton jGuardarP;
-    private javax.swing.JLabel jLabel;
+    private javax.swing.JButton bEliminar;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTableModificarP;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableEliminarP;
     private javax.swing.JLabel jlCodiP;
     private javax.swing.JTextField tfCPostal;
     private javax.swing.JTextField tfPoblacio;

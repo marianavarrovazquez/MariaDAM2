@@ -5,6 +5,10 @@
  */
 package m6_act1_maria;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author maria
@@ -123,10 +127,16 @@ public class M6_act1_Inserir extends javax.swing.JFrame {
     }//GEN-LAST:event_BSortirActionPerformed
 
     private void BAlumnesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BAlumnesActionPerformed
-        // TODO add your handling code here:
-        M6_act1_InserirAlumne menuInserirAlumne = new M6_act1_InserirAlumne();
-        menuInserirAlumne.setVisible(true);
-        dispose();
+        try {
+            // TODO add your handling code here:
+            M6_act1_InserirAlumne menuInserirAlumne = new M6_act1_InserirAlumne();
+            menuInserirAlumne.setVisible(true);
+            dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(M6_act1_Inserir.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(M6_act1_Inserir.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BAlumnesActionPerformed
 
     private void BTornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTornarActionPerformed
@@ -137,10 +147,16 @@ public class M6_act1_Inserir extends javax.swing.JFrame {
     }//GEN-LAST:event_BTornarActionPerformed
 
     private void BPoblacioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BPoblacioActionPerformed
-        // TODO add your handling code here:
-        M6_act1_InserirPoblacio menuInserirPoblacio = new M6_act1_InserirPoblacio();
-        menuInserirPoblacio.setVisible(true);
-        dispose();
+        try {
+            // TODO add your handling code here:
+            M6_act1_InserirPoblacio menuInserirPoblacio = new M6_act1_InserirPoblacio();
+            menuInserirPoblacio.setVisible(true);
+            dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(M6_act1_Inserir.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(M6_act1_Inserir.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BPoblacioActionPerformed
 
     /**

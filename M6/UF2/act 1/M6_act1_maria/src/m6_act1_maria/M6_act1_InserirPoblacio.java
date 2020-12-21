@@ -118,20 +118,17 @@ public class M6_act1_InserirPoblacio extends javax.swing.JFrame {
 
     private void BInsereixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BInsereixActionPerformed
         // TODO add your handling code here:
-  
-        
         try {
             Statement comando=conection.createStatement();
 
             comando.executeUpdate("INSERT INTO població VALUES (" + tfCPostal.getText() + ",'" + tfPoblacio.getText() + "')");
-            conection.close();
-            tfCPostal.setText("");
-            tfPoblacio.setText("");
 
             JOptionPane.showMessageDialog(null, "Població creada!"); 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e); 
         }
+        
+        buidar();
     }//GEN-LAST:event_BInsereixActionPerformed
 
     public void buidar(){
