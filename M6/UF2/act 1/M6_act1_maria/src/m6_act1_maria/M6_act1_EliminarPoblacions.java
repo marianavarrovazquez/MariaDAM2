@@ -56,6 +56,11 @@ public class M6_act1_EliminarPoblacions extends javax.swing.JFrame {
         });
 
         jButton2.setText("Tornar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jTableEliminarP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -180,6 +185,13 @@ public class M6_act1_EliminarPoblacions extends javax.swing.JFrame {
             Logger.getLogger(M6_act1_EliminarPoblacions.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_bEliminarActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        M6_act1_Menu menu = new M6_act1_Menu();
+        menu.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     
     /**

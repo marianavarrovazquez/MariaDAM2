@@ -140,6 +140,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BEsborrarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="BSortir">
           <Properties>

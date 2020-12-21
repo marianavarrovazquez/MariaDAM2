@@ -70,6 +70,11 @@ public class M6_act1_ModificarPoblacio extends javax.swing.JFrame {
         });
 
         bTornar.setText("Tornar");
+        bTornar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bTornarActionPerformed(evt);
+            }
+        });
 
         jTableModificarP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -223,6 +228,13 @@ public class M6_act1_ModificarPoblacio extends javax.swing.JFrame {
             Logger.getLogger(M6_act1_ModificarPoblacio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jGuardarPActionPerformed
+
+    private void bTornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bTornarActionPerformed
+        // TODO add your handling code here:
+        M6_act1_Menu menu = new M6_act1_Menu();
+        menu.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_bTornarActionPerformed
     
     public void mostrarTabla() throws SQLException {
         DefaultTableModel model = new DefaultTableModel();
@@ -245,10 +257,7 @@ public class M6_act1_ModificarPoblacio extends javax.swing.JFrame {
             jTableModificarP.setModel(model);
         } catch (Exception e) {
         
-        }
-        
-        
-        
+        }       
     }
     
     public void buidar(){

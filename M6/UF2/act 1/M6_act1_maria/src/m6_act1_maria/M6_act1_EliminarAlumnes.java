@@ -74,6 +74,11 @@ public class M6_act1_EliminarAlumnes extends javax.swing.JFrame {
         });
 
         jButton3.setText("Tornar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -150,6 +155,13 @@ public class M6_act1_EliminarAlumnes extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_bEliminarActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        M6_act1_Menu menu = new M6_act1_Menu();
+        menu.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     public void mostrarTabla(){
         DefaultTableModel model = new DefaultTableModel();
