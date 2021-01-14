@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 14-ene-2021 16:47:50 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name = "sakila.entity.Actor" table = "actor"> 
+    <id name = "actorId" type = "java.lang.Short"> 
+      <column name = "actor_id" /> 
+      <generador class = "identity" /> 
+    </id> 
+    <property name = "firstName" type = "string"> 
+      <column length = "45" name = "first_name" not-null = "true" /> 
+    </property> 
+    < property name = "lastName" type = "string"> 
+      <column length = "45" name = "last_name" not-null = "true" /> 
+    </property> 
+    <property name = "lastUpdate "type =" timestamp "> 
+      <column length =" 19 "name =" last_update "not-null =" true "/> 
+    </property> 
+  </class> 
+</hibernate-mapping>
