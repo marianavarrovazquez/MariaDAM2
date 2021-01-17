@@ -2,7 +2,7 @@ package activitat4_ivancasal_marianavarro;
 
 /**
  *
- * @author maria
+ * @author maria y ivan
  */
 public class Activitat4_IvanCasal_MariaNavarro {
 

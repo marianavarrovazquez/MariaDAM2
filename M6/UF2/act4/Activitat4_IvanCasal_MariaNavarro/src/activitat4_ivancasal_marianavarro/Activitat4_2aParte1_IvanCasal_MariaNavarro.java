@@ -3,10 +3,12 @@ package activitat4_ivancasal_marianavarro;
 
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
+
 /**
  *
- * @author maria
+ * @author maria y ivan
  */
+
 public class Activitat4_2aParte1_IvanCasal_MariaNavarro extends RecursiveTask<Long> {
     long numero;
     
@@ -16,8 +18,7 @@ public class Activitat4_2aParte1_IvanCasal_MariaNavarro extends RecursiveTask<Lo
     
     @Override
     protected Long compute() {
-        // ATENCIO **1** 
-        double calcul = java.lang.Math.cos(54879854);
+        // ATENCIO **1** double calcul = java.lang.Math.cos(54879854);
         if(numero <= 1) return numero;
         Activitat4_2aParte1_IvanCasal_MariaNavarro fib1 = new Activitat4_2aParte1_IvanCasal_MariaNavarro(numero-1);
         //fib1.fork();
