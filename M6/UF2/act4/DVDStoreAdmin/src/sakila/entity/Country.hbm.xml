@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="sakila.entity.Country" table="country">
+        <id name="countryId" type="java.lang.Short">
+          <column name="country_id"/>
+          <generator class="identity"/>
+        </id>
+        <property name="country" type="string">
+          <column length="50" name="country" not-null="true"/>
+        </property>
+        <property name="lastUpdate" type="timestamp">
+          <column length="19" name="last_update" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

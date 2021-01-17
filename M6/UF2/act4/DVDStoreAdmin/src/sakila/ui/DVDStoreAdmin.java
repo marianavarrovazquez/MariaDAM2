@@ -38,9 +38,9 @@ public class DVDStoreAdmin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLTitol = new javax.swing.JLabel();
+        jLNom = new javax.swing.JLabel();
+        jLCognom = new javax.swing.JLabel();
         firstNameTextField = new javax.swing.JTextField();
         lastNameTextField = new javax.swing.JTextField();
         queryButton = new javax.swing.JButton();
@@ -49,12 +49,12 @@ public class DVDStoreAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Actor Profile");
+        jLTitol.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLTitol.setText("Actor Profile");
 
-        jLabel2.setText("First Name");
+        jLNom.setText("First Name");
 
-        jLabel4.setText("Last Name");
+        jLCognom.setText("Last Name");
 
         queryButton.setText("Query");
         queryButton.addActionListener(new java.awt.event.ActionListener() {
@@ -68,7 +68,7 @@ public class DVDStoreAdmin extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "First Name", "Last Name", "Last Update"
             }
         ));
         jScrollPane1.setViewportView(resultTable);
@@ -82,32 +82,31 @@ public class DVDStoreAdmin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 626, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(jLNom)
                         .addGap(18, 18, 18)
                         .addComponent(firstNameTextField)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
+                        .addComponent(jLCognom)
                         .addGap(18, 18, 18)
                         .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40)
-                        .addComponent(queryButton)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(queryButton)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(240, 240, 240)
-                .addComponent(jLabel1)
+                .addComponent(jLTitol)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addComponent(jLabel1)
+                .addComponent(jLTitol)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jLNom)
                     .addComponent(firstNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
+                    .addComponent(jLCognom)
                     .addComponent(lastNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(queryButton))
                 .addGap(18, 18, 18)
@@ -205,9 +204,9 @@ public class DVDStoreAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField firstNameTextField;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLCognom;
+    private javax.swing.JLabel jLNom;
+    private javax.swing.JLabel jLTitol;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField lastNameTextField;
     private javax.swing.JButton queryButton;

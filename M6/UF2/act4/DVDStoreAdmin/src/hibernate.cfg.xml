@@ -9,5 +9,6 @@
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory</property>
     <mapping resource="sakila/entity/Actor.hbm.xml"/>
+    <mapping resource="sakila/entity/Country.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
