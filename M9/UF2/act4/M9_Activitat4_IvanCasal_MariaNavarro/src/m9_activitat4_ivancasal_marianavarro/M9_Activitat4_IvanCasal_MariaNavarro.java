@@ -14,7 +14,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  *
- * @author maria
+ * @author maria e ivan
  */
 public class M9_Activitat4_IvanCasal_MariaNavarro {
     
