@@ -140,7 +140,7 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
                 if(esBuit(fila, columna)||OcupatContrari(fila, columna)){
                     mou(fila,columna);
                 } else if(OcupatPropi(fila,columna)){
-                    actualitzaNouOrigen(fila,columna);
+                    ActualitzaNouOrigen(fila,columna);
                 }
             } else {
                 mostraErrorMoviment();
@@ -217,6 +217,58 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
         return buit;
     }
 
+    public boolean OcupatContrari(int fila, int columna) {
+        boolean isOcupatContrari = false;
+        if((jugaX == true && EsO(fila, columna) == true)
+                || (jugaO == true && EsX(fila, columna) == true)){
+            isOcupatContrari = true;
+        }
+    
+        return isOcupatContrari;
+    }
+    
+    public void mou(int fila, int columna) {
+        int checker = 0;
+        
+        taula.setValueAt(null, filaOrigen, columnaOrigen);
+        if (jugaO) {
+            taula.setValueAt("O", fila, columna);
+            filaOrigen = -1;
+            columnaOrigen = -1;
+            if(checker == 0) {
+                checker = 1;
+                jugaO = false;
+                jugaX = true;
+            }
+        } else {
+            taula.setValueAt("X", fila, columna);
+            filaOrigen = -1;
+            columnaOrigen = -1;
+            if(checker == 0) {
+                checker = 1;
+                jugaO = true;
+                jugaX = false;
+            }
+            checker = 0;
+        }
+    }
+    
+    public boolean OcupatPropi(int fila, int columna) {
+        boolean isOcupatPropi = false;
+        if((jugaX == true && EsX(fila, columna) == true)
+                || (jugaO == true && EsO(fila, columna) == true)){
+            isOcupatPropi  = true;
+        }
+        
+        return isOcupatPropi;
+    }
+    
+    public void mostraErrorMoviment() {
+        JOptionPane.showMessageDialog(null, "error al moure la fitxa", "Juego damas", 
+                JOptionPane.ERROR_MESSAGE);
+        filaOrigen = -1;
+        columnaOrigen = -1;
+    }
         
     /**
      * @param args the command line arguments
