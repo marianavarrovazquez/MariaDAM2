@@ -5,15 +5,25 @@
  */
 package damas_marianavarro;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author maria
  */
 public class Damas_NuevaPartida extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form Damas_NuevaPartida
      */
+    
+    boolean jugaX = true;
+    boolean jugaO = false;
+    int filaOrigen = -1;
+    int columnaOrigen = -1;
+    int filaDestino = -1;
+    int columnaDestino = -1;
+
     public Damas_NuevaPartida() {
         initComponents();
     }
@@ -27,69 +37,187 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        taula = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        taula.setBackground(new java.awt.Color(158, 139, 81));
+        taula.setFont(new java.awt.Font("Arial", 0, 28)); // NOI18N
+        taula.setForeground(new java.awt.Color(255, 255, 255));
+        taula.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"   X", null, "   X", null, "   X", null, "   X", null},
-                {null, "  X", null, "   X", null, "  X", null, "   X"},
+                {null, "   X", null, "   X", null, "   X", null, "   X"},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {"   O", null, "   O", "", "   O", null, "   O", null},
-                {null, null, null, "   O", null, "   O", null, "   O"}
+                {null, "   O", null, "   O", null, "   O", null, "   O"}
             },
             new String [] {
-                "Columna 1", "Columna 2", "Columna 3", "Columna 4", "Columna 5", "Columna 6", "Columna 7", "Columna 8"
+                "", "", "", "", "", "", "", ""
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, true, true, true, true, true
+                true, true, false, true, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-        }
+        taula.setFocusable(false);
+        taula.setGridColor(new java.awt.Color(99, 82, 31));
+        taula.setRowHeight(50);
+        taula.setSelectionBackground(new java.awt.Color(99, 82, 31));
+        taula.setSelectionForeground(new java.awt.Color(99, 82, 31));
+        taula.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                taulaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(taula);
 
         jButton1.setText("Sortir");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(260, 260, 260)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void taulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taulaMouseClicked
+        // TODO add your handling code here:
+        int fila = obtenirFilaClicada();
+        int columna = obtenirColumnaClicada();
+        
+        if(noHiHaOrigen()) {
+            if(jugaX && EsX(fila, columna)){
+                ActualitzaNouOrigen(fila,columna);
+            } else if(jugaO && EsO(fila, columna)){
+                ActualitzaNouOrigen(fila,columna);
+            } else {
+                mostraError();
+            }
+        } else {
+            if(movimentValid(fila, columna)){
+                if(esBuit(fila, columna)||OcupatContrari(fila, columna)){
+                    mou(fila,columna);
+                } else if(OcupatPropi(fila,columna)){
+                    actualitzaNouOrigen(fila,columna);
+                }
+            } else {
+                mostraErrorMoviment();
+            }
+        }
+    }//GEN-LAST:event_taulaMouseClicked
+    
+    private int obtenirFilaClicada() {
+        return taula.getSelectedRow();
+    }
+
+    private int obtenirColumnaClicada() {
+        return taula.getSelectedColumn();
+    }
+    
+    public boolean noHiHaOrigen(){
+        boolean nOrigen = false;
+        if(filaOrigen == -1 || columnaOrigen == -1){
+            nOrigen = true;
+        }
+        return nOrigen;
+    }
+    
+    private boolean EsX(int fila, int columna) {
+        boolean x = false;
+        if(taula.getValueAt(fila, columna) == "X") {
+            x = true;
+        }
+        return x;
+    }
+
+    private boolean EsO(int fila, int columna) {
+        boolean o = false;
+        if(taula.getValueAt(fila, columna) == "O") {
+            o = true;
+        }
+        return o;
+    }
+    
+    public void ActualitzaNouOrigen(int fila, int columna){
+        filaOrigen = fila;
+        columnaOrigen = columna;
+    }
+    
+    public void mostraError(){
+        JOptionPane.showMessageDialog(null, "Error!!", "Juego damas", 
+                JOptionPane.ERROR_MESSAGE);
+        filaOrigen = -1;
+        columnaOrigen = -1;
+    }
+    
+    public boolean movimentValid(int fila, int columna) {
+        boolean esMovimentValid = false;
+        filaDestino = fila;
+        columnaDestino = columna;
+        int calculaFila =  filaDestino - filaOrigen;
+        int calculaColumna = columnaDestino - columnaOrigen;
+        
+        if(jugaO && (calculaFila == -1) && 
+                ((calculaColumna == 1) || (calculaColumna ==  -1))){
+            esMovimentValid = true;
+        } else if (jugaX && (calculaFila == 1) && 
+                ((calculaColumna == 1) || (calculaColumna ==  -1))) {
+            esMovimentValid = true;
+        }
+        return esMovimentValid;
+    }
+    
+    public boolean esBuit(int fila, int columna) {
+        boolean buit = false;
+        if(taula.getValueAt(fila, columna) == null){
+            buit = true;
+        }
+        return buit;
+    }
+
+        
     /**
      * @param args the command line arguments
      */
@@ -127,7 +255,10 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable taula;
     // End of variables declaration//GEN-END:variables
+
+
 }
