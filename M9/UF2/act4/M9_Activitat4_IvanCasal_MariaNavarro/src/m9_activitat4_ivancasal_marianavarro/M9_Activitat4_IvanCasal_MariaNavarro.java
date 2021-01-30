@@ -10,8 +10,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-
-
 /**
  *
  * @author maria e ivan
@@ -19,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 public class M9_Activitat4_IvanCasal_MariaNavarro {
     
     static class Caja implements Runnable {
-        //Num client i el temps del articles
+        //Numero de cliente y tiempo que puede tardar cada producto
         private int[] temps = {2, 3, 4, 5, 6, 7, 8};
         private int numClientes;
         
@@ -29,10 +27,9 @@ public class M9_Activitat4_IvanCasal_MariaNavarro {
         
         @Override
         public void run() {
-            //Numero d'articles aleatori
+            //Numero de productos aleatorios
             int articulos = (int) (Math.random() * (30 - 1 + 1)) + 1;
             int tempsR = (int) (Math.random() * (6 - 0 + 1));
-            
             
                 System.out.println("Creat Client " + numClientes + " amb " + articulos + " articles");
                 System.out.println("Client " + numClientes + " passa per caixa...");
@@ -40,16 +37,16 @@ public class M9_Activitat4_IvanCasal_MariaNavarro {
                 for (int j = 1; j < articulos+1; j++) {
 
                     try {
-                        //Temps parara
+                        //Tiempo que parara
                         Thread.sleep(temps[tempsR] * 1000);
                     }catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     if (j == articulos) {
-                        //Si el client te tots els articles sen va
+                        //Si el cliente tiene todos los productos se va
                         System.out.println("Client " + numClientes + " article " + j + "/" + articulos + " (" + temps[tempsR] + " segons)... FINALITZAT");
                     }else{
-                        //Si no, segueix
+                        //Si no los tiene sigue
                         System.out.println("Client " + numClientes + " article " + j + "/" + articulos + " (" + temps[tempsR] + " segons)...");
                     }
                 }
@@ -62,10 +59,10 @@ public class M9_Activitat4_IvanCasal_MariaNavarro {
         
         ScheduledThreadPoolExecutor executor = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool (20);
        
-        //Numero de clients
+        //Numero de clientes
         for (int i = 1; i <= 2; i++) {
-            Caja task = new Caja(i);
-            executor.scheduleWithFixedDelay(task, 0 , 3, TimeUnit.SECONDS);
+            Caja caja = new Caja(i);
+            executor.scheduleWithFixedDelay(caja, 0 , 3, TimeUnit.SECONDS);
         }
         executor.awaitTermination(20, TimeUnit.SECONDS);
         executor.shutdown();
