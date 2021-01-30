@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author maria e ivan
  */
+
 public class M9_Activitat4_IvanCasal_MariaNavarro {
     
     static class Caja implements Runnable {
@@ -31,32 +32,30 @@ public class M9_Activitat4_IvanCasal_MariaNavarro {
             int articulos = (int) (Math.random() * (30 - 1 + 1)) + 1;
             int tempsR = (int) (Math.random() * (6 - 0 + 1));
             
-                System.out.println("Creat Client " + numClientes + " amb " + articulos + " articles");
-                System.out.println("Client " + numClientes + " passa per caixa...");
+            System.out.println("Creat Client " + numClientes + " amb " + articulos + " articles");
+            System.out.println("Client " + numClientes + " passa per caixa...");
 
-                for (int j = 1; j < articulos+1; j++) {
+            for (int j = 1; j < articulos+1; j++) {
 
-                    try {
-                        //Tiempo que parara
-                        Thread.sleep(temps[tempsR] * 1000);
-                    }catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    if (j == articulos) {
-                        //Si el cliente tiene todos los productos se va
-                        System.out.println("Client " + numClientes + " article " + j + "/" + articulos + " (" + temps[tempsR] + " segons)... FINALITZAT");
-                    }else{
-                        //Si no los tiene sigue
-                        System.out.println("Client " + numClientes + " article " + j + "/" + articulos + " (" + temps[tempsR] + " segons)...");
-                    }
+                try {
+                    //Tiempo que parara
+                    Thread.sleep(temps[tempsR] * 1000);
+                }catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            
+                if (j == articulos) {
+                    //Si el cliente tiene todos los productos se va
+                    System.out.println("Client " + numClientes + " article " + j + "/" + articulos + " (" + temps[tempsR] + " segons)... FINALITZAT");
+                }else{
+                    //Si no los tiene sigue
+                    System.out.println("Client " + numClientes + " article " + j + "/" + articulos + " (" + temps[tempsR] + " segons)...");
+                }
+            }
         }
         
     }
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {        
-        
         ScheduledThreadPoolExecutor executor = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool (20);
        
         //Numero de clientes
