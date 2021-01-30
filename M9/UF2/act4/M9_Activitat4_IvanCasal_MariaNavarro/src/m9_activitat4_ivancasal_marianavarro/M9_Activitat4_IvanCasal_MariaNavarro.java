@@ -22,7 +22,7 @@ public class M9_Activitat4_IvanCasal_MariaNavarro {
         private int numClientes;
         
         //Numero de productos aleatorios
-        private int productos = (int) (Math.random() * (5 - 1 + 1)) + 1;
+        private int productos = (int) (Math.random() * (30 - 1 + 1)) + 1;
         
         //tiempo que tardara cada producto
         private int tiempoR = (int) (Math.random() * (6 - 0 + 1));
@@ -31,17 +31,25 @@ public class M9_Activitat4_IvanCasal_MariaNavarro {
         
         public Caja(int numClientes) {
             this.numClientes = numClientes;
+            
             //creamos los clientes y le indicamos los productos y el tiempo de cada uno
             System.out.print("Creat Client " + numClientes + " amb " + productos + " articles (");
                 for (int k = 0; k < productos; k++){
-                    System.out.print(tiempo[tiempoR] + ", ");
+                    System.out.print(tiempo[tiempoR]);
+                    if(k < productos-1){
+                        System.out.print(",");
+                    } else {
+                         System.out.print(")");
+                    }
                 }
-                System.out.print(")\n");
+                System.out.print("\n");
+                
+                
+            System.out.println("Client " + numClientes + " passa per caixa...");
         }
         
         @Override
         public void run() {
-            System.out.println("Client " + numClientes + " passa per caixa...");
             
             for (int j = 1; j < productos + 1; j++) {
                 try {
@@ -59,15 +67,17 @@ public class M9_Activitat4_IvanCasal_MariaNavarro {
                 }
             }
         }
-        
     }
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {        
-        ScheduledThreadPoolExecutor executor = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool (20);
+        //Numero de cajas
+        ScheduledThreadPoolExecutor executor = (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool (10);
        
         //Numero de clientes
-        for (int i = 1; i <= 2; i++) {
+        for (int i = 1; i <= 50; i++) {
             Caja caja = new Caja(i);
+            //cada 3 segundos creara el cliente 
+            Thread.sleep(3000);
             executor.execute(caja);
             
            //SI PONEMOS ESTA LINEA I LA SIGUIENTE LOS CLIENTES SALEN EN ORDEN DESCENDIENTE  
