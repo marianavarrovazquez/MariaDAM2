@@ -5,7 +5,12 @@
  */
 package damas_marianavarro;
 
+
 import javax.swing.JOptionPane;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -19,6 +24,10 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
     int columnaOrigen = -1;
     int filaDestino = -1;
     int columnaDestino = -1;
+    
+    static Session session;
+    static Partida partida;
+    static Moviment moviment;
 
     public Damas_NuevaPartida() {
         initComponents();
@@ -264,7 +273,7 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
         if(EsX(fila, columna) && fila == 7) {
             jugaX = false; 
             jugaO = false;
-            JOptionPane.showMessageDialog(null, "Guanyen les X", "Damas", 
+            JOptionPane.showMessageDialog(null, "Guanya la X", "Damas", 
                 JOptionPane.OK_OPTION);
             Damas_P1 damas = new Damas_P1();
             damas.setVisible(true);
@@ -273,7 +282,7 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
         } else if (EsO(fila, columna) && fila == 0) {
             jugaX = false; 
             jugaO = false;
-            JOptionPane.showMessageDialog(null, "Guanyen les O", "Damas", 
+            JOptionPane.showMessageDialog(null, "Guanya la O", "Damas", 
                 JOptionPane.OK_OPTION);
             Damas_P1 damas = new Damas_P1();
             damas.setVisible(true);
@@ -282,21 +291,45 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
         }
     }
     
-    private void nuevaPartida(String o) {
-        Session session = sf.openSession();
-        Transaction transaction = null;
+    private void nuevaPartida(String ganador) {
         partida.setGanador(ganador);
-        
         try {
-            transaction = session.beginTransaction();
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
             session.saveOrUpdate(partida);
-            transaction.commit();
+            session.getTransaction().commit();
         
         } catch (HibernateException e) {
             System.out.println(" a " + e);
         } finally {
             session.close();
         }
+    }
+    
+    public static void Nmovimiento(int columnaOrigen, int columnaDestino, 
+            int filaOrigen, int filaDestino) {
+        
+        moviment = new Moviment(partida, columnaOrigen, columnaDestino, filaOrigen, filaDestino);
+    
+        
+        moviment.setPartida(partida);
+        moviment.setColumnaOrigen(columnaOrigen);
+        moviment.setColumnaDestino(columnaDestino);
+        moviment.setFilaOrigen(filaOrigen);
+        moviment.setFilaDestino(filaDestino);
+        
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.persist(moviment);
+            session.getTransaction().commit();
+            
+        } catch (HibernateException e) {
+            System.out.println(" hola ian " + e);
+        } finally {
+            session.close();
+        }
+        
     }
     
     /**
