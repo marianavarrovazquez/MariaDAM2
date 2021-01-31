@@ -18,6 +18,7 @@ import org.hibernate.Transaction;
  *
  * @author maria
  */
+
 public class Damas_NuevaPartida extends javax.swing.JFrame {
 
     boolean jugaX = true;
@@ -34,7 +35,7 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
     public Damas_NuevaPartida() {
         initComponents();
         partida = new Partida("");
-        nuevaPartida("?");
+        nPartida("?");
     }
 
     @SuppressWarnings("unchecked")
@@ -277,7 +278,7 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
         if(EsX(fila, columna) && fila == 7) {
             jugaX = false; 
             jugaO = false;
-            JOptionPane.showMessageDialog(null, "Guanya la X", "Damas", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(null, "Guanya X", "Damas", JOptionPane.OK_OPTION);
             Damas_P1 damas = new Damas_P1();
             damas.setVisible(true);
             dispose();
@@ -285,7 +286,7 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
         } else if (EsO(fila, columna) && fila == 0) {
             jugaX = false; 
             jugaO = false;
-            JOptionPane.showMessageDialog(null, "Guanya la O", "Damas", 
+            JOptionPane.showMessageDialog(null, "Guanya O", "Damas", 
                 JOptionPane.OK_OPTION);
             Damas_P1 damas = new Damas_P1();
             damas.setVisible(true);
@@ -294,7 +295,7 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
         }
     }
     
-    private void nuevaPartida(String ganador) {
+    private void nPartida(String ganador) {
         partida.setGanador(ganador);
         try {
             session = NewHibernateUtil.getSessionFactory().openSession();
@@ -309,7 +310,7 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
         }
     }
     
-    public static void Nmovimiento(int columnaOrigen, int columnaDestino, int filaOrigen, int filaDestino) {
+    public static void nMovimiento(int columnaOrigen, int columnaDestino, int filaOrigen, int filaDestino) {
         
         moviment = new Moviment(partida, columnaOrigen, columnaDestino, filaOrigen, filaDestino);
    
