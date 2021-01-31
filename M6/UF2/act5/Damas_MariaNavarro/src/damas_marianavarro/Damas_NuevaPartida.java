@@ -6,6 +6,8 @@
 package damas_marianavarro;
 
 
+import entity.Moviment;
+import entity.Partida;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -31,6 +33,8 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
 
     public Damas_NuevaPartida() {
         initComponents();
+        partida = new Partida("");
+        nuevaPartida("?");
     }
 
     @SuppressWarnings("unchecked")
@@ -273,8 +277,7 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
         if(EsX(fila, columna) && fila == 7) {
             jugaX = false; 
             jugaO = false;
-            JOptionPane.showMessageDialog(null, "Guanya la X", "Damas", 
-                JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(null, "Guanya la X", "Damas", JOptionPane.OK_OPTION);
             Damas_P1 damas = new Damas_P1();
             damas.setVisible(true);
             dispose();
@@ -300,19 +303,17 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
             session.getTransaction().commit();
         
         } catch (HibernateException e) {
-            System.out.println(" a " + e);
+            System.out.println(e);
         } finally {
             session.close();
         }
     }
     
-    public static void Nmovimiento(int columnaOrigen, int columnaDestino, 
-            int filaOrigen, int filaDestino) {
+    public static void Nmovimiento(int columnaOrigen, int columnaDestino, int filaOrigen, int filaDestino) {
         
         moviment = new Moviment(partida, columnaOrigen, columnaDestino, filaOrigen, filaDestino);
-    
-        
-        moviment.setPartida(partida);
+   
+        moviment.setidP(partida);
         moviment.setColumnaOrigen(columnaOrigen);
         moviment.setColumnaDestino(columnaDestino);
         moviment.setFilaOrigen(filaOrigen);
@@ -325,7 +326,7 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
             session.getTransaction().commit();
             
         } catch (HibernateException e) {
-            System.out.println(" hola ian " + e);
+            System.out.println(e);
         } finally {
             session.close();
         }
