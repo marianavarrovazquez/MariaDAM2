@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package m9_activitat4_ivancasal_marianavarro;
 
 import java.util.Arrays;
@@ -33,7 +28,7 @@ public class M9_act4_apartado2 {
             int parts2;
             
             //Hacemos el metodo burbuja y enseñamos la parte, el numero que habia en esa parte y el numero que remplazamos al ordenarlo
-            for (int i = 0; i < arrayBombolla.length; i++){
+            for (int i = 1; i < arrayBombolla.length; i++){
                 for (int j = 0; j < arrayBombolla.length - i; j++){
                     if(arrayBombolla[j] > arrayBombolla[j+1]){
                         arrayBombolla2 = arrayBombolla.clone();
@@ -52,7 +47,7 @@ public class M9_act4_apartado2 {
        
     static int[] arrayParts = {0, 0, 0, 0};
     
-    static int menorQue(int num, int n2, int n3, int n4){
+    static int menor(int num, int n2, int n3, int n4){
         //Variables para calcular la posicion minima
         int minimo = num;
         int posicion = 0;
@@ -108,12 +103,12 @@ public class M9_act4_apartado2 {
         int[] ordenar = new int[20];
         //Ordenamos el array
         for (int l = 0; l<ordenar.length; l++){
-            int temporal = menorQue(
+            int temporal = menor(
                 partesBombolla[0].arrayBombolla[arrayParts[0]],
                 partesBombolla[1].arrayBombolla[arrayParts[1]],
                 partesBombolla[2].arrayBombolla[arrayParts[2]],
                 partesBombolla[3].arrayBombolla[arrayParts[3]]);
-            temporal = partesBombolla[3].arrayBombolla[arrayParts[4]];
+            temporal = partesBombolla[3].arrayBombolla[arrayParts[3]];
             ordenar[l] = temporal;
         }
         //Imprime por pantalla el array ordenado
