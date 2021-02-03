@@ -243,7 +243,10 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
 
     public void mou(int fila, int columna) {
         int contador = 0;
-//        nMovimiento(filaOrigen, fila, columnaOrigen, columna);
+        
+        nMovimiento(filaOrigen, fila, columnaOrigen, columna);
+        
+        
         taula.setValueAt(null, filaOrigen, columnaOrigen);
         if (jugaO) {
             taula.setValueAt("O", fila, columna);
@@ -289,7 +292,9 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
             Damas_P1 damas = new Damas_P1();
             damas.setVisible(true);
             dispose();
+            
             nPartida("X");
+            
         } else if (EsO(fila, columna) && fila == 0) {
             jugaX = false; 
             jugaO = false;
@@ -297,46 +302,18 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
             Damas_P1 damas = new Damas_P1();
             damas.setVisible(true);
             dispose();
+            
             nPartida("O");
+            
         }
     }
     
     private void nPartida(String ganador) {
         
-        try {
-            partida.setGanador(ganador);
-            session = NewHibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            session.saveOrUpdate(partida);
-            session.getTransaction().commit();
-        
-        } catch (HibernateException e) {
-            System.out.println("error partida" + e);
-        }
-        session.close();
     }
- /*
     public static void nMovimiento(int columnaOrigen, int columnaValida, int filaOrigen, int filaValida) { 
-        moviment = new Moviment(partida, columnaOrigen, columnaValida, filaOrigen, filaValida);
-    
-        moviment.setIdP(partida);
-        moviment.setColumnaOrigen(columnaOrigen);
-        moviment.setColumnaValida(columnaValida);
-        moviment.setFilaOrigen(filaOrigen);
-        moviment.setFilaValida(filaValida);
         
-        try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
-            session.beginTransaction();
-            session.persist(moviment);
-            session.getTransaction().commit();
-            
-        } catch (HibernateException e) {
-            System.out.println("error movimiento" +e);
-        }
-        session.close();
     }
-*/
     /**
      * @param args the command line arguments
      */
