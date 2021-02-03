@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package damas_marianavarro;
 
+import entity.Moviment;
+import entity.Partida;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-
 /**
  *
  * @author maria
@@ -24,12 +20,13 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
     int columnaValida = -1;
     
     static Session session;
-//    static Partida partida;
-//   static Moviment moviment;
+    static Partida partida;
+//    static Moviment moviment;
 
     public Damas_NuevaPartida() {
         initComponents();
-  //      nPartida("1/2");
+    //    partida = new Partida("");
+        nPartida("a medias");
     }
 
     @SuppressWarnings("unchecked")
@@ -55,14 +52,14 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
         taula.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         taula.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"   X", null, "   X", "", "   X", null, "   X", null},
-                {null, "   X", null, "   X", null, "   X", null, "   X"},
+                {"X", null, "X", null, "X", null, "X", null},
+                {null, "X", null, "X", null, "X", null, "X"},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
-                {"   O", null, "   O", null, "   O", null, "   O", null},
-                {null, "   O", null, "   O", null, "   O", null, "   O"}
+                {"O", null, "O", null, "O", null, "O", null},
+                {null, "O", null, "O", null, "O", null, "O"}
             },
             new String [] {
                 "", "", "", "", "", "", "", ""
@@ -81,21 +78,20 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(472, Short.MAX_VALUE)
+                        .addGap(0, 460, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jScrollPane2)))
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addGap(36, 36, 36)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -156,7 +152,7 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
 
     public boolean noHiHaOrigen(){
         boolean noHayOrigen = false;
-        if(filaOrigen == -1 || columnaOrigen == -1){
+        if(filaOrigen == -1 && columnaOrigen == -1){
             noHayOrigen = true;
         }
         return noHayOrigen;
@@ -222,7 +218,7 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
 
     public void mou(int fila, int columna) {
         int contador = 0;
-    //    nMovimiento(filaOrigen, fila, columnaOrigen, columna);
+//        nMovimiento(filaOrigen, fila, columnaOrigen, columna);
         taula.setValueAt(null, filaOrigen, columnaOrigen);
         if (jugaO) {
             taula.setValueAt("O", fila, columna);
@@ -264,7 +260,7 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
         if(EsX(fila, columna) && fila == 7) {
             jugaX = false; 
             jugaO = false;
-            JOptionPane.showMessageDialog(null, "Guanya X", "Damas", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(null, "Gana X", "Damas", JOptionPane.OK_OPTION);
             Damas_P1 damas = new Damas_P1();
             damas.setVisible(true);
             dispose();
@@ -272,8 +268,7 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
         } else if (EsO(fila, columna) && fila == 0) {
             jugaX = false; 
             jugaO = false;
-            JOptionPane.showMessageDialog(null, "Guanya O", "Damas", 
-                JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(null, "Gana O", "Damas", JOptionPane.OK_OPTION);
             Damas_P1 damas = new Damas_P1();
             damas.setVisible(true);
             dispose();
@@ -282,42 +277,39 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
     }
     
     private void nPartida(String ganador) {
-//        partida.setGanador(ganador);
+        
         try {
-     //       session = NewHibernateUtil.getSessionFactory().openSession();
+            partida.setGanador(ganador);
+            session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
-//            session.saveOrUpdate(partida);
+            session.saveOrUpdate(partida);
             session.getTransaction().commit();
         
         } catch (HibernateException e) {
-            System.out.println(e);
-        } finally {
-            session.close();
+            System.out.println("error partida" + e);
         }
+        session.close();
     }
-  /*
-    public static void nMovimiento(int columnaOrigen, int columnaDestino, int filaOrigen, int filaDestino) {
-        
-        moviment = new Moviment(partida, columnaOrigen, columnaDestino, filaOrigen, filaDestino);
-   
-        moviment.setidP(partida);
+ /*
+    public static void nMovimiento(int columnaOrigen, int columnaValida, int filaOrigen, int filaValida) { 
+        moviment = new Moviment(partida, columnaOrigen, columnaValida, filaOrigen, filaValida);
+    
+        moviment.setIdP(partida);
         moviment.setColumnaOrigen(columnaOrigen);
-        moviment.setColumnaDestino(columnaDestino);
+        moviment.setColumnaValida(columnaValida);
         moviment.setFilaOrigen(filaOrigen);
-        moviment.setFilaDestino(filaDestino);
+        moviment.setFilaValida(filaValida);
         
         try {
-    //        session = NewHibernateUtil.getSessionFactory().openSession();
+            session = NewHibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.persist(moviment);
             session.getTransaction().commit();
             
         } catch (HibernateException e) {
-            System.out.println(e);
-        } finally {
-            session.close();
+            System.out.println("error movimiento" +e);
         }
-        
+        session.close();
     }
 */
     /**
@@ -361,7 +353,5 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable taula;
     // End of variables declaration//GEN-END:variables
-
-    
 
 }
