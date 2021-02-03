@@ -19,14 +19,13 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
     int filaValida = -1;
     int columnaValida = -1;
     
-    static Session session;
+    static Session sesion;
     static Partida partida;
-//    static Moviment moviment;
+    static Moviment moviment;
 
     public Damas_NuevaPartida() {
         initComponents();
-    //    partida = new Partida("");
-        nPartida("a medias");
+    //    nPartida("a medias");
     }
 
     @SuppressWarnings("unchecked")
@@ -288,32 +287,52 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
         if(EsX(fila, columna) && fila == 7) {
             jugaX = false; 
             jugaO = false;
+            
+            //muestra que ha ganado la X
             JOptionPane.showMessageDialog(null, "Gana X", "Damas", JOptionPane.OK_OPTION);
-            Damas_P1 damas = new Damas_P1();
-            damas.setVisible(true);
+            
+            //Vuelve a la pantalla menu
+            Damas_P1 damasMenu = new Damas_P1();
+            damasMenu.setVisible(true);
             dispose();
             
+            //que vaya a el metodo nPartida X
             nPartida("X");
             
         } else if (EsO(fila, columna) && fila == 0) {
-            jugaX = false; 
             jugaO = false;
+            jugaX = false;
+            
+            //muestra un mensaje de que ha ganado la O
             JOptionPane.showMessageDialog(null, "Gana O", "Damas", JOptionPane.OK_OPTION);
-            Damas_P1 damas = new Damas_P1();
-            damas.setVisible(true);
+            
+            //Vuelve a la pantalla menu
+            Damas_P1 damasMenu = new Damas_P1();
+            damasMenu.setVisible(true);
             dispose();
             
+            //que vaya a el metodo nPartida O
             nPartida("O");
-            
         }
     }
     
     private void nPartida(String ganador) {
-        
+        partida.setGanador(ganador);
+        try{
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            sesion.beginTransaction();
+            sesion.saveOrUpdate(partida);
+            sesion.getTransaction().commit();
+        } catch(HibernateException he) {
+            System.out.println("Error guardar ganador " + he);
+        }
+        sesion.close();
     }
+    
     public static void nMovimiento(int columnaOrigen, int columnaValida, int filaOrigen, int filaValida) { 
         
     }
+    
     /**
      * @param args the command line arguments
      */
