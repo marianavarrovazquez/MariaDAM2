@@ -1,27 +1,27 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 31-ene-2021 19:37:40 by Hibernate Tools 4.3.1 -->
+<!-- Generated 02-feb-2021 23:54:42 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="entity.Moviment" table="moviment" catalog="damas" optimistic-lock="version">
-        <id name="idMovimiento" type="int">
-            <column name="idMovimiento" />
+        <id name="idM" type="java.lang.Integer">
+            <column name="idM" />
             <generator class="assigned" />
         </id>
-        <property name="idPartida" type="int">
-            <column name="idPartida" not-null="true" />
-        </property>
+        <many-to-one name="idP" type="entity.Partida" fetch="select">
+            <column name="idP" not-null="true" />
+        </many-to-one>
         <property name="filaOrigen" type="int">
             <column name="filaOrigen" not-null="true" />
         </property>
         <property name="columnaOrigen" type="int">
             <column name="columnaOrigen" not-null="true" />
         </property>
-        <property name="filaDestino" type="int">
-            <column name="filaDestino" not-null="true" />
+        <property name="filaValida" type="int">
+            <column name="filaValida" not-null="true" />
         </property>
-        <property name="columnaDestino" type="int">
-            <column name="columnaDestino" not-null="true" />
+        <property name="columnaValida" type="int">
+            <column name="columnaValida" not-null="true" />
         </property>
     </class>
 </hibernate-mapping>
