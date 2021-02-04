@@ -1,10 +1,11 @@
 package damas_marianavarro;
 
-import entity.Moviment;
+import entity.Movimiento;
 import entity.Partida;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+
 /**
  *
  * @author maria
@@ -21,11 +22,12 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
     
     static Session sesion;
     static Partida partida;
-    static Moviment moviment;
+    static Movimiento moviment;
 
     public Damas_NuevaPartida() {
         initComponents();
-    //    nPartida("a medias");
+        partida = new Partida("");
+        nPartida("/");
     }
 
     @SuppressWarnings("unchecked")
@@ -325,11 +327,30 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
             sesion.getTransaction().commit();
         } catch(HibernateException he) {
             System.out.println("Error guardar ganador " + he);
+        } finally {
+            sesion.close();
         }
-        sesion.close();
     }
     
     public static void nMovimiento(int columnaOrigen, int columnaValida, int filaOrigen, int filaValida) { 
+        moviment = new Movimiento(partida, columnaOrigen, columnaValida, filaOrigen, filaValida);
+        moviment.setPartida(partida);
+        /*moviment.setColumnaOrigen(columnaOrigen);
+        moviment.setColumnaValida(columnaValida);
+        moviment.setFilaOrigen(filaOrigen);
+        moviment.setFilaValida(filaValida);*/
+        
+        try {
+            sesion = NewHibernateUtil.getSessionFactory().openSession();
+            sesion.beginTransaction();
+            sesion.save(moviment);
+            sesion.getTransaction().commit();
+            
+        } catch (HibernateException e) {
+            System.out.println(e);
+        } finally {
+            sesion.close();
+        }
         
     }
     
