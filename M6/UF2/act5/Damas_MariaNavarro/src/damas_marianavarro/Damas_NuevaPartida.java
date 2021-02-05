@@ -247,7 +247,6 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
         
         nMovimiento(filaOrigen, fila, columnaOrigen, columna);
         
-        
         taula.setValueAt(null, filaOrigen, columnaOrigen);
         if (jugaO) {
             taula.setValueAt("O", fila, columna);
@@ -298,14 +297,14 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
             damasMenu.setVisible(true);
             dispose();
             
-            //que vaya a el metodo nPartida X
+            //Que vaya a el metodo nPartida X
             nPartida("X");
             
         } else if (EsO(fila, columna) && fila == 0) {
             jugaO = false;
             jugaX = false;
             
-            //muestra un mensaje de que ha ganado la O
+            //Muestra un mensaje de que ha ganado la O
             JOptionPane.showMessageDialog(null, "Gana O", "Damas", JOptionPane.OK_OPTION);
             
             //Vuelve a la pantalla menu
@@ -313,7 +312,7 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
             damasMenu.setVisible(true);
             dispose();
             
-            //que vaya a el metodo nPartida O
+            //Que vaya a el metodo nPartida O
             nPartida("O");
         }
     }
@@ -335,10 +334,6 @@ public class Damas_NuevaPartida extends javax.swing.JFrame {
     public static void nMovimiento(int columnaOrigen, int columnaValida, int filaOrigen, int filaValida) { 
         moviment = new Movimiento(partida, columnaOrigen, columnaValida, filaOrigen, filaValida);
         moviment.setPartida(partida);
-        /*moviment.setColumnaOrigen(columnaOrigen);
-        moviment.setColumnaValida(columnaValida);
-        moviment.setFilaOrigen(filaOrigen);
-        moviment.setFilaValida(filaValida);*/
         
         try {
             sesion = NewHibernateUtil.getSessionFactory().openSession();

@@ -5,6 +5,7 @@
  */
 package damas_marianavarro;
 
+import static damas_marianavarro.Damas_cargarPartida.sesion;
 import entity.Movimiento;
 import java.util.List;
 import org.hibernate.HibernateException;
@@ -15,17 +16,18 @@ import org.hibernate.Session;
  *
  * @author maria
  */
-public class Damas_cargarPartida extends javax.swing.JFrame {
-    
+public class Damas_RecuperarCualquiera extends javax.swing.JFrame {
+
     static Session sesion;
     static List results;
     static Movimiento moviment;
     int contador = 0;
     
-    public Damas_cargarPartida() {
+    /**
+     * Creates new form Damas_RecuperarCualquiera
+     */
+    public Damas_RecuperarCualquiera() {
         initComponents();
-        sesion = NewHibernateUtil.getSessionFactory().openSession();
-        TablaCargada();
     }
 
     /**
@@ -37,15 +39,13 @@ public class Damas_cargarPartida extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         taula = new javax.swing.JTable();
-        ButtonSalir = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
         ButtonContinuar = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        ButtonSalir = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        taula1 = new javax.swing.JTable();
 
         taula.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         taula.setModel(new javax.swing.table.DefaultTableModel(
@@ -71,14 +71,9 @@ public class Damas_cargarPartida extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(taula);
 
-        ButtonSalir.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        ButtonSalir.setText("Salir");
-        ButtonSalir.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        ButtonSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ButtonSalirActionPerformed(evt);
-            }
-        });
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         ButtonContinuar.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
         ButtonContinuar.setText("Continuar");
@@ -89,6 +84,39 @@ public class Damas_cargarPartida extends javax.swing.JFrame {
             }
         });
 
+        ButtonSalir.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        ButtonSalir.setText("Salir");
+        ButtonSalir.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        ButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonSalirActionPerformed(evt);
+            }
+        });
+
+        taula1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        taula1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"X", null, "X", null, "X", null, "X", null},
+                {null, "X", null, "X", null, "X", null, "X"},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {"O", null, "O", null, "O", null, "O", null},
+                {null, "O", null, "O", null, "O", null, "O"}
+            },
+            new String [] {
+                "", "", "", "", "", "", "", ""
+            }
+        ));
+        taula1.setRowHeight(50);
+        taula1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                taula1MouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(taula1);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -96,22 +124,22 @@ public class Damas_cargarPartida extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(ButtonContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ButtonContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ButtonContinuar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -119,11 +147,11 @@ public class Damas_cargarPartida extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -132,11 +160,6 @@ public class Damas_cargarPartida extends javax.swing.JFrame {
     private void taulaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taulaMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_taulaMouseClicked
-
-    private void ButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSalirActionPerformed
-        // TODO add your handling code here:
-        dispose();
-    }//GEN-LAST:event_ButtonSalirActionPerformed
 
     private void ButtonContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonContinuarActionPerformed
         // TODO add your handling code here:
@@ -152,9 +175,19 @@ public class Damas_cargarPartida extends javax.swing.JFrame {
             damas.setVisible(true);
             dispose();
         }
-       
+
     }//GEN-LAST:event_ButtonContinuarActionPerformed
 
+    private void ButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSalirActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_ButtonSalirActionPerformed
+
+    private void taula1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taula1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_taula1MouseClicked
+
+    
     private void TablaCargada() {
         try{
             sesion.beginTransaction();
@@ -183,20 +216,20 @@ public class Damas_cargarPartida extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Damas_cargarPartida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Damas_RecuperarCualquiera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Damas_cargarPartida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Damas_RecuperarCualquiera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Damas_cargarPartida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Damas_RecuperarCualquiera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Damas_cargarPartida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Damas_RecuperarCualquiera.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Damas_cargarPartida().setVisible(true);
+                new Damas_RecuperarCualquiera().setVisible(true);
             }
         });
     }
@@ -206,12 +239,8 @@ public class Damas_cargarPartida extends javax.swing.JFrame {
     private javax.swing.JButton ButtonSalir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable taula;
+    private javax.swing.JTable taula1;
     // End of variables declaration//GEN-END:variables
-
-    
-
-    
-
-    
 }
