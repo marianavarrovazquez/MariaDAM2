@@ -5,6 +5,7 @@
  */
 package damas_marianavarro;
 
+import static damas_marianavarro.Damas_cargarPartida.results;
 import static damas_marianavarro.Damas_cargarPartida.sesion;
 import entity.Movimiento;
 import java.sql.ResultSet;
@@ -184,12 +185,13 @@ public class Damas_RecuperarCualquiera extends javax.swing.JFrame {
 
     private void ButtonContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonContinuarActionPerformed
         // TODO add your handling code here:
+        
         //Compruebo si ya ha llegado al ultimo movimiento
         if (contador < results.size()) {
             moviment = (Movimiento) results.get(contador);
             //Sale por pantalla el movimiento que le toca segun lo que ha guardado la base de datos
-            taula.setValueAt(taula.getValueAt(moviment.getColumnaOrigen(), moviment.getFilaOrigen()), moviment.getColumnaValida(), moviment.getFilaValida());
-            taula.setValueAt(null, moviment.getColumnaOrigen(), moviment.getFilaOrigen());
+            taula1.setValueAt(taula1.getValueAt(moviment.getColumnaOrigen(), moviment.getFilaOrigen()), moviment.getColumnaValida(), moviment.getFilaValida());
+            taula1.setValueAt(null, moviment.getColumnaOrigen(), moviment.getFilaOrigen());
             contador++;
         } else {
             Damas_P1 damas = new Damas_P1();
@@ -207,6 +209,22 @@ public class Damas_RecuperarCualquiera extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "No has seleccionat cap fila");
         }
+        contador=0;
+        taula1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"X", null, "X", null, "X", null, "X", null},
+                {null, "X", null, "X", null, "X", null, "X"},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {"O", null, "O", null, "O", null, "O", null},
+                {null, "O", null, "O", null, "O", null, "O"}
+            },
+            new String [] {
+                "", "", "", "", "", "", "", ""
+            }));
+        TablaCargada();
     }//GEN-LAST:event_ButtonSeleccionaActionPerformed
 
     private void taula1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taula1MouseClicked
@@ -253,7 +271,7 @@ public class Damas_RecuperarCualquiera extends javax.swing.JFrame {
         try{
             sesion.beginTransaction();
             Query query;
-            query = sesion.createQuery("FROM Movimiento WHERE partida.idPartida = (SELECT MAX(partida.idPartida) FROM Movimiento)");
+            query = sesion.createQuery("FROM Movimiento WHERE partida.idPartida = " + Integer.parseInt(valor.getText()) );
             results = query.list();
             sesion.getTransaction().commit();
         } catch (HibernateException he){
