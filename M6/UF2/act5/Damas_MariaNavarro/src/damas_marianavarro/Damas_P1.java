@@ -116,6 +116,9 @@ public class Damas_P1 extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        Damas_cargarPartida damas_cargarpartida = new Damas_cargarPartida();
+        damas_cargarpartida.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
