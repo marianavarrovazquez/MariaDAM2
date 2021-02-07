@@ -5,6 +5,7 @@
  */
 package m9_activitat4_ivancasal_marianavarro;
 
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 
 /**
@@ -18,6 +19,11 @@ public class M9_Activitat4_apartado3_BFork extends RecursiveTask<Long>{
         this.n1 = n1;
         this.n2 = n2;
     }
+    
+    public static void main(String[] args) { 
+        ForkJoinPool pool = new ForkJoinPool();
+        System.out.println(pool.invoke(new M9_Activitat4_apartado3_BFork(6,7)));
+    }
 
     @Override
     protected Long compute() {
@@ -29,6 +35,4 @@ public class M9_Activitat4_apartado3_BFork extends RecursiveTask<Long>{
             return temporal.join();
         }
     }
-    
-    
 }
