@@ -16,11 +16,11 @@ public class M9_Activitat4_apartado3_ARecursiu {
         System.out.println(calculaValor(2,4));
     }
 
-    private static int calculaValor(int i, int j) {
-        if(i == 0) {
+    private static int calculaValor(int n, int x) {
+        if(n == 0) {
             return 1;
         } else {
-            return calculaValor(i - 1, j) * j;
+            return calculaValor(n-1, x)*x;
         }
     }
     
