@@ -184,8 +184,7 @@ public class Damas_RecuperarCualquiera extends javax.swing.JFrame {
     }//GEN-LAST:event_taulaMouseClicked
 
     private void ButtonContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonContinuarActionPerformed
-        // TODO add your handling code here:
-        
+
         //Compruebo si ya ha llegado al ultimo movimiento
         if (contador < results.size()) {
             moviment = (Movimiento) results.get(contador);
@@ -199,11 +198,12 @@ public class Damas_RecuperarCualquiera extends javax.swing.JFrame {
             dispose();
         }
 
+
     }//GEN-LAST:event_ButtonContinuarActionPerformed
 
     private void ButtonSeleccionaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSeleccionaActionPerformed
         // TODO add your handling code here:
-        int fila = taulaLlista.getSelectedRow();
+         int fila = taulaLlista.getSelectedRow();
         if(fila >= 0){
             valor.setText(taulaLlista.getValueAt(fila, 0).toString());
         } else {
@@ -236,7 +236,6 @@ public class Damas_RecuperarCualquiera extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_ButtonSalir1ActionPerformed
 
-    
     private void TablaIds() {
         try{
             sesion.beginTransaction();
