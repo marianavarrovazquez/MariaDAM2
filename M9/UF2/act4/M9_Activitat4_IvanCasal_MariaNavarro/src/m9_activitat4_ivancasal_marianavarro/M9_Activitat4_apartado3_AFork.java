@@ -10,7 +10,7 @@ import java.util.concurrent.RecursiveTask;
 
 /**
  *
- * @author maria
+ * @author maria e ivan
  */
 public class M9_Activitat4_apartado3_AFork extends RecursiveTask<Long> {
 
@@ -21,7 +21,7 @@ public class M9_Activitat4_apartado3_AFork extends RecursiveTask<Long> {
         this.x = x;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) { 
         ForkJoinPool pool = new ForkJoinPool();
         System.out.println(pool.invoke(new M9_Activitat4_apartado3_AFork(15,55)));
     }
