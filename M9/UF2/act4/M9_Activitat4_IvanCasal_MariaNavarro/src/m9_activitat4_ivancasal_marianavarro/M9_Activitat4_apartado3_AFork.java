@@ -36,7 +36,13 @@ public class M9_Activitat4_apartado3_AFork extends RecursiveTask<Long> {
     
     @Override
     protected Long compute() {
-        
+        if (n == 0) {
+            return (long)1;
+        } else {
+            M9_Activitat4_apartado3_AFork temporal = new M9_Activitat4_apartado3_AFork(n-1, x);
+            temporal.fork();
+            return temporal.join() * x;
+        }
     }
     
 }
