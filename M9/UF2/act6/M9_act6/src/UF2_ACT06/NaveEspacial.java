@@ -6,13 +6,15 @@
 package UF2_ACT06;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.*;
 import javax.swing.*;
 
 
 /**
  *
- * @author Alumne
+ * @author Maria e Ivan
  */
 public class NaveEspacial extends javax.swing.JFrame {
     public NaveEspacial() {
@@ -47,7 +49,7 @@ public class NaveEspacial extends javax.swing.JFrame {
             }       
         NaveEspacial f = new NaveEspacial();
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setTitle("Naus Espaials");
+        f.setTitle("Naves Espaciales");
         f.setContentPane(new PanelNau());
         f.setSize(500, 500);
         f.setVisible(true);
@@ -55,10 +57,10 @@ public class NaveEspacial extends javax.swing.JFrame {
     }
 
 
-class PanelNau extends JPanel implements Runnable{
+class PanelNau extends JPanel implements Runnable, KeyListener{
     private int numNaus=3;    
     Nau[] nau;
-    
+    Nau naveMov;
     
     public PanelNau(){        
         nau = new Nau[numNaus];
@@ -71,6 +73,7 @@ class PanelNau extends JPanel implements Runnable{
             int dY=rand.nextInt(3)+1;
             nau[i]= new Nau(i,posX,posY,dX,dY,velocitat);
             }
+        naveMov = new Nau(3,200,550,0,0,100);
         Thread n = new Thread(this);
         n.start();   
         }
@@ -84,10 +87,33 @@ class PanelNau extends JPanel implements Runnable{
             }                   
         }
 
-    public void paintComponent(Graphics g) {
+    public synchronized void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for(int i=0; i<nau.length;++i) nau[i].pinta(g);
+        for(int i=0; i<nau.length;++i) {
+            nau[i].pinta(g);
+            naveMov.pinta(g);
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent ke) {
+    
+    }
+
+    @Override
+    public void keyPressed(KeyEvent ke) {
+        int teclaPulsada = ke.getKeyCode();
+        
+        if(teclaPulsada == 68){
+            naveMov.izquierda();
+        } else{
+            naveMov.derecha();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent ke) {
+        naveMov.parar();
     }
 
 
@@ -117,7 +143,7 @@ class Nau extends Thread {
         return v;
         }
     
-    public void moure (){
+    public synchronized  void moure (){
         x=x + dsx;
         y=y + dsy;
         // si arriva als marges ...
@@ -125,7 +151,7 @@ class Nau extends Thread {
         if ( y >= 400 - ty || y<=ty ) dsy = - dsy;
         }
     
-    public void pinta (Graphics g) {
+    public synchronized  void pinta (Graphics g) {
         Graphics2D g2d = (Graphics2D)g;
         g2d.drawImage(this.image, x, y, null);
         }
@@ -139,4 +165,5 @@ class Nau extends Thread {
             }
         }
     }
+}
 
