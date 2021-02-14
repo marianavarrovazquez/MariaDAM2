@@ -49,9 +49,9 @@ public class NaveEspacial extends javax.swing.JFrame {
             }       
         NaveEspacial f = new NaveEspacial();
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setTitle("Naves Espaciales");
+        f.setTitle("Naus Espaials");
         f.setContentPane(new PanelNau());
-        f.setSize(500, 500);
+        f.setSize(500, 550);
         f.setVisible(true);
         }
     }
@@ -73,7 +73,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
             int dY=rand.nextInt(3)+1;
             nau[i]= new Nau(i,posX,posY,dX,dY,velocitat);
             }
-        naveMov = new Nau(3,200,550,0,0,100);
+        naveMov = new Nau(3,200,450,0,0,100);
         Thread n = new Thread(this);
         n.start();   
         addKeyListener(this);
@@ -93,7 +93,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         super.paintComponent(g);
         for(int i=0; i<nau.length;++i) {
             nau[i].pinta(g);
-            naveMov.pinta(g);
+            naveMov.pinta2(g);
         }
     }
 
@@ -106,9 +106,9 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
     public void keyPressed(KeyEvent ke) {
         int teclaPulsada = ke.getKeyCode();
         
-        if(teclaPulsada == 68){
+        if(teclaPulsada == 37){
             naveMov.izquierda();
-        } else{
+        } else if (teclaPulsada == 39){
             naveMov.derecha();
         }
     }
@@ -138,7 +138,7 @@ class Nau extends Thread {
         this.dsy=dsy;
         this.v=v;
         image = new ImageIcon(Nau.class.getResource("millennium_falcon.png")).getImage();
-        image2 = new ImageIcon(Nau.class.getResource("nau.png")).getImage();
+        image2 = new ImageIcon(Nau.class.getResource("X-wing.png")).getImage();
         Thread t = new Thread(this);
         t.start();
         }
@@ -147,7 +147,7 @@ class Nau extends Thread {
         return v;
         }
     
-    public synchronized  void moure (){
+    public synchronized void moure (){
         x=x + dsx;
         y=y + dsy;
         // si arriva als marges ...
@@ -155,11 +155,15 @@ class Nau extends Thread {
         if ( y >= 400 - ty || y<=ty ) dsy = - dsy;
         }
     
-    public synchronized  void pinta (Graphics g) {
+    public synchronized void pinta (Graphics g) {
         Graphics2D g2d = (Graphics2D)g;
         g2d.drawImage(this.image, x, y, null);
-        }
+    }
     
+    public synchronized void pinta2 (Graphics g) {
+        Graphics2D g2d = (Graphics2D)g;
+        g2d.drawImage(this.image2, x, y, null);
+    }    
 
     public void run() {
         while (true) {
