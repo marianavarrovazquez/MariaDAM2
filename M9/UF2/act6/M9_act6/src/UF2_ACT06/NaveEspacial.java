@@ -76,6 +76,8 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         naveMov = new Nau(3,200,550,0,0,100);
         Thread n = new Thread(this);
         n.start();   
+        addKeyListener(this);
+        setFocusable(true);
         }
 
     public void run() {
@@ -126,6 +128,7 @@ class Nau extends Thread {
 
     private String img = "/images/nau.jpg";
     private Image image;
+    private Image image2;
 
     public Nau(int numero, int x, int y, int dsx, int dsy, int v ) {
         this.numero = numero;
@@ -135,6 +138,7 @@ class Nau extends Thread {
         this.dsy=dsy;
         this.v=v;
         image = new ImageIcon(Nau.class.getResource("millennium_falcon.png")).getImage();
+        image2 = new ImageIcon(Nau.class.getResource("nau.png")).getImage();
         Thread t = new Thread(this);
         t.start();
         }
@@ -163,6 +167,18 @@ class Nau extends Thread {
             try { Thread.sleep(this.v); } catch (Exception e) {}
             moure();
             }
+        }
+
+        private void izquierda() {
+            this.dsx = -10;
+        }
+
+        private void derecha() {
+            this.dsx = 10;
+        }
+
+        private void parar() {
+            this.dsx = 0;
         }
     }
 }
