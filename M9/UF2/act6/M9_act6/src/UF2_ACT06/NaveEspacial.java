@@ -71,9 +71,10 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
             int posY=rand.nextInt(100)+30;
             int dX=rand.nextInt(3)+1;
             int dY=rand.nextInt(3)+1;
-            nau[i]= new Nau(i,posX,posY,dX,dY,velocitat);
+            String nomNau = Integer.toString(i);
+            nau[i]= new Nau(nomNau,posX,posY,dX,dY,velocitat);
             }
-        naveMov = new Nau(3,200,450,0,0,100);
+        naveMov = new Nau("Navesita",200,440,0,0,100);
         Thread n = new Thread(this);
         n.start();   
         addKeyListener(this);
@@ -93,8 +94,8 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         super.paintComponent(g);
         for(int i=0; i<nau.length;++i) {
             nau[i].pinta(g);
-            naveMov.pinta2(g);
         }
+        naveMov.pinta(g);
     }
 
     @Override
@@ -120,7 +121,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
 
 
 class Nau extends Thread {
-    private int numero;
+    private String nomNau;
     private int x,y;
     private int dsx,dsy,v;
     private int tx = 10;
@@ -128,17 +129,20 @@ class Nau extends Thread {
 
     private String img = "/images/nau.jpg";
     private Image image;
-    private Image image2;
 
-    public Nau(int numero, int x, int y, int dsx, int dsy, int v ) {
-        this.numero = numero;
+    public Nau(String nomNau, int x, int y, int dsx, int dsy, int v ) {
+        this.nomNau = nomNau;
         this.x=x;
         this.y=y;
         this.dsx=dsx;
         this.dsy=dsy;
         this.v=v;
-        image = new ImageIcon(Nau.class.getResource("millennium_falcon.png")).getImage();
-        image2 = new ImageIcon(Nau.class.getResource("X-wing.png")).getImage();
+        if(nomNau.equals("Navesita")){
+            image = new ImageIcon(Nau.class.getResource("millennium_falcon.png")).getImage();
+        }else {
+            image = new ImageIcon(Nau.class.getResource("X-wing.png")).getImage();
+        }
+        
         Thread t = new Thread(this);
         t.start();
         }
@@ -159,26 +163,25 @@ class Nau extends Thread {
         Graphics2D g2d = (Graphics2D)g;
         g2d.drawImage(this.image, x, y, null);
     }
-    
-    public synchronized void pinta2 (Graphics g) {
-        Graphics2D g2d = (Graphics2D)g;
-        g2d.drawImage(this.image2, x, y, null);
-    }    
 
     public void run() {
         while (true) {
-            System.out.println("Movent nau numero " + this.numero);
+            System.out.println("Movent nau " + this.nomNau);
             try { Thread.sleep(this.v); } catch (Exception e) {}
             moure();
             }
         }
 
         private void izquierda() {
-            this.dsx = -10;
+            if(!(x <= 0 - tx)) {
+                this.dsx = -10;
+            }
         }
 
         private void derecha() {
-            this.dsx = 10;
+            if(!(x >= 440 - tx)) {
+                this.dsx = 10;
+            }
         }
 
         private void parar() {
