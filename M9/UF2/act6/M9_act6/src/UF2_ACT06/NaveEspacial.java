@@ -137,6 +137,7 @@ class Nau extends Thread {
         this.dsx=dsx;
         this.dsy=dsy;
         this.v=v;
+        
         if(nomNau.equals("Navesita")){
             image = new ImageIcon(Nau.class.getResource("millennium_falcon.png")).getImage();
         }else {
@@ -145,7 +146,7 @@ class Nau extends Thread {
         
         Thread t = new Thread(this);
         t.start();
-        }
+    }
     
     public int velocitat (){
         return v;
