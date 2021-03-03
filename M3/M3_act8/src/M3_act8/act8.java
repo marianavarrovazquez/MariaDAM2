@@ -199,6 +199,9 @@ public class act8 extends javax.swing.JFrame {
         // TODO add your handling code here:
         int fila = filaSeleccionada();
         int columna = columnaSeleccionada();
+        //le asignamos el numero que guarda la etiqueta de puntos  
+        int contadorPuntos = Integer.valueOf(jLabelPuntos.getText());
+        
       //Si la casilla tiene ?  
         if(jTable1.getValueAt(fila, columna) == "?") {
             jTable1.setValueAt(infoTabla[fila][columna], fila, columna);
@@ -221,7 +224,7 @@ public class act8 extends javax.swing.JFrame {
                 //si es menor le cambiamos el resultado
                 if(Integer.valueOf(jTFPuntos.getText()) < contador) {
                     jTFPuntos.setText(String.valueOf(contador));
-                    if(Integer.valueOf(jLabelPuntos.getText()) < contador) {
+                    if(contador > contadorPuntos) {
                         jLabelPuntos.setText(String.valueOf(contador));
                     }
                 }
