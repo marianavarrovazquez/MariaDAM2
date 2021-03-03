@@ -24,8 +24,6 @@ public class act8 extends javax.swing.JFrame {
      */
     public act8() {
         initComponents();
-      //Deshabilitamos la tabla antes de empezar a jugar
-        jTable1.setEnabled(false);
     }
 
     /**
@@ -189,8 +187,7 @@ public class act8 extends javax.swing.JFrame {
             jTable1.setEnabled(false);   
             jBEmpezar.setText("Empezar");
             contador = 0;
-            w = 0;
-            x = 0;
+            
           //Llamamos a los mentodos donde rellenamos la tabla y el que asignamos la letra que tocara en cada casilla   
             llenarInfo();
             llenarTabla();
@@ -201,7 +198,6 @@ public class act8 extends javax.swing.JFrame {
         // TODO add your handling code here:
         int fila = filaSeleccionada();
         int columna = columnaSeleccionada();
-//        int contadorPuntos;
         
       //Si la casilla tiene ?  
         if(jTable1.getValueAt(fila, columna) == "?") {
@@ -220,19 +216,7 @@ public class act8 extends javax.swing.JFrame {
                 if(Integer.valueOf(jTFPuntos.getText()) < contador) {
                     jTFPuntos.setText(String.valueOf(contador));
                 }
-            } else {
-              //le asignamos el numero que guarda la etiqueta de puntos  
-//                contadorPuntos = Integer.valueOf(jLabelPuntos.getText());
-                
-              //Si sale X comprobamos que el record no sea menor que el cotador
-                //si es menor le cambiamos el resultado
-                if(Integer.valueOf(jTFPuntos.getText()) < contador) {
-                    jTFPuntos.setText(String.valueOf(contador));
-                    jLabelPuntos.setText(String.valueOf(contador));
-                }
-//                if(Integer.valueOf(jTFPuntos.getText()) > Integer.valueOf(jLabelPuntos.getText())) {
-//                    jLabelPuntos.setText(String.valueOf(contador));
-//                }
+            } else {  
               //Saco mensaje por ventana de los puntos y deshabilito la tabla 
                 JOptionPane.showConfirmDialog(null,"Puntos: " + contador, "El juego del año", 
                     JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
@@ -243,14 +227,20 @@ public class act8 extends javax.swing.JFrame {
           //Si la casilla no es ? hacemos que salga una ventana con mensaje de error  
             JOptionPane.showConfirmDialog(null, "Error!! Esa casilla ya a sido descubierta", "El juego del año",
                     JOptionPane.ERROR_MESSAGE);
+        }  
+      //Compruebo que el record no sea menor que el contador y si es menor le cambiamos el resultado
+        if(contador > Integer.valueOf(jLabelPuntos.getText())) {
+           jLabelPuntos.setText(String.valueOf(contador));
         }
     }//GEN-LAST:event_jTable1MouseClicked
     
     private int filaSeleccionada() {
+      //Devuelvo la fila seleccionada  
         return jTable1.getSelectedRow();
     }
 
     private int columnaSeleccionada() {
+      //Devuelvo la columna seleccionada 
         return jTable1.getSelectedColumn();
     }
 
@@ -258,6 +248,8 @@ public class act8 extends javax.swing.JFrame {
       //creamos un random i un contador para el random  
         Random random = new Random();
         int contRandom;
+        w = 0;
+        x = 0;
       //Creamos dos bucles de 4 posiciones cada uno  
         for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 4; j++) {
