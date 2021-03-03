@@ -173,13 +173,15 @@ public class act8 extends javax.swing.JFrame {
             jBEmpezar.setText("Reinicia Pantalla");
         } else {
             if(Integer.valueOf(jLabelPuntos.getText()) < contador) {
-                jLabelPuntos.setText("Començar");
-                contador = 0;
-                x = 0;
-                x = 0;
-                omplirInfo();
-                omplirTaula();
+                jLabelPuntos.setText(String.valueOf(contador));
             }
+            jTable1.setEnabled(false);
+            jBEmpezar.setText("Començar");
+            contador = 0;
+            w = 0;
+            x = 0;
+            omplirInfo();
+            omplirTaula();
         }
     }//GEN-LAST:event_jBEmpezarActionPerformed
 
@@ -197,8 +199,8 @@ public class act8 extends javax.swing.JFrame {
                     contador = contador * 2;
                 }
             } else {
-                if(Integer.valueOf(jLabelPuntos.getText()) < contador) {
-                    jLabelPuntos.setText(String.valueOf(contador));
+                if(Integer.valueOf(jTFPuntos.getText()) < contador) {
+                    jTFPuntos.setText(String.valueOf(contador));
                 }
                 JOptionPane.showConfirmDialog(null,"Has hecho " + contador + " puntos", "The new Game of the year", 
                     JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
