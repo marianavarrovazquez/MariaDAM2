@@ -70,6 +70,8 @@ public class act8 extends javax.swing.JFrame {
 
         jLabel2.setText("Record: ");
 
+        jLabelPuntos.setText("0");
+
         jLabel3.setText("puntos");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -199,8 +201,7 @@ public class act8 extends javax.swing.JFrame {
         // TODO add your handling code here:
         int fila = filaSeleccionada();
         int columna = columnaSeleccionada();
-        //le asignamos el numero que guarda la etiqueta de puntos  
-        int contadorPuntos = Integer.valueOf(jLabelPuntos.getText());
+//        int contadorPuntos;
         
       //Si la casilla tiene ?  
         if(jTable1.getValueAt(fila, columna) == "?") {
@@ -220,17 +221,22 @@ public class act8 extends javax.swing.JFrame {
                     jTFPuntos.setText(String.valueOf(contador));
                 }
             } else {
+              //le asignamos el numero que guarda la etiqueta de puntos  
+//                contadorPuntos = Integer.valueOf(jLabelPuntos.getText());
+                
               //Si sale X comprobamos que el record no sea menor que el cotador
                 //si es menor le cambiamos el resultado
                 if(Integer.valueOf(jTFPuntos.getText()) < contador) {
                     jTFPuntos.setText(String.valueOf(contador));
-                    if(contador > contadorPuntos) {
-                        jLabelPuntos.setText(String.valueOf(contador));
-                    }
+                    jLabelPuntos.setText(String.valueOf(contador));
                 }
+//                if(Integer.valueOf(jTFPuntos.getText()) > Integer.valueOf(jLabelPuntos.getText())) {
+//                    jLabelPuntos.setText(String.valueOf(contador));
+//                }
               //Saco mensaje por ventana de los puntos y deshabilito la tabla 
                 JOptionPane.showConfirmDialog(null,"Puntos: " + contador, "El juego del año", 
                     JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
+                
                 jTable1.setEnabled(false);
             }
         } else {
