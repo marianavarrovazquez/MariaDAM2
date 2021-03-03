@@ -5,17 +5,28 @@
  */
 package M3_act8;
 
+import java.util.Random;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author maria
  */
 public class act8 extends javax.swing.JFrame {
 
+    int contador = 0;
+    int w;
+    int x;
+    String infoTabla[][] = new String[4][4];
+    
     /**
      * Creates new form act8
      */
     public act8() {
         initComponents();
+        omplirInfo();
+        omplirTaula();
+        jTable1.setEnabled(false);
     }
 
     /**
@@ -27,63 +38,221 @@ public class act8 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jBReinicia = new javax.swing.JButton();
+        jBEmpezar = new javax.swing.JButton();
         jBSortir = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        jTFPuntos = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabelPuntos = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jBReinicia.setText("Reinicia pantalla");
+        jBEmpezar.setText("Començar");
+        jBEmpezar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEmpezarActionPerformed(evt);
+            }
+        });
 
         jBSortir.setText("Sortir");
+        jBSortir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSortirActionPerformed(evt);
+            }
+        });
+
+        jTFPuntos.setEditable(false);
+        jTFPuntos.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setText("Punts:");
 
         jLabel2.setText("Rècord: ");
+
+        jLabel3.setText("punts");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "", "", "", ""
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.setRowHeight(50);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(322, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1)
+                        .addComponent(jTFPuntos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabelPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel3)))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jBSortir, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBReinicia, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(23, 23, 23))
+                        .addComponent(jBEmpezar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(76, 76, 76)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabelPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabelPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(jTFPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBReinicia, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBSortir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(jBSortir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBEmpezar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(47, 47, 47))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBSortirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSortirActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showConfirmDialog(null,
+            "Has hecho " + contador + " puntos", "The new Game of the year", JOptionPane.DEFAULT_OPTION,
+            JOptionPane.PLAIN_MESSAGE);
+        dispose();
+    }//GEN-LAST:event_jBSortirActionPerformed
+
+    private void jBEmpezarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEmpezarActionPerformed
+        // TODO add your handling code here:
+        if(jBEmpezar.getText().equalsIgnoreCase("començar")) {
+            jTable1.setEnabled(true);
+            jTFPuntos.setText(String.valueOf(0));
+            jBEmpezar.setText("Reinicia Pantalla");
+        } else {
+            if(Integer.valueOf(jLabelPuntos.getText()) < contador) {
+                jLabelPuntos.setText("Començar");
+                contador = 0;
+                x = 0;
+                x = 0;
+                omplirInfo();
+                omplirTaula();
+            }
+        }
+    }//GEN-LAST:event_jBEmpezarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int fila = filaClicada();
+        int columna = columnaClicada();
+        
+        if(jTable1.getValueAt(fila, columna) == "?") {
+            jTable1.setValueAt(infoTabla[fila][columna], fila, columna);
+            if("0".equals(infoTabla[fila][columna])){
+                contador++;
+            } else if("W".equals(infoTabla[fila][columna])) {
+                if (contador != 0) {
+                    contador = contador * 2;
+                }
+            } else {
+                if(Integer.valueOf(jLabelPuntos.getText()) < contador) {
+                    jLabelPuntos.setText(String.valueOf(contador));
+                }
+                JOptionPane.showConfirmDialog(null,"Has hecho " + contador + " puntos", "The new Game of the year", 
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
+                jTable1.setEnabled(false);
+            }
+        }
+        jLabelPuntos.setText(String.valueOf(contador));
+        System.out.println(contador);
+    }//GEN-LAST:event_jTable1MouseClicked
+    
+    private int filaClicada() {
+        return jTable1.getSelectedRow();
+    }
+
+    private int columnaClicada() {
+        return jTable1.getSelectedColumn();
+    }
+
+    private void omplirInfo() {
+        Random random = new Random();
+        int contRandom;
+        
+        for(int i = 0; i < 4; i++) {
+            for(int j = 0; j < 4; j++) {
+                contRandom = random.nextInt(3);
+                if(contRandom == 0){
+                    infoTabla[i][j] = "0";
+                } else if (contRandom == 1) {
+                    if(w != 3) {
+                        infoTabla[i][j] = "W";
+                        w++;
+                    } else {
+                        infoTabla[i][j] = "0";
+                    }
+                } else {
+                    if(x != 2) {
+                        infoTabla[i][j] = "X";
+                        x++;
+                    } else {
+                        infoTabla[i][j] = "0";
+                    }
+                }
+            }
+        }
+    }
+
+    private void omplirTaula() {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                jTable1.setValueAt("?", i, j);
+            }
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -120,11 +289,15 @@ public class act8 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBReinicia;
+    private javax.swing.JButton jBEmpezar;
     private javax.swing.JButton jBSortir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelPuntos;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTFPuntos;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
 }
