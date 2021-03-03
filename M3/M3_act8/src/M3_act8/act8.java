@@ -24,8 +24,6 @@ public class act8 extends javax.swing.JFrame {
      */
     public act8() {
         initComponents();
-        llenarInfo();
-        llenarTabla();
       //Deshabilitamos la tabla antes de empezar a jugar
         jTable1.setEnabled(false);
     }
@@ -172,7 +170,9 @@ public class act8 extends javax.swing.JFrame {
         
       //Si en el boton pone Empezar 
         if(jBEmpezar.getText().equalsIgnoreCase("Empezar")) {
-        //Se habilita la tabla, se pone a 0 el contador de puntos y cambiamos el texto del boton
+          //Llamamos a los mentodos donde rellenamos la tabla y el que asignamos la letra que tocara en cada casilla
+            llenarInfo();
+            llenarTabla();
             jTable1.setEnabled(true);
             jTFPuntos.setText(String.valueOf(0));
             jBEmpezar.setText("Reinicia Pantalla");
@@ -219,8 +219,11 @@ public class act8 extends javax.swing.JFrame {
             } else {
               //Si sale X comprobamos que el record no sea menor que el cotador
                 //si es menor le cambiamos el resultado
-                if(Integer.valueOf(jLabelPuntos.getText()) < contador) {
-                    jLabelPuntos.setText(String.valueOf(contador));
+                if(Integer.valueOf(jTFPuntos.getText()) < contador) {
+                    jTFPuntos.setText(String.valueOf(contador));
+                    if(Integer.valueOf(jLabelPuntos.getText()) < contador) {
+                        jLabelPuntos.setText(String.valueOf(contador));
+                    }
                 }
               //Saco mensaje por ventana de los puntos y deshabilito la tabla 
                 JOptionPane.showConfirmDialog(null,"Puntos: " + contador, "El juego del año", 
