@@ -24,8 +24,9 @@ public class act8 extends javax.swing.JFrame {
      */
     public act8() {
         initComponents();
-        omplirInfo();
-        omplirTaula();
+        llenarInfo();
+        llenarTabla();
+      //Deshabilitamos la tabla antes de empezar a jugar
         jTable1.setEnabled(false);
     }
 
@@ -50,14 +51,14 @@ public class act8 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jBEmpezar.setText("Començar");
+        jBEmpezar.setText("Empezar");
         jBEmpezar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBEmpezarActionPerformed(evt);
             }
         });
 
-        jBSortir.setText("Sortir");
+        jBSortir.setText("Salir");
         jBSortir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBSortirActionPerformed(evt);
@@ -67,11 +68,11 @@ public class act8 extends javax.swing.JFrame {
         jTFPuntos.setEditable(false);
         jTFPuntos.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("Punts:");
+        jLabel1.setText("Puntos:");
 
-        jLabel2.setText("Rècord: ");
+        jLabel2.setText("Record: ");
 
-        jLabel3.setText("punts");
+        jLabel3.setText("puntos");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -159,95 +160,124 @@ public class act8 extends javax.swing.JFrame {
 
     private void jBSortirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSortirActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showConfirmDialog(null,
-            "Has hecho " + contador + " puntos", "The new Game of the year", JOptionPane.DEFAULT_OPTION,
-            JOptionPane.PLAIN_MESSAGE);
+        
+      //Sacamos por pantalla una ventana que diga los puntos que hemos hecho y cerramos la ventana del juego   
+        JOptionPane.showConfirmDialog(null, "Puntos: " + contador, "El juego del año", 
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
         dispose();
     }//GEN-LAST:event_jBSortirActionPerformed
 
     private void jBEmpezarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEmpezarActionPerformed
         // TODO add your handling code here:
-        if(jBEmpezar.getText().equalsIgnoreCase("començar")) {
+        
+      //Si en el boton pone Empezar 
+        if(jBEmpezar.getText().equalsIgnoreCase("Empezar")) {
+        //Se habilita la tabla, se pone a 0 el contador de puntos y cambiamos el texto del boton
             jTable1.setEnabled(true);
             jTFPuntos.setText(String.valueOf(0));
             jBEmpezar.setText("Reinicia Pantalla");
         } else {
+        //Si en el boton pone Reiniciar Pantalla
             if(Integer.valueOf(jLabelPuntos.getText()) < contador) {
+            //Si la etiqueta de arriba que guarda los puntos es menor que el contador
+               //Cambiamos la etiqueta por el numero que guarda el contador
                 jLabelPuntos.setText(String.valueOf(contador));
             }
-            jTable1.setEnabled(false);
-            jBEmpezar.setText("Començar");
+          //Se deshabilita la tabla, cambiamos el texto del boton y ponemos a 0 todos los contadores
+            jTable1.setEnabled(false);   
+            jBEmpezar.setText("Empezar");
             contador = 0;
             w = 0;
             x = 0;
-            omplirInfo();
-            omplirTaula();
+          //Llamamos a los mentodos donde rellenamos la tabla y el que asignamos la letra que tocara en cada casilla   
+            llenarInfo();
+            llenarTabla();
         }
     }//GEN-LAST:event_jBEmpezarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
-        int fila = filaClicada();
-        int columna = columnaClicada();
-        
+        int fila = filaSeleccionada();
+        int columna = columnaSeleccionada();
+      //Si la casilla tiene ?  
         if(jTable1.getValueAt(fila, columna) == "?") {
             jTable1.setValueAt(infoTabla[fila][columna], fila, columna);
-            if("0".equals(infoTabla[fila][columna])){
+            if("O".equals(infoTabla[fila][columna])){
+              //Si sale O incremento el contador y cambio la etiqueta de los puntos al numero que guarda el contador  
                 contador++;
-            } else if("W".equals(infoTabla[fila][columna])) {
-                if (contador != 0) {
-                    contador = contador * 2;
-                }
-            } else {
                 if(Integer.valueOf(jTFPuntos.getText()) < contador) {
                     jTFPuntos.setText(String.valueOf(contador));
                 }
-                JOptionPane.showConfirmDialog(null,"Has hecho " + contador + " puntos", "The new Game of the year", 
+            } else if("W".equals(infoTabla[fila][columna])) {
+              //Si sale W multiplico por 2 el numero que guarda e contador y cambio la etiqueta de los puntos al numero que guarda el contador    
+                if (contador != 0) {
+                    contador = contador * 2;
+                }
+                if(Integer.valueOf(jTFPuntos.getText()) < contador) {
+                    jTFPuntos.setText(String.valueOf(contador));
+                }
+            } else {
+              //Si sale X comprobamos que el record no sea menor que el cotador
+                //si es menor le cambiamos el resultado
+                if(Integer.valueOf(jLabelPuntos.getText()) < contador) {
+                    jLabelPuntos.setText(String.valueOf(contador));
+                }
+              //Saco mensaje por ventana de los puntos y deshabilito la tabla 
+                JOptionPane.showConfirmDialog(null,"Puntos: " + contador, "El juego del año", 
                     JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
                 jTable1.setEnabled(false);
             }
+        } else {
+          //Si la casilla no es ? hacemos que salga una ventana con mensaje de error  
+            JOptionPane.showConfirmDialog(null, "Error!! Esa casilla ya a sido descubierta", "El juego del año",
+                    JOptionPane.ERROR_MESSAGE);
         }
-        jLabelPuntos.setText(String.valueOf(contador));
-        System.out.println(contador);
     }//GEN-LAST:event_jTable1MouseClicked
     
-    private int filaClicada() {
+    private int filaSeleccionada() {
         return jTable1.getSelectedRow();
     }
 
-    private int columnaClicada() {
+    private int columnaSeleccionada() {
         return jTable1.getSelectedColumn();
     }
 
-    private void omplirInfo() {
+    private void llenarInfo() {
+      //creamos un random i un contador para el random  
         Random random = new Random();
         int contRandom;
-        
+      //Creamos dos bucles de 4 posiciones cada uno  
         for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 4; j++) {
+              //Le asigno al contador un random del 0 al 3
                 contRandom = random.nextInt(3);
                 if(contRandom == 0){
-                    infoTabla[i][j] = "0";
+                  //Si el contador es 0, en la posicion que toque segun i, j le asignamos la letra O  
+                    infoTabla[i][j] = "O";
                 } else if (contRandom == 1) {
-                    if(w != 3) {
-                        infoTabla[i][j] = "W";
-                        w++;
-                    } else {
-                        infoTabla[i][j] = "0";
-                    }
-                } else {
+                  //Si el contador es 1 y el contador de la x no es 2  
                     if(x != 2) {
+                      //Le asignamos la letra X a la posicion que toque segun i, j y aumentamos el contador 
                         infoTabla[i][j] = "X";
                         x++;
                     } else {
-                        infoTabla[i][j] = "0";
+                        infoTabla[i][j] = "O";
+                    }
+                } else {
+                  //Si el contador no es 1 ni 0 y el contador de la w no es 3   
+                    if(w != 3) {
+                      //Le asignamos la letra W a la posicion que toque segun i, j y aumentamos el contador 
+                        infoTabla[i][j] = "W";
+                        w++;
+                    } else {
+                        infoTabla[i][j] = "O";
                     }
                 }
             }
         }
     }
 
-    private void omplirTaula() {
+    private void llenarTabla() {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 jTable1.setValueAt("?", i, j);
