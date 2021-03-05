@@ -110,6 +110,8 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
             naveMov.izquierda();
         } else if (teclaPulsada == 39){
             naveMov.derecha();
+        } else if (teclaPulsada == 32) {
+            naveMov.disparar();
         }
     }
 
@@ -128,6 +130,8 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
 
         private String img = "/images/nau.jpg";
         private Image image;
+        
+        ArrayList<Shot> shot;
 
         public Nau(String nomNau, int x, int y, int dsx, int dsy, int v ) {
             this.nomNau = nomNau;
@@ -136,6 +140,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
             this.dsx=dsx;
             this.dsy=dsy;
             this.v=v;
+            this.shot = new ArrayList<>();
 
             if(nomNau.equals("Navesita")){
                 image = new ImageIcon(Nau.class.getResource("millennium_falcon.png")).getImage();
@@ -187,6 +192,10 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         private void parar() {
             this.dsx = 0;
         }
+        
+        public void disparar() {
+            shot.add(new Shot(this.x, this.y, 10));
+        }
     }
 
     class Shot extends Thread {
@@ -228,4 +237,3 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         }
     }
 }
-
