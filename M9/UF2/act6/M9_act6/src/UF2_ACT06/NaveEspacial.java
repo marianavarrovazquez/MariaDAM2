@@ -11,7 +11,6 @@ import java.awt.event.KeyListener;
 import java.util.*;
 import javax.swing.*;
 
-
 /**
  *
  * @author Maria e Ivan
@@ -19,7 +18,7 @@ import javax.swing.*;
 public class NaveEspacial extends javax.swing.JFrame {
     public NaveEspacial() {
         initComponents();
-        }
+    }
 
     @SuppressWarnings("unchecked")
     private void initComponents() {
@@ -32,7 +31,7 @@ public class NaveEspacial extends javax.swing.JFrame {
         layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGap(0, 300, Short.MAX_VALUE));
         pack();
-        }
+    }
     
     public static void main(String args[]) {
         try {
@@ -53,8 +52,8 @@ public class NaveEspacial extends javax.swing.JFrame {
         f.setContentPane(new PanelNau());
         f.setSize(500, 550);
         f.setVisible(true);
-        }
     }
+}
 
 
 class PanelNau extends JPanel implements Runnable, KeyListener{
@@ -79,7 +78,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         n.start();   
         addKeyListener(this);
         setFocusable(true);
-        }
+    }
 
     public void run() {
         System.out.println("Inici fil repintar");
@@ -87,8 +86,8 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
             try { Thread.sleep(100);} catch(Exception e) {} // espero 0,1 segons
             System.out.println("Repintant");
             repaint();            
-            }                   
-        }
+        }                   
+    }
 
     public synchronized void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -120,56 +119,56 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
     }
 
 
-class Nau extends Thread {
-    private String nomNau;
-    private int x,y;
-    private int dsx,dsy,v;
-    private int tx = 10;
-    private int ty = 10;
+    class Nau extends Thread {
+        private String nomNau;
+        private int x,y;
+        private int dsx,dsy,v;
+        private int tx = 10;
+        private int ty = 10;
 
-    private String img = "/images/nau.jpg";
-    private Image image;
+        private String img = "/images/nau.jpg";
+        private Image image;
 
-    public Nau(String nomNau, int x, int y, int dsx, int dsy, int v ) {
-        this.nomNau = nomNau;
-        this.x=x;
-        this.y=y;
-        this.dsx=dsx;
-        this.dsy=dsy;
-        this.v=v;
-        
-        if(nomNau.equals("Navesita")){
-            image = new ImageIcon(Nau.class.getResource("millennium_falcon.png")).getImage();
-        }else {
-            image = new ImageIcon(Nau.class.getResource("X-wing.png")).getImage();
-        }
-        
-        Thread t = new Thread(this);
-        t.start();
-    }
-    
-    public int velocitat (){
-        return v;
-        }
-    
-    public synchronized void moure (){
-        x=x + dsx;
-        y=y + dsy;
-        // si arriva als marges ...
-        if ( x>= 440 - tx || x<= tx) dsx = - dsx;
-        if ( y >= 400 - ty || y<=ty ) dsy = - dsy;
-        }
-    
-    public synchronized void pinta (Graphics g) {
-        Graphics2D g2d = (Graphics2D)g;
-        g2d.drawImage(this.image, x, y, null);
-    }
+        public Nau(String nomNau, int x, int y, int dsx, int dsy, int v ) {
+            this.nomNau = nomNau;
+            this.x=x;
+            this.y=y;
+            this.dsx=dsx;
+            this.dsy=dsy;
+            this.v=v;
 
-    public void run() {
-        while (true) {
-            System.out.println("Movent nau " + this.nomNau);
-            try { Thread.sleep(this.v); } catch (Exception e) {}
-            moure();
+            if(nomNau.equals("Navesita")){
+                image = new ImageIcon(Nau.class.getResource("millennium_falcon.png")).getImage();
+            }else {
+                image = new ImageIcon(Nau.class.getResource("X-wing.png")).getImage();
+            }
+
+            Thread t = new Thread(this);
+            t.start();
+        }
+
+        public int velocitat (){
+            return v;
+            }
+
+        public synchronized void moure (){
+            x=x + dsx;
+            y=y + dsy;
+            // si arriva als marges ...
+            if ( x>= 440 - tx || x<= tx) dsx = - dsx;
+            if ( y >= 400 - ty || y<=ty ) dsy = - dsy;
+        }
+
+        public synchronized void pinta (Graphics g) {
+            Graphics2D g2d = (Graphics2D)g;
+            g2d.drawImage(this.image, x, y, null);
+        }
+
+        public void run() {
+            while (true) {
+                System.out.println("Movent nau " + this.nomNau);
+                try { Thread.sleep(this.v); } catch (Exception e) {}
+                moure();
             }
         }
 
@@ -187,6 +186,45 @@ class Nau extends Thread {
 
         private void parar() {
             this.dsx = 0;
+        }
+    }
+
+    class Shot extends Thread {
+        ThreadGroup shot = new ThreadGroup("");
+        int x;
+        int y;
+        int velocidad;
+        private Image image;
+        boolean continuar = true;
+
+        public Shot (int x, int y, int velocidad) {
+            this.x = x;
+            this.y = y;
+            this.velocidad = velocidad;
+
+            image = new ImageIcon(Nau.class.getResource("disparo_laser.png")).getImage();
+
+            Thread t = new Thread(this);
+            t.start();
+        }
+        
+        public void run() {
+            int dsy = 30;
+            
+            int i = 0;
+            
+            while(continuar) {
+                try {
+                    Thread.sleep(this.velocidad);
+                }  catch (Exception e) {
+                }
+                y = y - dsy;
+            }
+        }
+        
+        public synchronized void pinta (Graphics g) {
+            Graphics2D g2d = (Graphics2D)g;
+            g2d.drawImage(this.image, x, y, null);
         }
     }
 }
