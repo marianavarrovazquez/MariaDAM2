@@ -6,6 +6,7 @@
 package m3_activitat9;
 
 import java.awt.Color;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -13,12 +14,33 @@ import javax.swing.table.DefaultTableModel;
  * @author maria
  */
 public class Escacs_Maria extends javax.swing.JFrame {
-
+    JTable tabla[][] = new JTable[8][8]; 
+    
     /**
      * Creates new form Escacs_Maria
      */
     public Escacs_Maria() {
         initComponents();
+        
+        //intento de hacer tabla cuadros blanco y negro
+//        for (int i = 0; i < 8; i++) {
+//            for (int j = 0; j < 8; j++) {
+//                if (i % 2 == 0) {
+//                    if (j % 2 != 0) {
+//                        tabla[i][j].setBackground(Color.BLACK);
+//                    } else {
+//                        tabla[i][j].setBackground(Color.WHITE);
+//                    }
+//                } else {
+//                    if (j % 2 == 0) {
+//                        tabla[i][j].setBackground(Color.BLACK);
+//                    } else {
+//                        tabla[i][j].setBackground(Color.WHITE);
+//                    }
+//                }
+//            }
+//        }
+        
         jTable2.setGridColor(Color.black);
         jTable2.setShowGrid(true);
         jTable2.setDefaultEditor(Object.class, null);
@@ -47,7 +69,6 @@ public class Escacs_Maria extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton1.setText("Reiniciar Partida");
 
-        jTable2.setAutoCreateRowSorter(true);
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -113,8 +134,6 @@ public class Escacs_Maria extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jTable2MouseClicked
 
-    
-    
     private void llenarTabla() {
         DefaultTableModel model = new DefaultTableModel();
         char nombreColumna = 65;
@@ -141,6 +160,7 @@ public class Escacs_Maria extends javax.swing.JFrame {
         
         jTable2.setModel(model);
     }
+        
     /**
      * @param args the command line arguments
      */
