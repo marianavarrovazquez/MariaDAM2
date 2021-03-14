@@ -13,7 +13,7 @@ import javax.swing.*;
 
 /**
  *
- * @author Maria e Ivan
+ * @author Maria Navarro
  */
 public class NaveEspacial extends javax.swing.JFrame {
     public NaveEspacial() {
@@ -60,6 +60,11 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
     private int numNaus=3;    
     Nau[] nau;
     Nau naveMov;
+    private static int cont = 0;
+    Disparo[] disparos = new Disparo[8];
+    Disparo disparo;
+    int bala;
+    
     
     public PanelNau(){        
         nau = new Nau[numNaus];
@@ -72,7 +77,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
             int dY=rand.nextInt(3)+1;
             String nomNau = Integer.toString(i);
             nau[i]= new Nau(nomNau,posX,posY,dX,dY,velocitat);
-            }
+        }
         naveMov = new Nau("Navesita",200,440,0,0,100);
         Thread n = new Thread(this);
         n.start();   
@@ -95,8 +100,34 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
             nau[i].pinta(g);
         }
         naveMov.pinta(g);
+        
+        try {
+           matar(); 
+        } catch (InterruptedException ie) {
+            ie.printStackTrace();
+        }
+        
+        for(int i=0; i<disparos.length; i++) {
+            if (disparos[i] != null) {
+                bala = disparos[i].getY();
+                if (bala <= 0) {
+                    disparos[i].setContinuar(false);
+                    disparos[i]=null;
+                }else{
+                    disparos[i].pintaDisparo(g);
+                }
+            }
+        }
     }
 
+    public static int getCont() {
+        return cont;
+    }
+
+    public static void setCont(int cont) {
+        PanelNau.cont = cont;
+    }
+    
     @Override
     public void keyTyped(KeyEvent ke) {
     
@@ -120,6 +151,11 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         naveMov.parar();
     }
 
+    private void matar() {
+        
+        
+    }
+
 
     class Nau extends Thread {
         private String nomNau;
@@ -131,7 +167,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         private String img = "/images/nau.jpg";
         private Image image;
         
-        ArrayList<Shot> shot;
+//        ArrayList<Shot> shot;
 
         public Nau(String nomNau, int x, int y, int dsx, int dsy, int v ) {
             this.nomNau = nomNau;
@@ -140,7 +176,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
             this.dsx=dsx;
             this.dsy=dsy;
             this.v=v;
-            this.shot = new ArrayList<>();
+//            this.shot = new ArrayList<>();
 
             if(nomNau.equals("Navesita")){
                 image = new ImageIcon(Nau.class.getResource("millennium_falcon.png")).getImage();
@@ -198,15 +234,15 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         }
     }
 
-    class Shot extends Thread {
-        ThreadGroup shot = new ThreadGroup("");
+    class Disparo extends Thread {
+        ThreadGroup disparo = new ThreadGroup("");
         int x;
         int y;
         int velocidad;
         private Image image;
-        boolean continuar = true;
+        private boolean continuar = true;
 
-        public Shot (int x, int y, int velocidad) {
+        public Disparo (int x, int y, int velocidad) {
             this.x = x;
             this.y = y;
             this.velocidad = velocidad;
@@ -219,21 +255,45 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         
         public void run() {
             int dsy = 30;
-            
             int i = 0;
+            y = y - dsy;
             
             while(continuar) {
                 try {
                     Thread.sleep(this.velocidad);
-                }  catch (Exception e) {
-                }
-                y = y - dsy;
+                }  catch (Exception e) {}
+                if (y<= 0) {
+                    if (i < 1) {
+                        PanelNau.setCont(0);
+                        i++;
+                    }
+                }    
             }
         }
-        
-        public synchronized void pinta (Graphics g) {
+
+        public void setContinuar(boolean continuar) {
+            this.continuar = continuar;
+        }
+                
+        public synchronized void pintaDisparo (Graphics g) {
             Graphics2D g2d = (Graphics2D)g;
-            g2d.drawImage(this.image, x, y, null);
+            g2d.drawImage(this.image, this.x, this.y, null);
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public void setX(int x) {
+            this.x = x;
+        }
+
+        public int getY() {
+            return y;
+        }
+
+        public void setY(int y) {
+            this.y = y;
         }
     }
 }
