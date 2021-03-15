@@ -296,7 +296,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         private int y;
         private int velocidad;
         private int i = 0;
-        private Image image;
+        private Image imageLaser;
         private boolean continuar = true;
 
         public Disparo (int x, int y, int velocidad) {
@@ -304,7 +304,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
             this.y = y;
             this.velocidad = velocidad;
 
-            image = new ImageIcon(Nau.class.getResource("disparo_laser.png")).getImage();
+            imageLaser = new ImageIcon(Nau.class.getResource("disparo_laser.png")).getImage();
 
             Thread t = new Thread(this);
             t.start();
@@ -336,7 +336,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
                 
         public synchronized void pintaDisparo (Graphics g) {
             Graphics2D g2d = (Graphics2D)g;
-            g2d.drawImage(this.image, this.x, this.y, null);
+            g2d.drawImage(this.imageLaser, this.x, this.y, null);
         }
 
         public int getX() {
