@@ -17,8 +17,6 @@ import javax.swing.*;
  */
 public class NaveEspacial extends javax.swing.JFrame {
     
-    ThreadGroup disparo = new ThreadGroup("");
-    
     public NaveEspacial() {
         initComponents();
     }
@@ -294,7 +292,6 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
     }
 
     class Disparo extends Thread {
-        ThreadGroup disparo = new ThreadGroup("");
         private int x;
         private int y;
         private int velocidad;
@@ -309,7 +306,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
 
             image = new ImageIcon(Nau.class.getResource("disparo_laser.png")).getImage();
 
-            Thread t = new Thread(disparo, this);
+            Thread t = new Thread(this);
             t.start();
         }
         
