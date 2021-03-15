@@ -103,11 +103,11 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
     
     public synchronized void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for(int i=0; i<nau.length;++i) 
+        for(int i=0; i<nau.length;++i) {
             if(nau[i] != null) {
                 nau[i].pinta(g);
             }
-        
+        }
         naveMov.pinta(g);
         
         try {
