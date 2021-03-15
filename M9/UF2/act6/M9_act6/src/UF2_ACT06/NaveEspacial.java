@@ -61,7 +61,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
     Nau[] nau;
     Nau naveMov;
     private static int cont = 0;
-    int bala;
+    int laser;
     Disparo[] disparos = new Disparo[10];
     Disparo disparo;
         
@@ -118,8 +118,8 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         
         for(int i=0; i<disparos.length; i++) {
             if (disparos[i] != null) {
-                bala = disparos[i].getY();
-                if (bala <= 0) {
+                laser = disparos[i].getY();
+                if (laser <= 0) {
                     disparos[i].setContinuar(false);
                     disparos[i]=null;
                 }else{
@@ -143,7 +143,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         } else if (teclaPulsada == 39){
             naveMov.derecha();
         } else if (teclaPulsada == 32) {
-            bala();
+            disparoLaser();
         }
     }
 
@@ -197,7 +197,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         
     }
 
-    private synchronized void bala() {
+    private synchronized void disparoLaser() {
         if(cont < 10) {
             if(disparos[cont] == null) {
                 disparos[cont] = new Disparo(naveMov.getX() + 25, naveMov.getY() - 10, naveMov.velocitat());
@@ -214,7 +214,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         private int ty = 10;
 
         private String img = "/images/nau.jpg";
-        private Image image;
+        private Image imageNau;
         
         private boolean continuar = true;
 
@@ -227,9 +227,9 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
             this.v=v;
 
             if(nomNau.equals("Navesita")){
-                image = new ImageIcon(Nau.class.getResource("millennium_falcon.png")).getImage();
+                imageNau = new ImageIcon(Nau.class.getResource("millennium_falcon.png")).getImage();
             }else {
-                image = new ImageIcon(Nau.class.getResource("X-wing.png")).getImage();
+                imageNau = new ImageIcon(Nau.class.getResource("X-wing.png")).getImage();
             }
 
             Thread t = new Thread(this);
@@ -258,7 +258,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
 
         public synchronized void pinta (Graphics g) {
             Graphics2D g2d = (Graphics2D)g;
-            g2d.drawImage(this.image, x, y, null);
+            g2d.drawImage(this.imageNau, x, y, null);
         }
 
         public void run() {
