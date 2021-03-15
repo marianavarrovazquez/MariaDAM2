@@ -228,7 +228,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
 
             if(nomNau.equals("Navesita")){
                 imageNau = new ImageIcon(Nau.class.getResource("millennium_falcon.png")).getImage();
-            }else {
+            } else {
                 imageNau = new ImageIcon(Nau.class.getResource("X-wing.png")).getImage();
             }
 
@@ -298,14 +298,16 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         private int i = 0;
         private Image imageLaser;
         private boolean continuar = true;
+        private String nomNau;
 
         public Disparo (int x, int y, int velocidad) {
             this.x = x;
             this.y = y;
             this.velocidad = velocidad;
+//            this.nomNau = nomNau;
 
             imageLaser = new ImageIcon(Nau.class.getResource("disparo_laser.png")).getImage();
-
+            
             Thread t = new Thread(this);
             t.start();
         }
