@@ -22,19 +22,22 @@ public class M9_UF3_Act2 {
         Scanner scan = new Scanner(System.in);
 
         try {
-                System.out.println("Escriu la url: ");
-                urlTeclado = scan.nextLine();
+            //Demana per pantalla la url i el llegeix
+            System.out.println("Escriu la url: ");
+            urlTeclado = scan.nextLine();
 
-                System.out.println("Escriu el port: ");
-                port = scan.nextInt();
+            //Demana per pantalla el port i el llegeix
+            System.out.println("Escriu el port: ");
+            port = scan.nextInt();
 
-                url = new URL("http", urlTeclado, port, "");
-
+            //Llegim l'url i el port
+            url = new URL("http", urlTeclado, port, "");
         } catch (MalformedURLException e) {e.printStackTrace(); }
 
         BufferedReader in;
 
         try{
+            //Treiem per pantalla l'informacio de l'url creada anteriorment
             InputStream inputStream = url.openStream();
             in = new BufferedReader(new InputStreamReader(inputStream));
 
