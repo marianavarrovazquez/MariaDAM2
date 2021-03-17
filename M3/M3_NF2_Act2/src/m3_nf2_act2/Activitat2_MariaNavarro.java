@@ -25,8 +25,6 @@ public class Activitat2_MariaNavarro {
             pedres = pedres - fila;
             fila = fila + 1;
             calcula(fila, pedres);
-            System.out.println("Si fila es mes petit que pedres: ");
-            System.out.println("Estem a la fila " + fila + " i queden " + pedres + " pedres\n");
         }
     }
    
