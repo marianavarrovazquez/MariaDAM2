@@ -21,7 +21,8 @@ public class M6UF3Act3 {
     static String URI = "xmldb:exist://localhost:8080/exist/xmlrpc/db";
     static String usu = "admin";
     static String usuPass = "alumne";
-        
+    static int numero = 0; 
+    
     public static void main(String[] args) throws XMLDBException {
         // TODO code application logic here
         
@@ -38,26 +39,31 @@ public class M6UF3Act3 {
         if (col == null){
             System.out.println("la coleccio no existeix");
         }
+        
+        
+        while (numero!=3){
+            System.out.println("Fica 0 per inserir");
+            System.out.println("Fica 1 per eliminar"); 
+            System.out.println("Fica 2 per modificar"); 
+            System.out.println("Fica 3 si no vols fer res"); 
 
-        System.out.println("1. Insereix");
-        System.out.println("2. Elimina"); 
-        System.out.println("3. Modifica"); 
-        
-        int numero = 0;
-        numero = sc.nextInt();
-        
-        if(numero == 1) {
-            insereixdep();
-        } else if(numero == 2) {
-            
-        } else if (numero == 3) {
-        
-        }else {}
+            numero = sc.nextInt();
+
+            if(numero == 0) {
+                insereix();
+            } else if(numero == 1) {
+                eliminar();
+            } else if (numero == 2) {
+
+            }else {
+                
+            } 
+        }
             col.close(); 
         
     } 
     
-    public static void insereixdep() throws XMLDBException {
+    public static void insereix() throws XMLDBException {
         int num = 0;
         String localitat = null;
         String nom = null;
