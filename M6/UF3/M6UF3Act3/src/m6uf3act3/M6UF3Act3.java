@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package m6uf3act3;
 
 import java.io.BufferedReader;
@@ -19,23 +14,17 @@ import org.xmldb.api.modules.*;
  * @author maria
  */
 public class M6UF3Act3 {
-
-    /**
-     * @param args the command line arguments
-     */
-    
     static XPathQueryService servei;
     static Scanner sc = new Scanner(System.in);
-    
+    static String driver = "org.exist.xmldb.DatabaseImpl";
+    static Collection col = null;
+    static String URI = "xmldb:exist://localhost:8080/exist/xmlrpc/db";
+    static String usu = "admin";
+    static String usuPass = "alumne";
+        
     public static void main(String[] args) throws XMLDBException {
         // TODO code application logic here
-        String driver = "org.exist.xmldb.DatabaseImpl";
-        Collection col = null;
-        String URI = "xmldb:exist://localhost:8080/exist/xmlrpc/db";
-        String usu = "admin";
-        String usuPass = "alumne";
         
-       
         try {
             Class cl = Class.forName(driver);
             Database database = (Database) cl.newInstance();
@@ -44,37 +33,28 @@ public class M6UF3Act3 {
             System.out.println("Error en iniciar eXistdb" + e);
         }
         
-        System.out.println("Escriu un departament");
-        String s = null;
-        
-        try{
-            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-            s = in.readLine();
-        } catch (IOException e) {
-            System.out.println("Error en llegir");
-            e.printStackTrace();
-        }
-        int dep = Integer.parseInt(s);
-        
-        insereixdep();
-       
         col = DatabaseManager.getCollection(URI, usu, usuPass);
-        if (col == null)
-            System.out.println("la coleccio no existeix");
-       
         servei =(XPathQueryService) col.getService("XPathQueryService", "1.0");
-        ResourceSet result =
-                servei.query("for $em in /EMPLEADOS/EMP_ROW[DEPT_NO=20] return $em");
-       
-        ResourceIterator i;
-        i = result.getIterator();
-        if (!i.hasMoreResources())
-            System.out.println("la consulta no retorna res");
-        while (i.hasMoreResources()) {
-            Resource r = i.nextResource();
-            System.out.println("" + (String)r.getContent());
+        if (col == null){
+            System.out.println("la coleccio no existeix");
         }
-        col.close();
+
+        System.out.println("1. Insereix");
+        System.out.println("2. Elimina"); 
+        System.out.println("3. Modifica"); 
+        
+        int numero = 0;
+        numero = sc.nextInt();
+        
+        if(numero == 1) {
+            insereixdep();
+        } else if(numero == 2) {
+            
+        } else if (numero == 3) {
+        
+        }else {}
+            col.close(); 
+        
     } 
     
     public static void insereixdep() throws XMLDBException {
@@ -85,7 +65,7 @@ public class M6UF3Act3 {
         
         try{
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-            System.out.println("Introdueix el numero: ");
+            System.out.println("Introdueix el numero de departament: ");
             num = sc.nextInt();
             
             System.out.println("Introdueix el nom: ");
@@ -99,13 +79,13 @@ public class M6UF3Act3 {
             e.printStackTrace();
         }
  
-        ResourceSet result2 = servei.query("for $em in /departamentos/DEP_ROW[DEPT_NO=" +(Integer) num + "] return $em");
+        ResourceSet result2 = servei.query("for $dep in /departamentos/DEP_ROW[DEPT_NO = " +(Integer) num + "] return $dep");
         
         ResourceIterator i;
         i = result2.getIterator();
         if (!i.hasMoreResources()){
-           result = servei.query("update insert <departament><DEP_ROW><DEPT_NO = "+ (Integer) num+">");
-            
+           result = servei.query("update insert <DEP_ROW><DEPT_NO>"+(Integer) num + "</DEPT_NO><DNOMBRE>" + nom + "</DNOMBRE><LOC>"+ localitat + "</LOC></DEP_ROW> into /departamentos");
+        } else { 
             System.out.println("la consulta no retorna res");
         }    
         while (i.hasMoreResources()) {
