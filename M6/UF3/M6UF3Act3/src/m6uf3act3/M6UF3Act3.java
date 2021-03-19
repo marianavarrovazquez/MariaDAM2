@@ -24,8 +24,6 @@ public class M6UF3Act3 {
     static int numero = 0; 
     
     public static void main(String[] args) throws XMLDBException {
-        // TODO code application logic here
-        
         try {
             Class cl = Class.forName(driver);
             Database database = (Database) cl.newInstance();
@@ -38,8 +36,7 @@ public class M6UF3Act3 {
         servei =(XPathQueryService) col.getService("XPathQueryService", "1.0");
         if (col == null){
             System.out.println("la coleccio no existeix");
-        }
-        
+        }        
         
         while (numero!=3){
             System.out.println("Fica 0 per inserir");
@@ -55,12 +52,11 @@ public class M6UF3Act3 {
                 eliminar();
             } else if (numero == 2) {
                 modificar();
-            }else {
+            } else {
                 
             } 
         }
-            col.close(); 
-        
+        col.close(); 
     } 
     
     public static void insereix() throws XMLDBException {
@@ -88,14 +84,11 @@ public class M6UF3Act3 {
         ResourceSet result2 = servei.query("for $dep in /departamentos/DEP_ROW[DEPT_NO = " + num + "] return $dep");
         
         ResourceIterator i;
-        i = result2.getIterator();
+        i = result2.getIterator();        
         if (!i.hasMoreResources()){
            result = servei.query("update insert <DEP_ROW><DEPT_NO>"+ num + "</DEPT_NO><DNOMBRE>" + nom + "</DNOMBRE><LOC>"+ localitat + "</LOC></DEP_ROW> into /departamentos");
         } else { 
-            System.out.println("la consulta no retorna res");
-        }    
-        while (i.hasMoreResources()) {
-            
+           System.out.println("la consulta no retorna res perque ja existeix el departament");
         }
     }
 
@@ -113,11 +106,49 @@ public class M6UF3Act3 {
         if (i.hasMoreResources()){
            result = servei.query("update delete /departamentos/DEP_ROW[DEPT_NO = " + num + "]");
         } else { 
-            System.out.println("la consulta no retorna res");
+           System.out.println("la consulta no retorna res perque no existeix el departament");
         }    
     }
 
     private static void modificar() throws XMLDBException {
+        int num = 0;
+        String localitat = null;
+        String nom = null;
+        ResourceSet result;
+        ResourceSet result2;
+        ResourceSet result3;
         
+        try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("Introdueix el numero de departament: ");
+            num = sc.nextInt();
+            
+            System.out.println("Introdueix el nou nom del departament: ");
+            nom = in.readLine();
+            
+            System.out.println("Introdueix la nova localitat del departament: ");
+            localitat = in.readLine();
+            
+        } catch (IOException e) {
+            System.out.println("Error en llegir");
+            e.printStackTrace();
+        }
+        
+        result = servei.query("for $dep in /departamentos/DEP_ROW[DEPT_NO = " + num + "] return $dep");
+        
+        ResourceIterator i;
+        i = result.getIterator();
+        if (i.hasMoreResources()){
+            result2 = servei.query("for $dep in /departamentos/DEP_ROW[DEPT_NO = " + num + "] return $dep");
+            
+            i = result2.getIterator();            
+            while (i.hasMoreResources()) {
+                Resource resource = i.nextResource();
+                result = servei.query("update replace /departamentos/DEP_ROW[DEPT_NO = " + num + "]/DNOMBRE with <DNOMBRE>" + nom + "</DNOMBRE>");
+                result3 = servei.query("update replace /departamentos/DEP_ROW[DEPT_NO = " + num + "]/LOC with <LOC>" + localitat + "</LOC>");
+            }   
+        } else { 
+            System.out.println("la consulta no retorna res perque no existeix el departament");
+        }            
     }
 }
