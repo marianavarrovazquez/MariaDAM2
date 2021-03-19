@@ -54,7 +54,7 @@ public class M6UF3Act3 {
             } else if(numero == 1) {
                 eliminar();
             } else if (numero == 2) {
-
+                modificar();
             }else {
                 
             } 
@@ -85,12 +85,12 @@ public class M6UF3Act3 {
             e.printStackTrace();
         }
  
-        ResourceSet result2 = servei.query("for $dep in /departamentos/DEP_ROW[DEPT_NO = " +(Integer) num + "] return $dep");
+        ResourceSet result2 = servei.query("for $dep in /departamentos/DEP_ROW[DEPT_NO = " + num + "] return $dep");
         
         ResourceIterator i;
         i = result2.getIterator();
         if (!i.hasMoreResources()){
-           result = servei.query("update insert <DEP_ROW><DEPT_NO>"+(Integer) num + "</DEPT_NO><DNOMBRE>" + nom + "</DNOMBRE><LOC>"+ localitat + "</LOC></DEP_ROW> into /departamentos");
+           result = servei.query("update insert <DEP_ROW><DEPT_NO>"+ num + "</DEPT_NO><DNOMBRE>" + nom + "</DNOMBRE><LOC>"+ localitat + "</LOC></DEP_ROW> into /departamentos");
         } else { 
             System.out.println("la consulta no retorna res");
         }    
@@ -98,5 +98,26 @@ public class M6UF3Act3 {
             
         }
     }
-    
+
+    private static void eliminar() throws XMLDBException {
+        int num = 0;
+        ResourceSet result;
+        
+        System.out.println("Introdueix el numero de departament: ");
+        num = sc.nextInt();
+        
+        result = servei.query("for $dep in /departamentos/DEP_ROW[DEPT_NO = " + num + "] return $dep");
+        
+        ResourceIterator i;
+        i = result.getIterator();
+        if (i.hasMoreResources()){
+           result = servei.query("update delete /departamentos/DEP_ROW[DEPT_NO = " + num + "]");
+        } else { 
+            System.out.println("la consulta no retorna res");
+        }    
+    }
+
+    private static void modificar() throws XMLDBException {
+        
+    }
 }
