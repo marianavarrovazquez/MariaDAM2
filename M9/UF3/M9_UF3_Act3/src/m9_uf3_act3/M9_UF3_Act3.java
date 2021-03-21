@@ -17,15 +17,12 @@ public class M9_UF3_Act3 {
 
     @SuppressWarnings("rawtypes")
     public static void main (String[] args) {
-        Scanner scan = new Scanner(System.in);
-        String url = null;
-        int camps = 0;
-        String codi = null;        
+        String url = args[0];
+        int camps = Integer.parseInt(args[1]);
+        String codi = args[2];        
         
     try {
         String cadena;
-        System.out.println("Escriu la url: ");
-        url = scan.nextLine();
         
         URL urlSortida = new URL(url);
         URLConnection connexio = urlSortida.openConnection();
@@ -49,9 +46,6 @@ public class M9_UF3_Act3 {
             Map.Entry map = (Map.Entry) it.next();
             System.out.println(map.getKey() + ":" + map.getValue());
         }
-        
-        System.out.println("Escriu el nombre de camps que vols mostrar: ");
-        camps = scan.nextInt();
        
         System.out.println("===============================================================");
         System.out.println("Camps "+ camps +" de Capçalera");
@@ -62,9 +56,6 @@ public class M9_UF3_Act3 {
 
         System.out.println("Contingut de [url.getFile()]: " + urlSortida.getFile());
         BufferedReader pagina = new BufferedReader(new InputStreamReader(urlSortida.openStream()));
-
-        System.out.println("Escriu el codi del patro a buscar: ");
-        codi = scan.next();
         
         while ((cadena = pagina.readLine()) != null) {
             if(cadena.contains(codi.subSequence(0, codi.length()-1))) {
