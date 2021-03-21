@@ -11,7 +11,7 @@ import java.util.*;
 
 /**
  *
- * @author maria y ivan
+ * @author maria
  */
 public class M9_UF3_Act3 {
 
