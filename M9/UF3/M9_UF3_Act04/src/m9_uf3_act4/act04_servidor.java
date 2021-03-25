@@ -9,7 +9,7 @@ import java.net.*;
 
 /**
  *
- * @author maria
+ * @author maria i ivan
  */
 public class act04_servidor {
     
