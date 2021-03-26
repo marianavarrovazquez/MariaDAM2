@@ -42,14 +42,14 @@ public class DivisionTester {
 
                     div = num1 / num2;
 
-                    System.out.println(num1 + " / " + num2 + " is " + div );
+                    System.out.println(num1 + " / " + num2 + " is " + div + "\n");
                 }
 
             } catch (ArithmeticException a) {
-                System.out.println("You can't divide " + num1 + " by " + div);
+                System.out.println("You can't divide " + num1 + " by " + div + "\n");
             } catch (NumberFormatException n) {
                 System.out.println("You entered bad data.");
-                System.out.println("Please try again.");
+                System.out.println("Please try again.\n");
             }
         }
     }
