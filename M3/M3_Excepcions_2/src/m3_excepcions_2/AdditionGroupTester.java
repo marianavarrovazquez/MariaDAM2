@@ -13,6 +13,7 @@ public class AdditionGroupTester {
         String lista;
         int num = 0;
         int cont = 0;
+        
         FileReader fileReader = new FileReader("dades.txt");
         BufferedReader bufferedReader = new BufferedReader(fileReader);
 
@@ -21,12 +22,14 @@ public class AdditionGroupTester {
                 num = Integer.valueOf(lista);
                 cont = cont + num;
             } catch (Exception e) {
-                System.out.println(cont);
+                if (num != 0) {
+                    System.out.println("Sum = " + cont);
+                }                
                 cont = 0;
                 System.out.println(lista);
             }
         }
-        System.out.println(cont);
+        System.out.println("Sum = " + cont);
         bufferedReader.close();
     }
 }
