@@ -61,7 +61,7 @@ public class ClientFTP2 {
             } else {
                 System.out.println("Error en fer un logout... ");
             }
-            
+
             client.disconnect();
             System.out.println("Desconnectat... ");
 
