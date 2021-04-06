@@ -71,7 +71,7 @@ public class Activitat8 {
     private void sendPost() throws Exception {
         String url = "";
 
-        System.out.println("Indica la URL a cercar: ");
+        System.out.println("Introdueix la URL a cercar: ");
         url = scan.next();
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -82,8 +82,10 @@ public class Activitat8 {
         con.setRequestProperty("Accept-Language", "ca-es");
 
         //Query string
-        String urlParameters = "categoryid=7";
-
+        String urlParameters = "";//categoryid=7
+        System.out.println("Introdueix els parametres de la URL a cercar: ");
+        urlParameters = scan.next();
+        
         // Send post request
         con.setDoOutput(true);
         DataOutputStream wr = new DataOutputStream(con.getOutputStream());
