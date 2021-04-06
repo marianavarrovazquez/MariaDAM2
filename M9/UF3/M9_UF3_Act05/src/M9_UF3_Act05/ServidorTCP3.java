@@ -14,14 +14,14 @@ public class ServidorTCP3 {
         int port = 60000;
         ServerSocket servidor = new ServerSocket(port);
         String cadena = "";
-
-        System.out.println("3 clients com a maxim.");
-        int numClients = 3;
-
-        for (int i = 0; i < numClients; i++){
+        int clients = 3;
+        
+        System.out.println(clients + "clients");
+        
+        for (int i = 0; i < clients; i++){
             System.out.println("Esperant connexió... ");
             Socket clientConnectat = servidor.accept();
-            System.out.println("Client numero " + (i+1));
+            System.out.println("Client " + (i+1));
             System.out.println("Client connectat... ");
 
             PrintWriter fsortida = new PrintWriter(clientConnectat.getOutputStream(), true);

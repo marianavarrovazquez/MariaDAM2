@@ -18,13 +18,13 @@ public class ServidorTCP4 {
 
         Scanner scan = new Scanner(System.in);
 
-        System.out.print("Introdueix el numero de clients maxim : ");
-        int numClients = scan.nextInt();
+        System.out.print("Introdueix el numero de clients: ");
+        int clients = scan.nextInt();
 
-        for (int i = 0; i < numClients; i++){
+        for (int i = 0; i < clients; i++){
             System.out.println("Esperant connexió... ");
             Socket clientConnectat = servidor.accept();
-            System.out.println("Client numero " + (i+1));
+            System.out.println("Client " + (i+1));
             System.out.println("Client connectat... ");
 
             PrintWriter fsortida = new PrintWriter(clientConnectat.getOutputStream(), true);
