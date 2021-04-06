@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package m9_uf3_act06;
 
 import java.io.*;
@@ -28,8 +23,10 @@ public class ClientFTP2 {
         System.out.println("Ens connectem al servidor: "+ serverFTP);
 
         //Usuari FTP
-        String usuari = "anonymous";
-        String contrasenya = "guest";
+        System.out.print("Introdueix usuari: ");
+	String usuari = scan.nextLine(); //anonymous
+	System.out.print("Introdueix contrasenya: ");
+	String contrasenya = scan.nextLine(); //guest
 
         try {
             client.connect(serverFTP);
@@ -67,7 +64,6 @@ public class ClientFTP2 {
 
         } catch (IOException ioe) {
             ioe.printStackTrace();
-
         }
     }
 }
