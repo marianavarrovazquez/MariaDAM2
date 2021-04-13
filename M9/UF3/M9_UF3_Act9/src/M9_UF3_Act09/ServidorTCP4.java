@@ -13,25 +13,26 @@ public class ServidorTCP4 implements Runnable {
     
     Socket client;
     ServerSocket server;
-    static int num;
+    static int numClients;
     String cadena = "";
 
     public ServidorTCP4(Socket client, ServerSocket server) {
         this.client = client;
         this.server = server;
-        this.num++;
+        this.numClients++;
     }
     	
     public static void main (String[] args) throws Exception {
+        Scanner scan = new Scanner(System.in);
         int port = 60000;
         ServerSocket servidor = new ServerSocket(port);
-        Scanner scan = new Scanner(System.in);
+        String cadena = "";
 
         System.out.print("Introdueix el numero de clients: ");
-        int clients = scan.nextInt();
+        int numClients = scan.nextInt();
 
-        Runnable[] arrayRunnable = new Runnable[num];
-        Thread[] arrayThread = new Thread[num];
+        Runnable[] arrayRunnable = new Runnable[numClients];
+        Thread[] arrayThread = new Thread[numClients];
         
         for (int i = 0; i < arrayRunnable.length; i++){
             Socket client2 = servidor.accept();
@@ -45,18 +46,22 @@ public class ServidorTCP4 implements Runnable {
     public void run() {
         try {
             System.out.println("Esperant connexió... ");
-            System.out.println("Client " + this.num + " connectat");
 
-            PrintWriter fsortida = new PrintWriter(this.client.getOutputStream(), true);
+            PrintWriter fsortida = new PrintWriter(client.getOutputStream(), true);
+
+            System.out.println("Client " + this.numClients + " connectat... ");
 
             BufferedReader fentrada = new BufferedReader(new InputStreamReader(this.client.getInputStream()));
 
             while ((cadena = fentrada.readLine()) != null) {
                 fsortida.println(cadena);
                 System.out.println("Rebent: " + cadena);
-                if (cadena.equals("*")) break;
+                if (cadena.equals("*")){
+                    System.out.println("Connexió client tancada... ");
+                    break;
+                }
             }
-
+            
             fentrada.close();
             fsortida.close();
             this.client.close();
