@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package act01_maria;
 
 import ElsMeusBeans.Comanda;
@@ -15,6 +10,7 @@ import ElsMeusBeans.Producte;
 public class Act01_Maria {
     
     public static void main(String[] args) {
+        //Creo un array de 10 productes
         Producte[] producte = new Producte[10];
         producte[0] = new Producte(1, "Animal Crossing: New Horizons (Nintendo Switch)", 10, 3, 60);
         producte[1] = new Producte(2, "Just Dance 2021 (Nintendo Switch)", 9, 2, 40);
@@ -27,6 +23,7 @@ public class Act01_Maria {
         producte[8] = new Producte(9, "Pokémon: Espada (Nintendo Switch)", 9, 1, 56);
         producte[9] = new Producte(10, "Super Mario Party (Nintendo Switch)", 7, 6, 60);
         
+        //Creo un objecte de la clase Comanda
         Comanda comanda = new Comanda();
         
         for (int i = 0; i < producte.length; i++) {
@@ -37,8 +34,6 @@ public class Act01_Maria {
             } else {
                 System.out.println("No és necessari fer la comanda en producte: " + producte[i].getDescripcio());
             }
-        }
-        
-    }
-    
+        }        
+    }    
 }
