@@ -4,9 +4,17 @@
         <servlet-name>servletSesiones</servlet-name>
         <servlet-class>act2.servletSesiones</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>coreservlets.RegisterServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>servletSesiones</servlet-name>
         <url-pattern>/servletSesiones</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/RegisterServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

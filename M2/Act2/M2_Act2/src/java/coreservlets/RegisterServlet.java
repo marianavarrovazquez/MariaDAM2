@@ -3,20 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package act2;
+package coreservlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.xml.registry.infomodel.User;
 
 /**
  *
  * @author maria
  */
-public class servletSesiones extends HttpServlet {
+public class RegisterServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,23 +35,39 @@ public class servletSesiones extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet servletSesiones</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            if (request.getAttribute("nom") != null) {
-                
-            } else {
-                out.println("<h1></h1");
+        HttpSession session = request.getSession();
+        synchronized(session) {
+            @SuppressWarnings("unchecked")
+            List<String> previousItems = (List<String>)session.getAttribute("previousItems");
+            if (previousItems == null) {
+                previousItems = new ArrayList<String>();
             }
-            out.println("</body>");
-            out.println("</html>");
+            
+            response.setContentType("text/html");
+            PrintWriter out = response.getWriter();
+            
+            String firstName=request.getParameter("firstName");  
+            String lastName=request.getParameter("lastName");  
+            String email=request.getParameter("email");
+            
+            String title = "Registering with Sessions";
+            String docType =
+                "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 " + "Transitional//EN\">\n";
+            out.println(docType + "<HTML>\n" +
+                "<HEAD>"
+                    + "<TITLE>" + title + "</TITLE>"
+              + "</HEAD>\n" +
+                "<BODY BGCOLOR=\"#FDF5E6\">\n" +
+                    "<H1>" + title + "</H1>");
+            out.println("<UL>");
+            out.println("  <LI>"+ "<strong>First Name : </strong>" + firstName);
+            out.println("  <LI>"+ "<strong>Last Name : </strong>" + lastName);
+            out.println("  <LI>"+ "<strong>Email Address : </strong>" + email);
+            out.println("</UL>");
+            out.println("</BODY>" + "</HTML>");
         }
     }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -75,6 +96,7 @@ public class servletSesiones extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
     }
 
     /**
