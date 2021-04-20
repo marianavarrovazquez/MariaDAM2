@@ -28,8 +28,8 @@ public class VeureProductes {
         while (objects.hasNext()) {
             Producte pro = objects.next();
             System.out.println((i++) + "\t: " + pro.getDescripcio()
-                    + "*ESTOC.ACT: " + pro.getStockactual() + "*PVP: " + pro.getPvp() +
-                    "*ESTOC.MIN: " + pro.getStockminim());
+                    + " *ESTOC.ACT: " + pro.getStockactual() + " *PVP: " + pro.getPvp() +
+                    " *ESTOC.MIN: " + pro.getStockminim());
         }
         //Es tanca la base de dades
         odb.close();
