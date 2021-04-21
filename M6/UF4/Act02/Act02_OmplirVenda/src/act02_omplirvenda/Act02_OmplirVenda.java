@@ -43,7 +43,7 @@ public class Act02_OmplirVenda {
             quantitat = scan.nextInt();
             scan.nextLine();            
         }
-       
+        
         //Obrir la base de dades
         ODB odb = ODBFactory.open("Producte_com.BD");
         //Es comprova si n'hi ha el producte
