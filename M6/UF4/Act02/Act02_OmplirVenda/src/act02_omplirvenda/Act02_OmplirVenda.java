@@ -36,12 +36,10 @@ public class Act02_OmplirVenda {
             System.out.println("Introdueix el id del producte: ");
             
             idproducte = scan.nextInt();
-            scan.nextLine();
             
             System.out.println("Introdueix la quantitat del producte: ");
             
-            quantitat = scan.nextInt();
-            scan.nextLine();            
+            quantitat = scan.nextInt();            
         }
         
         //Obrir la base de dades
