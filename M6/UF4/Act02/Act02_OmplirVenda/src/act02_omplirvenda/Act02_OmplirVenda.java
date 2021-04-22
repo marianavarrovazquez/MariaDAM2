@@ -29,16 +29,16 @@ public class Act02_OmplirVenda {
         int quantitat;
         Scanner scan = new Scanner(System.in);
         
-        if (args.length > 0) {
-            idproducte = Integer.parseInt(args[0]);
-            quantitat = Integer.parseInt(args[1]);
-        } else {
+//        if (args.length > 0) {
+//            idproducte = Integer.parseInt(args[0]);
+//            quantitat = Integer.parseInt(args[1]);
+//        } else {
             System.out.println("Introdueix el id del producte: ");            
             idproducte = scan.nextInt();
             
             System.out.println("Introdueix la quantitat del producte: ");            
             quantitat = scan.nextInt();            
-        }
+//        }
         
         //Obrir la base de dades
         ODB odb = ODBFactory.open("Producte_com.BD");
