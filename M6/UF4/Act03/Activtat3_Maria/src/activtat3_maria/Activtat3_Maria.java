@@ -18,14 +18,18 @@ import java.util.ArrayList;
 public class Activtat3_Maria {
     public static void main(String[] args) {
         //*     MYSQL*/
-        String urldb = "jdbc:mysql://localhost/basedades";
-        String usuari = "";
+        String urldb = "jdbc:mysql://localhost:3306/basedades";
+        String usuari = "root";
         String contrasenya = "";
         String driver = "com.mysql.jdbc.Driver";
         
-        //Es crear un objecte BaseDades
+        //Es crea un objecte BaseDades
         BaseDades bd = new BaseDades(urldb, usuari, contrasenya, driver);
         bd.setCrearConnexio(); //Es crea la connexió a la base de dades
+        
+        //Variables per demanar les dades per teclat
+        int idproducte = 0;
+        int quantitat = 0;
         
         if (bd.getCrearConnexio()) {
             System.out.println("Connectat");
@@ -37,7 +41,7 @@ public class Activtat3_Maria {
             //Crea una venda
             System.out.println("======================================");
             System.out.println("ES CREA VENDA DE ID 3 AMB QUANTITAT 2");
-            CrearVenda(bd, 3, 2);//Si no hi ha estoc no es crea venda
+            CrearVenda(bd, idproducte, quantitat);//Si no hi ha estoc no es crea venda
             
             System.out.println("======================================");
             System.out.println("LLISTA DE PRODUCTES DESPRÉS DE CREAR VENDA");
@@ -105,17 +109,19 @@ public class Activtat3_Maria {
     private static void VeureVendes(BaseDades bd) {
         ArrayList <Venda> llista = new ArrayList<Venda>();
         llista = bd.consultaVen("SELECT * FROM VENDES");
-        if (llista != null) {
-            for (int i = 0; i<llista.size(); i++) {
-                Venda c = (Venda) llista.get(i);
-                Producte prod = bd.consultarUnProducte(c.getIdproducte());
-                System.out.println("ID Comanda=>" + c.getNumvenda()
-                + "* Producte:" + prod.getDescripcio() + "* Quantitat: "
-                + c.getQuantitat() + "* Data: " + c.getDatavenda());
-            }
+        for (int i = 0; i<llista.size(); i++) {
+            Venda c = (Venda) llista.get(i);
+            Producte prod = bd.consultarUnProducte(c.getIdproducte());
+            System.out.println("ID Comanda=>" + c.getNumvenda()
+            + "* Producte:" + prod.getDescripcio() + "* Quantitat: "
+            + c.getQuantitat() + "* Data: " + c.getDatavenda());
         }   
-    }
+    }//Fi VeureVendes
     
-    
-    
-}
+    //Obté la data actual
+    private static java.sql.Date getCurrentDate() {
+        java.util.Date avui = new java.util.Date();
+        return new java.sql.Date(avui.getTime());
+    }//Fi getCurrentDate
+   
+}//Fi Exemple
