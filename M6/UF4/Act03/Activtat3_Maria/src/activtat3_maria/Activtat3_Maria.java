@@ -63,10 +63,6 @@ public class Activtat3_Maria {
             System.out.println("LLISTA DE COMANDES");
             VeureComandes(bd);
             
-            System.out.println("======================================");
-            System.out.println("INSERIR PRODUCTE");
-//            InserirProducte(idproducte, descripcio, stockactual, stockminim, pvp);
-            
         } else System.out.println("NO connectat");
         //Tancar connexio
         bd.tancarConnexio();
@@ -136,9 +132,5 @@ public class Activtat3_Maria {
         java.util.Date avui = new java.util.Date();
         return new java.sql.Date(avui.getTime());
     }//Fi getCurrentDate
-
-    private static void InserirProducte(int idproducte, String descripcio, int stockactual, int stockminim, float pvp) {
-        
-    }//Fi InserirProducte
    
 }//Fi Exemple
