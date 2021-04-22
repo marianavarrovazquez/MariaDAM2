@@ -103,7 +103,17 @@ public class Activtat3_Maria {
     }//Fi VeureComandes
 
     private static void VeureVendes(BaseDades bd) {
-        
+        ArrayList <Venda> llista = new ArrayList<Venda>();
+        llista = bd.consultaVen("SELECT * FROM VENDES");
+        if (llista != null) {
+            for (int i = 0; i<llista.size(); i++) {
+                Venda c = (Venda) llista.get(i);
+                Producte prod = bd.consultarUnProducte(c.getIdproducte());
+                System.out.println("ID Comanda=>" + c.getNumvenda()
+                + "* Producte:" + prod.getDescripcio() + "* Quantitat: "
+                + c.getQuantitat() + "* Data: " + c.getDatavenda());
+            }
+        }   
     }
     
     
