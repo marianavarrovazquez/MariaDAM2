@@ -33,12 +33,10 @@ public class Act02_OmplirVenda {
             idproducte = Integer.parseInt(args[0]);
             quantitat = Integer.parseInt(args[1]);
         } else {
-            System.out.println("Introdueix el id del producte: ");
-            
+            System.out.println("Introdueix el id del producte: ");            
             idproducte = scan.nextInt();
             
-            System.out.println("Introdueix la quantitat del producte: ");
-            
+            System.out.println("Introdueix la quantitat del producte: ");            
             quantitat = scan.nextInt();            
         }
         
