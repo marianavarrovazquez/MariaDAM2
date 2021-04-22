@@ -10,6 +10,7 @@ import ElsMeusBeans.Comanda;
 import ElsMeusBeans.Producte;
 import ElsMeusBeans.Venda;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -30,6 +31,13 @@ public class Activtat3_Maria {
         //Variables per demanar les dades per teclat
         int idproducte = 0;
         int quantitat = 0;
+        Scanner scan = new Scanner(System.in);
+        
+        System.out.println("Introdueix el id del producte: ");            
+        idproducte = scan.nextInt();
+
+        System.out.println("Introdueix la quantitat del producte: ");            
+        quantitat = scan.nextInt();
         
         if (bd.getCrearConnexio()) {
             System.out.println("Connectat");
@@ -54,6 +62,11 @@ public class Activtat3_Maria {
             System.out.println("======================================");
             System.out.println("LLISTA DE COMANDES");
             VeureComandes(bd);
+            
+            System.out.println("======================================");
+            System.out.println("INSERIR PRODUCTE");
+//            InserirProducte(idproducte, descripcio, stockactual, stockminim, pvp);
+            
         } else System.out.println("NO connectat");
         //Tancar connexio
         bd.tancarConnexio();
@@ -123,5 +136,9 @@ public class Activtat3_Maria {
         java.util.Date avui = new java.util.Date();
         return new java.sql.Date(avui.getTime());
     }//Fi getCurrentDate
+
+    private static void InserirProducte(int idproducte, String descripcio, int stockactual, int stockminim, float pvp) {
+        
+    }//Fi InserirProducte
    
 }//Fi Exemple
