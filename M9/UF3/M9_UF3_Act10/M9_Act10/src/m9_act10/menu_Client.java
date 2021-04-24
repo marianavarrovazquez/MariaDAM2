@@ -106,14 +106,17 @@ public class menu_Client extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BConectarActionPerformed
-            
+        String name = "";
         
         try {
             Socket client = new Socket(host, port);
             PrintWriter fsortida = new PrintWriter(client.getOutputStream(), true);
             if (tfNom.getText() != null) {
-                //Enviament cadena al servidor
-                fsortida.println(tfNom.getText());
+                if (tfNom.getText().startsWith("//name")) {
+                    //Enviament cadena al servidor
+                    name = tfNom.getText().subSequence(6, tfNom.getText().length()).toString();
+                    fsortida.println("Cliente " + tfNom.getText() + " conectado");
+                }
             }
         } catch (IOException ex) {
             Logger.getLogger(menu_Client.class.getName()).log(Level.SEVERE, null, ex);

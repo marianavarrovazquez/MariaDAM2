@@ -40,10 +40,13 @@ public class ServerChat implements Runnable{
         Runnable[] arrayRunnable = new Runnable[numClients];
         Thread[] arrayThread = new Thread[numClients];
         
+        
+        
         for (int i = 0; i < arrayRunnable.length; i++) {
             Socket client2 = servidor.accept();
             arrayRunnable[i] = new ServerChat(client2, servidor, registro);
             arrayThread[i] = new Thread(arrayRunnable[i]);
+            arrayThread[i].setName(registro);
             arrayThread[i].start();
         }
     }
@@ -55,11 +58,12 @@ public class ServerChat implements Runnable{
 
             PrintWriter fsortida = new PrintWriter(client.getOutputStream(), true);
 
-            System.out.println("Client " + this.numClients + " connectat... ");
+            System.out.println("Client " + registro + " connectat... ");
 
             BufferedReader fentrada = new BufferedReader(new InputStreamReader(this.client.getInputStream()));
 
             while ((cadena = fentrada.readLine()) != null) {
+                fsortida.println(registro);
                 fsortida.println(cadena);
                 System.out.println("Rebent: " + cadena);
                 if (cadena.equals("*")){
