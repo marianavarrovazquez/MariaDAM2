@@ -5,7 +5,9 @@
  */
 package m9_act10;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -20,15 +22,21 @@ public class menu_Client extends javax.swing.JFrame {
     String host = "localhost";
     int port = 60000;//Port remot    
     public PrintWriter fsortida;
+    public BufferedReader fentrada;
     Socket client = new Socket(host, port);
+    String name = "";
     
     /**
      * Creates new form Client
      */
     public menu_Client() throws IOException {
         initComponents();
+        jTextArea.setEditable(false);
+        tfText.setEditable(false);
         jBMensaje.setEnabled(false);
+        jBConsultar.setEnabled(false);
         fsortida = new PrintWriter(client.getOutputStream(), true);
+        fentrada = new BufferedReader(new InputStreamReader(client.getInputStream()));
     }
 
     /**
@@ -46,8 +54,8 @@ public class menu_Client extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         tfNom = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        tfNom1 = new javax.swing.JTextField();
+        jTextArea = new javax.swing.JTextArea();
+        tfText = new javax.swing.JTextField();
         jBMensaje = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jBConsultar = new javax.swing.JButton();
@@ -67,12 +75,16 @@ public class menu_Client extends javax.swing.JFrame {
 
         jLabel2.setText("Introdueix el teu nom per poder accedir:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setFocusable(false);
-        jScrollPane1.setViewportView(jTextArea1);
+        jTextArea.setColumns(20);
+        jTextArea.setRows(5);
+        jScrollPane1.setViewportView(jTextArea);
 
-        jBMensaje.setText("ENVIAR MISSATGE A UN GRUP");
+        jBMensaje.setText("ENVIAR MISSATGE");
+        jBMensaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBMensajeActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Introdueix el missatge que vols enviar:");
 
@@ -94,15 +106,15 @@ public class menu_Client extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(tfNom1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(tfText, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(tfNom, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BConectar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                            .addComponent(BConectar, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                            .addComponent(jBMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jBConsultar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -128,7 +140,7 @@ public class menu_Client extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfNom1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -149,16 +161,46 @@ public class menu_Client extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BConectarActionPerformed
-        String name = "";
+        
         if (tfNom.getText() != null) {
             if (tfNom.getText().startsWith("//name")) {
-                //Enviament cadena al servidor
+                //Enviament nom al servidor
                 name = tfNom.getText().subSequence(6, tfNom.getText().length()).toString();
                 fsortida.println(tfNom.getText());
+                tfNom.setText("");
                 jBMensaje.setEnabled(true);
+                jBConsultar.setEnabled(true);
+                tfText.setEditable(true);
             }
         }
     }//GEN-LAST:event_BConectarActionPerformed
+
+    private void jBMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMensajeActionPerformed
+        // TODO add your handling code here:
+        String cadena = tfText.getText();
+        if (cadena != "") {
+            try {
+                //Enviament cadena al servidor
+                jTextArea.append(cadena + "\n");
+                tfText.setText("");
+                fsortida.println(cadena);
+                
+                String mensRebut = fentrada.readLine();
+                if (!mensRebut.contains(name)) {
+                    jTextArea.append(mensRebut);
+                    System.out.println("entra");
+                }
+                mensRebut = "";
+                System.out.println(mensRebut);
+            } catch (IOException ex) {
+                Logger.getLogger(menu_Client.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if (cadena.equals("//sortir")) {
+            jTextArea.append("Finalització de l'enviament...");
+            fsortida.close();
+            dispose();
+        }
+    }//GEN-LAST:event_jBMensajeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,8 +251,8 @@ public class menu_Client extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea;
     private javax.swing.JTextField tfNom;
-    private javax.swing.JTextField tfNom1;
+    private javax.swing.JTextField tfText;
     // End of variables declaration//GEN-END:variables
 }

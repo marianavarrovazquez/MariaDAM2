@@ -64,8 +64,10 @@ public class ServerChat implements Runnable{
                 } else if (!cadena.equals("//sortir")) {
                     fsortida.println(cadena);
                     System.out.println("Rebent: " + cadena);
+                    //Retornem missatges
+                    fsortida.println("Missatge de " + this.registre + ": " + cadena);
                 } else if (cadena.equals("//sortir")){
-                    System.out.println("Connexió client tancada... ");
+                    System.out.println("Connexió " + this.registre + " client tancada... ");
                     break;
                 }
             }

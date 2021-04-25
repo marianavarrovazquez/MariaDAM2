@@ -49,7 +49,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="tfNom1" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="tfText" alignment="0" max="32767" attributes="0"/>
                                   <Component id="tfNom" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
@@ -58,8 +58,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="BConectar" max="32767" attributes="0"/>
-                              <Component id="jBMensaje" pref="226" max="32767" attributes="0"/>
+                              <Component id="BConectar" pref="226" max="32767" attributes="0"/>
+                              <Component id="jBMensaje" max="32767" attributes="0"/>
                               <Component id="jBConsultar" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -93,7 +93,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="tfNom1" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfText" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -134,21 +134,23 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTextArea" name="jTextArea1">
+            <Component class="javax.swing.JTextArea" name="jTextArea">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
-                <Property name="focusable" type="boolean" value="false"/>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JTextField" name="tfNom1">
+        <Component class="javax.swing.JTextField" name="tfText">
         </Component>
         <Component class="javax.swing.JButton" name="jBMensaje">
           <Properties>
-            <Property name="text" type="java.lang.String" value="ENVIAR MISSATGE A UN GRUP"/>
+            <Property name="text" type="java.lang.String" value="ENVIAR MISSATGE"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBMensajeActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
