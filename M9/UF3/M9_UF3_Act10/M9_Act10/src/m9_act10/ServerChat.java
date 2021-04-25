@@ -62,7 +62,7 @@ public class ServerChat implements Runnable{
                     this.registre = cadena.substring(7, cadena.length()).toString();
                     System.out.println("Client " + this.registre + " connectat... ");
                 } else if (!cadena.equals("//sortir")) {
-                    fsortida.println(cadena);
+//                    fsortida.println(cadena);
                     System.out.println("Rebent: " + cadena);
                     //Retornem missatges
                     fsortida.println("Missatge de " + this.registre + ": " + cadena);

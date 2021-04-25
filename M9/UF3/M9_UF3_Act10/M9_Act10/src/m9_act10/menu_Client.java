@@ -25,6 +25,7 @@ public class menu_Client extends javax.swing.JFrame {
     public BufferedReader fentrada;
     Socket client = new Socket(host, port);
     String name = "";
+    String name2 = "";
     
     /**
      * Creates new form Client
@@ -37,6 +38,7 @@ public class menu_Client extends javax.swing.JFrame {
         jBConsultar.setEnabled(false);
         fsortida = new PrintWriter(client.getOutputStream(), true);
         fentrada = new BufferedReader(new InputStreamReader(client.getInputStream()));
+        tfNom.setText("//name ");
     }
 
     /**
@@ -165,12 +167,12 @@ public class menu_Client extends javax.swing.JFrame {
         if (tfNom.getText() != null) {
             if (tfNom.getText().startsWith("//name")) {
                 //Enviament nom al servidor
-                name = tfNom.getText().subSequence(6, tfNom.getText().length()).toString();
+                name = tfNom.getText().subSequence(7, tfNom.getText().length()).toString();
                 fsortida.println(tfNom.getText());
-                tfNom.setText("");
                 jBMensaje.setEnabled(true);
                 jBConsultar.setEnabled(true);
                 tfText.setEditable(true);
+                tfNom.setEditable(false);
             }
         }
     }//GEN-LAST:event_BConectarActionPerformed
@@ -186,12 +188,13 @@ public class menu_Client extends javax.swing.JFrame {
                 fsortida.println(cadena);
                 
                 String mensRebut = fentrada.readLine();
+                
                 if (!mensRebut.contains(name)) {
                     jTextArea.append(mensRebut);
                     System.out.println("entra");
                 }
-                mensRebut = "";
                 System.out.println(mensRebut);
+                mensRebut = "";
             } catch (IOException ex) {
                 Logger.getLogger(menu_Client.class.getName()).log(Level.SEVERE, null, ex);
             }
