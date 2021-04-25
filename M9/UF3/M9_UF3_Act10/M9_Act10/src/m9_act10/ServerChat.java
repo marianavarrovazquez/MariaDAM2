@@ -19,13 +19,13 @@ public class ServerChat implements Runnable{
     ServerSocket server;
     static int numClients;
     String cadena = "";
-    static String registro="";
+    static String registre = "";
 
-    public ServerChat(Socket client, ServerSocket server, String registro) {
+    public ServerChat(Socket client, ServerSocket server, String registre) {
         this.client = client;
         this.server = server;
         this.numClients++;
-        this.registro = registro;
+        this.registre = registre;
     }
     	
     public static void main (String[] args) throws Exception {
@@ -40,13 +40,10 @@ public class ServerChat implements Runnable{
         Runnable[] arrayRunnable = new Runnable[numClients];
         Thread[] arrayThread = new Thread[numClients];
         
-        
-        
         for (int i = 0; i < arrayRunnable.length; i++) {
             Socket client2 = servidor.accept();
-            arrayRunnable[i] = new ServerChat(client2, servidor, registro);
+            arrayRunnable[i] = new ServerChat(client2, servidor, registre);
             arrayThread[i] = new Thread(arrayRunnable[i]);
-            arrayThread[i].setName(registro);
             arrayThread[i].start();
         }
     }
@@ -58,20 +55,20 @@ public class ServerChat implements Runnable{
 
             PrintWriter fsortida = new PrintWriter(client.getOutputStream(), true);
 
-            System.out.println("Client " + registro + " connectat... ");
-
             BufferedReader fentrada = new BufferedReader(new InputStreamReader(this.client.getInputStream()));
 
-            while ((cadena = fentrada.readLine()) != null) {
-                fsortida.println(registro);
-                fsortida.println(cadena);
-                System.out.println("Rebent: " + cadena);
-                if (cadena.equals("*")){
+            while ((cadena = fentrada.readLine()) != "") {                
+                if (cadena.startsWith("//name ")) {
+                    this.registre = cadena.substring(7, cadena.length()).toString();
+                    System.out.println("Client " + this.registre + " connectat... ");
+                } else if (!cadena.equals("//sortir")) {
+                    fsortida.println(cadena);
+                    System.out.println("Rebent: " + cadena);
+                } else if (cadena.equals("//sortir")){
                     System.out.println("Connexió client tancada... ");
                     break;
                 }
             }
-            
             fentrada.close();
             fsortida.close();
             this.client.close();
