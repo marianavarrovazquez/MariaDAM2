@@ -8,6 +8,10 @@
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>coreservlets.RegisterServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LinkedServlet</servlet-name>
+        <servlet-class>coreservlets.LinkedServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>servletSesiones</servlet-name>
         <url-pattern>/servletSesiones</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/RegisterServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LinkedServlet</servlet-name>
+        <url-pattern>/LinkedServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

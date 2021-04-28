@@ -7,21 +7,19 @@ package coreservlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.PreparedStatement;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.xml.registry.infomodel.User;
 
 /**
  *
  * @author maria
  */
-public class RegisterServlet extends HttpServlet {
+public class LinkedServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,16 +32,27 @@ public class RegisterServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");        
+        response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            request.getSession().setAttribute("firstName", new String(request.getParameter("firstName")));
-            request.getSession().setAttribute("lastName", new String(request.getParameter("lastName")));
-            request.getSession().setAttribute("email", new String(request.getParameter("email")));            
-            response.sendRedirect("jspRegister.jsp");
+            /* TODO output your page here. You may use following sample code. */
+            List<String> link = (List<String>)request.getSession().getAttribute("Anterior");
+
+            if (link == null){
+                link = new ArrayList<>();
+            }
+
+            URL url = new URL(request.getHeader("Referer"));
+            String newLink = url.getProtocol() + "://" + url.getAuthority() + url.getPath();
+
+            link.add(newLink);
+            request.getSession().setAttribute("Anterior", link);
+
+            for (int i = 0; i < link.size(); i++) {      
+                out.println(link.get(i));
+                out.println("<br>");
+            }
         }
-               
     }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -72,7 +81,6 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-
     }
 
     /**
