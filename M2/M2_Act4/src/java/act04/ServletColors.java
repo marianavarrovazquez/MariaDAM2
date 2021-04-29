@@ -32,13 +32,21 @@ public class ServletColors extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            String background = request.getParameter("background");
+            String foreground = request.getParameter("foreground");
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ServletColors</title>");            
+            out.println("<style>");
+            out.println("body {");
+            out.println("background: " + background + ";");
+            out.println("color: " + foreground + ";");
+            out.println("}");
+            out.println("<title>Servlet mostrarcolores</title>");            
+            out.println("</style>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ServletColors at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet mostrarcolores at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }

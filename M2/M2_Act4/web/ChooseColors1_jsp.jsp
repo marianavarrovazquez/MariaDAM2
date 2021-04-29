@@ -12,7 +12,7 @@
         <title>Choose Colors</title>
     </head>
      <body>
-        <form action="mostraColors" method="post">
+        <form action="ServletColors" method="post">
             <label>Foreground color</label>
             <input type="text" name="foregroundColor"/>
             <br>
