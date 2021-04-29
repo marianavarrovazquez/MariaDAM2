@@ -10,8 +10,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <style>
+            body {
+                <jsp:useBean id="segonPunt" class="act04.ColorBean" scope="session"/>
+                <jsp:setProperty name="segonPunt" property="*"/>
+                background-color: <jsp:getProperty name="segonPunt" property="backgroundColor"/>;
+                color: <jsp:getProperty name="segonPunt" property="foregroundColor"/>;    
+            }
+        </style>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Choose Colors (Segon Apartat)</h1>
     </body>
 </html>

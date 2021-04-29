@@ -10,9 +10,12 @@ package act04;
  * @author maria
  */
 public class ColorBean {
-    private String foregroundColor = "black";
-    private String backgroundColor = "white";
+    private String foregroundColor;
+    private String backgroundColor;
 
+    public ColorBean() {
+    }
+    
     public String getForegroundColor() {
         return foregroundColor;
     }
