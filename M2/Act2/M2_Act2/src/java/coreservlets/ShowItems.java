@@ -25,20 +25,35 @@ public class ShowItems extends HttpServlet {
     HttpSession session = request.getSession();
     synchronized(session) {
       @SuppressWarnings("unchecked")
+              
       List<String> previousItems =
         (List<String>)session.getAttribute("previousItems");
+      List<Integer> numeros = 
+              (List<Integer>)session.getAttribute("numeros");
       
-      int contador = 0;
-                
+      boolean bolean = false;
       if (previousItems == null) {
         previousItems = new ArrayList<String>();
+        numeros = new ArrayList<Integer>();
       }
+      
       String newItem = request.getParameter("newItem");
       if ((newItem != null) && (!newItem.trim().equals(""))) {
-        previousItems.add(newItem);
-        contador++;
+          for (int i = 0; i < previousItems.size(); i++) {
+              if (previousItems.get(i).equalsIgnoreCase(newItem) && bolean == false) {
+                  numeros.set(i, numeros.get(i) + 1);
+                  bolean = true;
+              }
+          }
+          if (bolean == false) {
+              previousItems.add(newItem);
+              numeros.add(1);
+          }
       }
+      
       session.setAttribute("previousItems", previousItems);
+      session.setAttribute("numeros", numeros);
+      
       response.setContentType("text/html");
       PrintWriter out = response.getWriter();
       String title = "Items Purchased";
@@ -50,19 +65,16 @@ public class ShowItems extends HttpServlet {
                   "<HEAD><TITLE>" + title + "</TITLE></HEAD>\n" +
                   "<BODY BGCOLOR=\"#FDF5E6\">\n" +
                   "<H1>" + title + "</H1>");
+      
       if (previousItems.size() == 0) {
         out.println("<I>No items</I>");
       } else {
         out.println("<UL>");
-        for(String item: previousItems) {
-            if (item == newItem) {
-                out.println("  <LI>" + item +"  (" + contador + ")");
-            } else { 
-                contador = 1;
-                out.println("  <LI>" + item +"  (" + contador + ")");
-            }
-            
+        
+        for(int i = 0; i < previousItems.size(); i++) {
+          out.println("  <LI>" + previousItems.get(i) + " (" + numeros.get(i) + ")</LI>");
         }
+        
         out.println("</UL>");
       }
       out.println("</BODY></HTML>");

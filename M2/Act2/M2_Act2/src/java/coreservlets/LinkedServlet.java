@@ -47,9 +47,18 @@ public class LinkedServlet extends HttpServlet {
             link.add(newLink);
             request.getSession().setAttribute("Anterior", link);
 
-            for (int i = 0; i < link.size(); i++) {      
-                out.println(link.get(i));
-                out.println("<br>");
+            String docType =
+                "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 " +
+                "Transitional//EN\">\n";
+                out.println(docType +
+                        "<HTML>\n" +
+                        "<BODY BGCOLOR=\"#FDF5E6\">\n" +
+                        "<ul>");
+            for (int i = 0; i < link.size(); i++) {    
+                out.println("<li>" +link.get(i) + "</li>");
+                if(i == link.size()) {
+                    out.println("</ul></body>");
+                }
             }
         }
     }
