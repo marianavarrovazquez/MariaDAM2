@@ -15,140 +15,102 @@ import java.util.Scanner;
  */
 public class ServerChat implements Runnable {
     
-    Socket client;
-    ServerSocket server;
+    Socket clientsocket;
+    ServerSocket serversocket;
+    Socket[] arraysocket;
     static int numClients;
-    static String cadena = "";
-    static int numClient = 1;
-    String name;
-            
-    Socket[] clientSocket;
-
-    public ServerChat(Socket client, ServerSocket server, Socket[] clientSocket) {
-        this.client = client;
-        this.server = server;
-        this.numClients++;
-        this.clientSocket = clientSocket;
+    String cadena = "";
+    
+    public ServerChat(Socket clientsocket, ServerSocket serversocket, Socket[] arraysocket) {
+        this.clientsocket = clientsocket;
+        this.serversocket = serversocket;
+        this.arraysocket = arraysocket;
+        numClients++;
     }
     	
     public static void main (String[] args) throws Exception {
-        Scanner scan = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         int port = 60000;
-    
-        ServerSocket serverSocket = new ServerSocket(port);
+        int clientsteclat;
+        ServerSocket serversocket2 = new ServerSocket(port);
+        boolean bolean = false;
 
-        System.out.print("Introdueix el numero de clients que pots atendre: ");
-        int numClients = scan.nextInt();
+        System.out.print("Introdueix el numero de clients: ");
+        clientsteclat = sc.nextInt();
 
-        ServerChat[] arrayRunnable = new ServerChat[numClients];
-        Thread[] arrayThread = new Thread[numClients];
-        Socket[] clientSocket = new Socket[numClients];
+        Socket[] arraysocket2 = new Socket[clientsteclat];
+        ServerChat[] arrayRunnable = new ServerChat[clientsteclat];
+        Thread[] arrayThread = new Thread[clientsteclat];
         
-        for (int i = 0; i < arrayRunnable.length; i++) {
-            boolean bolean = true;
-            boolean desconectar = false;
-            Socket client2 = null;
+        for (int i = 0; i < arrayRunnable.length; i++){
+            Socket clientsocket2 = serversocket2.accept();
             
-            try{
-                client2 = serverSocket.accept();
-                numClient = i;
-            } catch (SocketException e) {
-                bolean = false;
+            for (int j = 0; j < arraysocket2.length; j++) {
+		if (arraysocket2[i] == null && bolean == false) {
+                    arraysocket2[i] = clientsocket2;
+                    bolean = true;
+		}
             }
             
-            for (int j = 0; j < clientSocket.length; j++) {
-                if (clientSocket[i] == null && desconectar == false) {
-                    clientSocket[i] = client2;
-                    desconectar = true;
-                }
-            }
-            
-            if(bolean) {
-                arrayRunnable[i] = new ServerChat(client2, serverSocket, clientSocket);
-                arrayThread[i] = new Thread(arrayRunnable[i]);
-                arrayThread[i].start();
-            }
+            arrayRunnable[i] = new ServerChat(clientsocket2, serversocket2, arraysocket2);
+            arrayThread[i] = new Thread(arrayRunnable[i]);
+            arrayThread[i].start();
         }
-        
-        serverSocket.close();
     }
 
     @Override
     public void run() {
         boolean desconectar = false;
-        String cadenaName;
         
-        
-        while (!desconectar) {
-            try {           
+	while (!desconectar) {
+            try {
+                System.out.println("Esperant connexió... ");
                 PrintWriter fsortida = null;
                 BufferedReader fentrada = null;
-                System.out.println("Client " + numClient + " connectat... ");
+                System.out.println("Client " + this.numClients + " connectat... ");
+
                 try {
-                    fsortida = new PrintWriter(client.getOutputStream(), true);
-                    fentrada = new BufferedReader(new InputStreamReader(this.client.getInputStream()));
-                    fsortida.println("Connexio client " + numClient + " feta...");
-                    if ((cadena = fentrada.readLine()) != null && cadena.startsWith("//name ")) {
-                        String auxName = cadena.replace("//name", "");
-                        for (int i = 1; i < clientSocket.length; i++) {
-                            if (numClient != i) {
-                                if (name == null || !name.equals(auxName)) {
-                                    name = auxName;
-                                }
-                            }
-                        }
-                        
-                        if (clientSocket.length <= 1){
-                            name = auxName;
-                        }
-                        cadenaName= cadena.substring(7, cadena.length()).toString();
-                        System.out.println("Nom Client (" + numClient + "): " + cadenaName);
+                    fsortida = new PrintWriter(clientsocket.getOutputStream(), true);
+                    fentrada = new BufferedReader(new InputStreamReader(clientsocket.getInputStream()));
+
+                    if ((cadena = fentrada.readLine()) != null || cadena.startsWith("//name")) {
+                        System.out.println("Client " + this.numClients + " es diu " + cadena);
                     }
-                } catch (SocketException e) { 
+                    
+		} catch (Exception e) {
                     desconectar = true;
-                }
+		}
                 
-//              while(!desconectar) {
-                try {
-                    cadena = fentrada.readLine();
-                } catch (SocketException e) { 
-                    desconectar = true;
-                }
-
-                if (cadena == null && cadena.equals("//sortir")){
-                    System.out.println("Connexió " + name + " client tancada... ");
-                    desconectar = true;
-                }
-
-                if (!desconectar) {
+                while (!desconectar) {
+                    try {
+                        cadena = fentrada.readLine();
+                    } catch (SocketException e) {
+                        desconectar = true;
+                    }
+                    
                     fsortida.println(cadena);
-
-                    if (cadena != null && cadena.startsWith("//message ")) {
-                        for (int i = 0; i < clientSocket.length; i++) {
-                            if (clientSocket[i] != null) {
-                                fsortida = new PrintWriter(this.clientSocket[i].getOutputStream(), true);
+                    if (cadena != null && cadena.startsWith("//message")) {
+			for (int i = 0; i < arraysocket.length; i++) {
+                            if (arraysocket[i] != null) {
+                                fsortida = new PrintWriter(arraysocket[i].getOutputStream(), true);
                                 fsortida.println(cadena);
                             }
-                        }
+			}
                         System.out.println("Rebent: " + cadena);
+                    } else {
+                        desconectar = true;
                     }
+                    
                 }
-
-                 try {
-                    fentrada.close();
-                    fsortida.close();
-                } catch (NullPointerException e) {
-                    // TODO: handle exception
-                }
-
-                this.client.close();
-                this.server.close();
-
+                
+                fentrada.close();
+                fsortida.close();
+                this.clientsocket.close();
+                this.serversocket.close();
+                
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
-
     }
 }
