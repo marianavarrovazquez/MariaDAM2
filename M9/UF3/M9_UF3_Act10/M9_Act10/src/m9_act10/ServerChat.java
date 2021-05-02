@@ -13,7 +13,7 @@ import java.util.Scanner;
  *
  * @author maria
  */
-public class ServerChat implements Runnable{
+public class ServerChat implements Runnable {
     
     Socket client;
     ServerSocket server;
@@ -76,7 +76,8 @@ public class ServerChat implements Runnable{
     @Override
     public void run() {
         boolean desconectar = false;
-        String cadenaName = cadena.substring(7, cadena.length()).toString();
+        String cadenaName;
+        
         
         while (!desconectar) {
             try {           
@@ -100,55 +101,39 @@ public class ServerChat implements Runnable{
                         if (clientSocket.length <= 1){
                             name = auxName;
                         }
-                        
+                        cadenaName= cadena.substring(7, cadena.length()).toString();
                         System.out.println("Nom Client (" + numClient + "): " + cadenaName);
                     }
                 } catch (SocketException e) { 
                     desconectar = true;
                 }
                 
-                while(!desconectar) {
-                    try {
-                        cadena = fentrada.readLine();
-                    } catch (SocketException e) { 
-                        desconectar = true;
-                    }
-                    
-                    if (cadena == null && cadena.equals("//sortir")){
-                        System.out.println("Connexió " + name + " client tancada... ");
-                        desconectar = true;
-                    }
-                    
-                    if (!desconectar) {
-                        fsortida.println(cadena);
-
-                        if (cadena != null) {
-                            for (int i = 0; i < clientSocket.length; i++) {
-                                if (clientSocket[i] != null) {
-                                    fsortida = new PrintWriter(this.clientSocket[i].getOutputStream(), true);
-                                    fsortida.println(cadena);
-                                }
-                            }
-                            System.out.println("Rebent: " + cadena);
-                        }
-                    }
-                    
+//              while(!desconectar) {
+                try {
+                    cadena = fentrada.readLine();
+                } catch (SocketException e) { 
+                    desconectar = true;
                 }
 
-//                while ((cadena = fentrada.readLine()) != "") {                
-//                    if (cadena.startsWith("//name ")) {
-//                        this.registre = cadena.substring(7, cadena.length()).toString();
-//                        System.out.println("Client " + this.registre + " connectat... ");                    
-//                    } else if (!cadena.equals("//sortir")) {
-//    //                    fsortida.println(cadena);
-//                        System.out.println("Rebent: " + cadena);
-//                        //Retornem missatges
-//                        fsortida.println(this.registre + ": " + cadena);
-//                    } else if (cadena.equals("//sortir")){
-//                        System.out.println("Connexió " + this.registre + " client tancada... ");
-//                        break;
-//                    }
-//                }
+                if (cadena == null && cadena.equals("//sortir")){
+                    System.out.println("Connexió " + name + " client tancada... ");
+                    desconectar = true;
+                }
+
+                if (!desconectar) {
+                    fsortida.println(cadena);
+
+                    if (cadena != null && cadena.startsWith("//message ")) {
+                        for (int i = 0; i < clientSocket.length; i++) {
+                            if (clientSocket[i] != null) {
+                                fsortida = new PrintWriter(this.clientSocket[i].getOutputStream(), true);
+                                fsortida.println(cadena);
+                            }
+                        }
+                        System.out.println("Rebent: " + cadena);
+                    }
+                }
+
                  try {
                     fentrada.close();
                     fsortida.close();

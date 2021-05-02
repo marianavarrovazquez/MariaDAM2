@@ -12,6 +12,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import static m9_act10.ServerChat.cadena;
 
 /**
  *
@@ -24,8 +26,8 @@ public class menu_Client extends javax.swing.JFrame {
     public PrintWriter fsortida;
     public BufferedReader fentrada;
     Socket client = new Socket(host, port);
+    
     String name = "";
-    String name2 = "";
     
     /**
      * Creates new form Client
@@ -39,6 +41,7 @@ public class menu_Client extends javax.swing.JFrame {
         fsortida = new PrintWriter(client.getOutputStream(), true);
         fentrada = new BufferedReader(new InputStreamReader(client.getInputStream()));
         tfNom.setText("//name ");
+        tfText.setText("//message ");
     }
 
     /**
@@ -179,27 +182,26 @@ public class menu_Client extends javax.swing.JFrame {
 
     private void jBMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMensajeActionPerformed
         // TODO add your handling code here:
-        String cadena = tfText.getText();
-        if (cadena != "") {
+        String cadena = tfText.getText().subSequence(11, tfNom.getText().length()).toString();
+         if (cadena != null && cadena.startsWith("//message ")) {
             try {
-                //Enviament cadena al servidor
-                jTextArea.append(cadena + "\n");
+            //Enviament cadena al servidor
+                jTextArea.append(name + ": " + cadena + "\n");
                 tfText.setText("");
                 fsortida.println(cadena);
                 
                 String mensRebut = fentrada.readLine();
                 
-                if (!mensRebut.contains(name)) {
+                if (!mensRebut.startsWith(name) && mensRebut != null) {
                     jTextArea.append(mensRebut);
-                    System.out.println("entra");
+                    System.out.println("  =>ECO: "+ mensRebut);
                 }
-                System.out.println(mensRebut);
                 mensRebut = "";
             } catch (IOException ex) {
                 Logger.getLogger(menu_Client.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (cadena.equals("//sortir")) {
-            jTextArea.append("Finalització de l'enviament...");
+            JOptionPane.showMessageDialog(null,"Finalització de l'enviament...");
             fsortida.close();
             dispose();
         }
