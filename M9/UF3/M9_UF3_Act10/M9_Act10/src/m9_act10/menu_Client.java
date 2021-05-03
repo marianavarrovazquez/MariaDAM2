@@ -14,35 +14,51 @@ import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 /**
  *
  * @author maria
  */
-public class menu_Client extends javax.swing.JFrame implements Runnable{
+public class menu_Client extends javax.swing.JFrame {
 
     String host = "localhost";
     int port = 60000;//Port remot    
     public PrintWriter fsortida;
     public BufferedReader fentrada;
-    Socket client = new Socket(host, port);
+    public BufferedReader in;
+    Socket client;
     
     String name = "";
+    String mensRebut = "";
+    String[] arrayName;
+    boolean log = false;
+    boolean clientB = false;
     
-    String comandos = "//name --> Per logarte \n //message --> Enviar missatges \n //sortir --> Desconectarse \n";
+    String comandos = "//name --> Per iniciar sessio \n //sortir --> Desconectarse \n";
     
     /**
      * Creates new form Client
      */
     public menu_Client() throws IOException {
         initComponents();
+        client = new Socket(host, port);
         jTextArea.setEditable(false);
         tfText.setEditable(false);
         jBMensaje.setEnabled(false);
         jBConsultar.setEnabled(false);
         fsortida = new PrintWriter(client.getOutputStream(), true);
         fentrada = new BufferedReader(new InputStreamReader(client.getInputStream()));
+        in = new BufferedReader(new InputStreamReader(System.in));        
         jTextArea.append(comandos);
+        menu_Client run = new menu_Client(client, fentrada, jTextArea);
+//        run.start();
+    }
+
+    private menu_Client(Socket client, BufferedReader fentrada, JTextArea jTextArea) {
+        this.client = client;
+        this.fentrada = fentrada;
+        this.jTextArea = jTextArea;
     }
 
     /**
@@ -167,56 +183,74 @@ public class menu_Client extends javax.swing.JFrame implements Runnable{
     }// </editor-fold>//GEN-END:initComponents
 
     private void BConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BConectarActionPerformed
-        if(tfNom.getText() == null || tfNom.getText() == "//name ") {
-            JOptionPane.showMessageDialog(null,"Nom d'usuari no valid...");
-        } else if (tfNom.getText() != null) {
-            if (tfNom.getText().startsWith("//name")) {
-                //Enviament nom al servidor
-                name = tfNom.getText().subSequence(7, tfNom.getText().length()).toString();
-                fsortida.println(tfNom.getText());
-                tfNom.setEditable(false);
-                jBMensaje.setEnabled(true);
-                jBConsultar.setEnabled(true);
-                tfText.setEditable(true);
-            }
-        }            
+        
+        if (tfNom.getText() == null || !tfNom.getText().startsWith("//name ")) {
+            JOptionPane.showMessageDialog(null,"Nom d'usuari no valid...");   
+        }
+        
+        if (tfNom.getText().startsWith("//name ")) {
+            //Enviament nom al servidor
+            arrayName = tfNom.getText().split(" ");
+            name = tfNom.getText().subSequence(7, tfNom.getText().length()).toString();
+            jTextArea.append("Connectat correctament... Hola " + arrayName[1] + "\n");
+            
+            fsortida.println(name);
+            tfNom.setEditable(false);
+            jBMensaje.setEnabled(true);
+            jBConsultar.setEnabled(true);
+            tfText.setEditable(true);
+        }
     }//GEN-LAST:event_BConectarActionPerformed
 
     private void jBMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMensajeActionPerformed
         // TODO add your handling code here:
         String cadena = tfText.getText().toString();
                 
-        if (cadena != null) {
-            String cadena2 = tfText.getText().subSequence(11, tfText.getText().length()).toString();
-            jTextArea.append(name + ": " + cadena2 + "\n");
+        if (cadena != null && !cadena.equals("//sortir")) {
+//            String cadena2 = tfText.getText().subSequence(11, tfText.getText().length()).toString();
             fsortida.println(name + ": " + cadena + "\n");
-            tfText.setText("");
+            jTextArea.append(name + ": " + cadena + "\n");
+            
+            if (!mensRebut.startsWith(arrayName[1])) {            
+                try {
+                    mensRebut = fentrada.readLine();
+                    jTextArea.append(mensRebut + "\n");
+                } catch (IOException ex) {
+                    Logger.getLogger(menu_Client.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         } else if (cadena.equals("//sortir")) {
             JOptionPane.showMessageDialog(null,"Finalització de l'enviament...");
-            fsortida.close();
-        }
-    }//GEN-LAST:event_jBMensajeActionPerformed
-
-    @Override
-    public void run() {
-        boolean desconectarse = false;
-        
-        while (desconectarse != true) {
-            try {                
-                String mensRebut = fentrada.readLine();
-                
-                if (!mensRebut.startsWith(name)) {
-                    jTextArea.append("\n" + mensRebut);
-                    System.out.println("  =>ECO: " + mensRebut);
-                }
-            }catch(SocketException e){
-                
+            fsortida.println(cadena);
+//            clientB = false;
+            try {
+                fsortida.close();
+                fentrada.close();
+                in.close();
+                client.close();
+                dispose();
             } catch (IOException ex) {
                 Logger.getLogger(menu_Client.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }
+         tfText.setText("");
+    }//GEN-LAST:event_jBMensajeActionPerformed
+
     
+    public void run(Socket client, BufferedReader fentrada, JTextArea jTextArea) {
+        try {                
+            mensRebut = fentrada.readLine();
+            while (mensRebut != null) {
+                if (!mensRebut.startsWith(name) && mensRebut != null) {
+                    jTextArea.append("\n" + mensRebut);
+                    System.out.println("  =>ECO: " + mensRebut);
+                }   
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(menu_Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+        
     /**
      * @param args the command line arguments
      */

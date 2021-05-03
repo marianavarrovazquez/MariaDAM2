@@ -5,6 +5,10 @@
  */
 package m9_act10;
 
+import java.io.BufferedReader;
+import java.net.Socket;
+import javax.swing.JTextArea;
+
 /**
  *
  * @author maria

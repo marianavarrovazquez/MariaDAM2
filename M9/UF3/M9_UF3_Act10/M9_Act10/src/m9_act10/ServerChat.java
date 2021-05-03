@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 public class ServerChat implements Runnable {
     
-    Socket clientsocket;
+    static Socket clientsocket;
     ServerSocket serversocket;
     Socket[] arraysocket;
     static int numClients;
@@ -33,7 +33,7 @@ public class ServerChat implements Runnable {
         int port = 60000;
         int clientsteclat;
         ServerSocket serversocket2 = new ServerSocket(port);
-        boolean bolean = false;
+        
 
         System.out.print("Introdueix el numero de clients: ");
         clientsteclat = sc.nextInt();
@@ -43,16 +43,16 @@ public class ServerChat implements Runnable {
         Thread[] arrayThread = new Thread[clientsteclat];
         
         for (int i = 0; i < arrayRunnable.length; i++){
-            Socket clientsocket2 = serversocket2.accept();
-            
+            clientsocket = serversocket2.accept();
+            boolean bolean = false;
             for (int j = 0; j < arraysocket2.length; j++) {
 		if (arraysocket2[i] == null && bolean == false) {
-                    arraysocket2[i] = clientsocket2;
+                    arraysocket2[i] = clientsocket;
                     bolean = true;
 		}
             }
             
-            arrayRunnable[i] = new ServerChat(clientsocket2, serversocket2, arraysocket2);
+            arrayRunnable[i] = new ServerChat(clientsocket, serversocket2, arraysocket2);
             arrayThread[i] = new Thread(arrayRunnable[i]);
             arrayThread[i].start();
         }
@@ -75,6 +75,8 @@ public class ServerChat implements Runnable {
 
                     if ((cadena = fentrada.readLine()) != null || cadena.startsWith("//name")) {
                         System.out.println("Client " + this.numClients + " es diu " + cadena);
+                    } else {
+                        System.out.println("Nom d'usuari incorrecte");
                     }
                     
 		} catch (Exception e) {
@@ -89,7 +91,7 @@ public class ServerChat implements Runnable {
                     }
                     
                     fsortida.println(cadena);
-                    if (cadena != null && cadena.startsWith("//message")) {
+                    if (!cadena.equals("//sortir")) {
 			for (int i = 0; i < arraysocket.length; i++) {
                             if (arraysocket[i] != null) {
                                 fsortida = new PrintWriter(arraysocket[i].getOutputStream(), true);
