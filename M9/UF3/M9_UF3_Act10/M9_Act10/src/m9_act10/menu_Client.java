@@ -184,7 +184,6 @@ public class menu_Client extends javax.swing.JFrame implements Runnable{
 
     private void jBMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMensajeActionPerformed
         // TODO add your handling code here:
-//        String mensRebut = "" ;     
         String cadena = tfText.getText().toString();
                 
         if (cadena != null) {
