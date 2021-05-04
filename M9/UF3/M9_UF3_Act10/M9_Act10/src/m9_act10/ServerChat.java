@@ -89,7 +89,6 @@ public class ServerChat implements Runnable {
                         desconectar = true;
                     }
                     
-//                    fsortida.println(cadena);
                     if (cadena != null) {
                         
 			for (int i = 0; i < arraysocket.length; i++) {
