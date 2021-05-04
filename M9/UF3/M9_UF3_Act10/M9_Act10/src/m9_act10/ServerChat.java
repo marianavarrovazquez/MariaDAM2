@@ -73,10 +73,9 @@ public class ServerChat implements Runnable {
                     fsortida = new PrintWriter(clientsocket.getOutputStream(), true);
                     fentrada = new BufferedReader(new InputStreamReader(clientsocket.getInputStream()));
 
-                    if ((cadena = fentrada.readLine()) != null || cadena.startsWith("//name")) {
+                    if ((cadena = fentrada.readLine()) != null) {
+                        cadena = cadena.subSequence(7, cadena.length()).toString();
                         System.out.println("Client " + this.numClients + " es diu " + cadena);
-                    } else {
-                        System.out.println("Nom d'usuari incorrecte");
                     }
                     
 		} catch (Exception e) {
@@ -90,14 +89,15 @@ public class ServerChat implements Runnable {
                         desconectar = true;
                     }
                     
-                    fsortida.println(cadena);
-                    if (!cadena.equals("//sortir")) {
+//                    fsortida.println(cadena);
+                    if (cadena.startsWith("//message ")) {
 			for (int i = 0; i < arraysocket.length; i++) {
                             if (arraysocket[i] != null) {
                                 fsortida = new PrintWriter(arraysocket[i].getOutputStream(), true);
                                 fsortida.println(cadena);
                             }
 			}
+                        cadena = cadena.subSequence(11, cadena.length()).toString();
                         System.out.println("Rebent: " + cadena);
                     } else {
                         desconectar = true;

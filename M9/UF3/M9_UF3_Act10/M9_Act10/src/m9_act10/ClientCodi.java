@@ -6,9 +6,13 @@
 package m9_act10;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.SocketException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +24,7 @@ public class ClientCodi implements Runnable {
     static String cadena = "";
     static String name = "";
     static String mensRebut = "";
+    static boolean desconectar = false;
 
     public ClientCodi(Socket client) {
         this.client = client;
@@ -56,7 +61,7 @@ public class ClientCodi implements Runnable {
         Thread server = new Thread(run);
         
         server.start();
-        fsortida.print(name);
+        fsortida.println(name);
         
         name = name.subSequence(7, name.length()).toString();
         System.out.println("Connectat correctament... Hola " + name + "\n");
@@ -65,9 +70,9 @@ public class ClientCodi implements Runnable {
                 + "//sortir --> Desconectarse \n");
         
         cadena = in.readLine();
-        while (cadena != null && cadena.startsWith("//message")) {
+        while (cadena != null && !cadena.startsWith("//sortir")) {
             //Enviament cadena al servidor
-            fsortida.print(name + ": " +cadena + "\n");
+            fsortida.println(name + ": " +cadena + "\n");
             //Rebuda cadena del servidor
             mensRebut = fentrada.readLine();
             if (!mensRebut.startsWith(name)) {
@@ -77,19 +82,42 @@ public class ClientCodi implements Runnable {
             cadena = in.readLine();
         }
         
-        if (cadena.equals("//sortir")) {
-            System.out.println("Finalització de l'enviament...");
-            fsortida.print(cadena);
-            fsortida.close();
-            fentrada.close();
-            in.close();
-            client.close();
-        }
+        System.out.println("Finalització de l'enviament...");
+        fsortida.println(cadena);
+        fsortida.close();
+        fentrada.close();
+        in.close();
+        client.close();
     }
 
     @Override
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        BufferedReader fentrada = null;
+        try {
+            //FLUX D'ENTRADA AL SERVIDOR
+            fentrada = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            while (desconectar == false) {
+                try {
+                    mensRebut = fentrada.readLine();
+                    
+                    if (mensRebut == null) {
+                        desconectar = true;
+                    } else {
+                        System.out.println(mensRebut);
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(ClientCodi.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ClientCodi.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                fentrada.close();
+            } catch (IOException ex) {
+                Logger.getLogger(ClientCodi.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }
 
