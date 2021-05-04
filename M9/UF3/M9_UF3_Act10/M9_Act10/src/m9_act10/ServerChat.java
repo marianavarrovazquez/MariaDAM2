@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 public class ServerChat implements Runnable {
     
-    static Socket clientsocket;
+    Socket clientsocket;
     ServerSocket serversocket;
     Socket[] arraysocket;
     static int numClients;
@@ -43,7 +43,7 @@ public class ServerChat implements Runnable {
         Thread[] arrayThread = new Thread[clientsteclat];
         
         for (int i = 0; i < arrayRunnable.length; i++){
-            clientsocket = serversocket2.accept();
+            Socket clientsocket = serversocket2.accept();
             boolean bolean = false;
             for (int j = 0; j < arraysocket2.length; j++) {
 		if (arraysocket2[i] == null && bolean == false) {

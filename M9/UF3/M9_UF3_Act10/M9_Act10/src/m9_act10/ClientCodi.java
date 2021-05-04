@@ -9,12 +9,21 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author maria
  */
 public class ClientCodi {
+    static Socket client;
+    static String cadena = "";
+    static String name = "";
+
+    public ClientCodi(Socket client) {
+        this.client = client;
+    }
+        
     public static void main (String[] args) throws Exception {
         String host = "localhost";
         int port = 60000;//Port remot
@@ -28,18 +37,29 @@ public class ClientCodi {
 
         //FLUX PER A ENTRADA ESTÀNDARD
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-
-        String cadena, eco = "";
-        System.out.println("Introdueix la cadena: ");
+        
+        System.out.println("//name --> Per iniciar sessio \n "
+                + "//message --> Per enviar missatges \n "
+                + "//sortir --> Desconectarse \n");
+        
+        System.out.println("Introdueix el teu nom d'usuari: ");
         //Lectura teclat
-        cadena = in.readLine();
+        name = in.readLine();
+        
+        while (name == null || !name.startsWith("//name ")) {
+            System.out.println("Nom d'usuari no valid...");
+            name = in.readLine();
+        }
+        
+        name = name.subSequence(7, name.length()).toString();
+        System.out.println("Connectat correctament... Hola " + name + "\n");
 
         while (cadena != null) {
             //Enviament cadena al servidor
             fsortida.println(cadena);
             //Rebuda cadena del servidor
-            eco = fentrada.readLine();
-            System.out.println("  =>ECO: "+eco);
+//            eco = fentrada.readLine();
+//            System.out.println("  =>ECO: "+eco);
             //Lectura del teclat
             cadena = in.readLine();
         }

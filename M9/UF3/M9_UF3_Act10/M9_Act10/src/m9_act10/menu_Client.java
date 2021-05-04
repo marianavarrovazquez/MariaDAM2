@@ -26,14 +26,11 @@ public class menu_Client extends javax.swing.JFrame {
     int port = 60000;//Port remot    
     public PrintWriter fsortida;
     public BufferedReader fentrada;
-    public BufferedReader in;
     Socket client;
     
     String name = "";
     String mensRebut = "";
     String[] arrayName;
-    boolean log = false;
-    boolean clientB = false;
     
     String comandos = "//name --> Per iniciar sessio \n //sortir --> Desconectarse \n";
     
@@ -48,18 +45,17 @@ public class menu_Client extends javax.swing.JFrame {
         jBMensaje.setEnabled(false);
         jBConsultar.setEnabled(false);
         fsortida = new PrintWriter(client.getOutputStream(), true);
-        fentrada = new BufferedReader(new InputStreamReader(client.getInputStream()));
-        in = new BufferedReader(new InputStreamReader(System.in));        
+        fentrada = new BufferedReader(new InputStreamReader(client.getInputStream()));  
         jTextArea.append(comandos);
-        menu_Client run = new menu_Client(client, fentrada, jTextArea);
+//        menu_Client run = new menu_Client(client, fentrada, jTextArea);
 //        run.start();
     }
 
-    private menu_Client(Socket client, BufferedReader fentrada, JTextArea jTextArea) {
-        this.client = client;
-        this.fentrada = fentrada;
-        this.jTextArea = jTextArea;
-    }
+//    private menu_Client(Socket client, BufferedReader fentrada, JTextArea jTextArea) {
+//        this.client = client;
+//        this.fentrada = fentrada;
+//        this.jTextArea = jTextArea;
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -195,6 +191,7 @@ public class menu_Client extends javax.swing.JFrame {
             jTextArea.append("Connectat correctament... Hola " + arrayName[1] + "\n");
             
             fsortida.println(name);
+            
             tfNom.setEditable(false);
             jBMensaje.setEnabled(true);
             jBConsultar.setEnabled(true);
@@ -222,11 +219,9 @@ public class menu_Client extends javax.swing.JFrame {
         } else if (cadena.equals("//sortir")) {
             JOptionPane.showMessageDialog(null,"Finalització de l'enviament...");
             fsortida.println(cadena);
-//            clientB = false;
             try {
                 fsortida.close();
                 fentrada.close();
-                in.close();
                 client.close();
                 dispose();
             } catch (IOException ex) {
@@ -237,11 +232,11 @@ public class menu_Client extends javax.swing.JFrame {
     }//GEN-LAST:event_jBMensajeActionPerformed
 
     
-    public void run(Socket client, BufferedReader fentrada, JTextArea jTextArea) {
+    public void run() {
         try {                
             mensRebut = fentrada.readLine();
             while (mensRebut != null) {
-                if (!mensRebut.startsWith(name) && mensRebut != null) {
+                if (!mensRebut.contains(name) && mensRebut != null) {
                     jTextArea.append("\n" + mensRebut);
                     System.out.println("  =>ECO: " + mensRebut);
                 }   
