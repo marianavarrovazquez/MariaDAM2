@@ -21,10 +21,8 @@ import javax.swing.JOptionPane;
  */
 public class ClientCodi implements Runnable {
     static Socket client;
-    static String cadena = "";
-    static String name = "";
-    static String mensRebut = "";
     static boolean desconectar = false;
+    static String name = "";
 
     public ClientCodi(Socket client) {
         this.client = client;
@@ -35,6 +33,9 @@ public class ClientCodi implements Runnable {
         int port = 60000;//Port remot
         Socket client = new Socket(host, port);
 
+        String mensRebut = "";
+        String cadena = "";
+        
         //FLUX DE SORTIDA AL SERVIDOR
         PrintWriter fsortida = new PrintWriter(client.getOutputStream(), true);
 
@@ -67,17 +68,14 @@ public class ClientCodi implements Runnable {
         System.out.println("Connectat correctament... Hola " + name + "\n");
                
         System.out.println("//message --> Per enviar missatges \n "
-                + "//sortir --> Desconectarse \n");
-        
+                + "//sortir --> Desconectarse");        
         cadena = in.readLine();
         while (cadena != null && !cadena.startsWith("//sortir")) {
             //Enviament cadena al servidor
-            fsortida.println(name + ": " +cadena + "\n");
+            cadena = cadena.subSequence(9, cadena.length()).toString();
+            fsortida.println(name + ": " + cadena);
             //Rebuda cadena del servidor
-            mensRebut = fentrada.readLine();
-            if (!mensRebut.startsWith(name)) {
-                System.out.println(mensRebut + "\n");
-            }
+//            mensRebut = fentrada.readLine();
             //Lectura del teclat
             cadena = in.readLine();
         }
@@ -93,6 +91,7 @@ public class ClientCodi implements Runnable {
     @Override
     public void run() {
         BufferedReader fentrada = null;
+        String mensRebut = "";
         try {
             //FLUX D'ENTRADA AL SERVIDOR
             fentrada = new BufferedReader(new InputStreamReader(client.getInputStream()));
@@ -103,7 +102,9 @@ public class ClientCodi implements Runnable {
                     if (mensRebut == null) {
                         desconectar = true;
                     } else {
-                        System.out.println(mensRebut);
+                        if (!mensRebut.startsWith(name)) {
+                            System.out.println(mensRebut);
+                        }
                     }
                 } catch (IOException ex) {
                     Logger.getLogger(ClientCodi.class.getName()).log(Level.SEVERE, null, ex);

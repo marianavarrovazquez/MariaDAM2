@@ -90,14 +90,14 @@ public class ServerChat implements Runnable {
                     }
                     
 //                    fsortida.println(cadena);
-                    if (cadena.startsWith("//message ")) {
+                    if (cadena != null) {
+                        
 			for (int i = 0; i < arraysocket.length; i++) {
                             if (arraysocket[i] != null) {
                                 fsortida = new PrintWriter(arraysocket[i].getOutputStream(), true);
                                 fsortida.println(cadena);
                             }
 			}
-                        cadena = cadena.subSequence(11, cadena.length()).toString();
                         System.out.println("Rebent: " + cadena);
                     } else {
                         desconectar = true;
