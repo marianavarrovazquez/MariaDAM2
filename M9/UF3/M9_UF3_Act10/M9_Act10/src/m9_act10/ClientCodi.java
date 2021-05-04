@@ -15,10 +15,11 @@ import javax.swing.JOptionPane;
  *
  * @author maria
  */
-public class ClientCodi {
+public class ClientCodi implements Runnable {
     static Socket client;
     static String cadena = "";
     static String name = "";
+    static String mensRebut = "";
 
     public ClientCodi(Socket client) {
         this.client = client;
@@ -51,24 +52,44 @@ public class ClientCodi {
             name = in.readLine();
         }
         
+        Runnable run = new ClientCodi(client);
+        Thread server = new Thread(run);
+        
+        server.start();
+        fsortida.print(name);
+        
         name = name.subSequence(7, name.length()).toString();
         System.out.println("Connectat correctament... Hola " + name + "\n");
-
-        while (cadena != null) {
+               
+        System.out.println("//message --> Per enviar missatges \n "
+                + "//sortir --> Desconectarse \n");
+        
+        cadena = in.readLine();
+        while (cadena != null && cadena.startsWith("//message")) {
             //Enviament cadena al servidor
-            fsortida.println(cadena);
+            fsortida.print(name + ": " +cadena + "\n");
             //Rebuda cadena del servidor
-//            eco = fentrada.readLine();
-//            System.out.println("  =>ECO: "+eco);
+            mensRebut = fentrada.readLine();
+            if (!mensRebut.startsWith(name)) {
+                System.out.println(mensRebut + "\n");
+            }
             //Lectura del teclat
             cadena = in.readLine();
         }
+        
+        if (cadena.equals("//sortir")) {
+            System.out.println("Finalització de l'enviament...");
+            fsortida.print(cadena);
+            fsortida.close();
+            fentrada.close();
+            in.close();
+            client.close();
+        }
+    }
 
-        fsortida.close();
-        fentrada.close();
-        System.out.println("Finalització de l'enviament...");
-        in.close();
-        client.close();
+    @Override
+    public void run() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 
