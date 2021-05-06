@@ -28,6 +28,30 @@ public class ClientCodi implements Runnable {
         this.client = client;
     }
         
+    public void run() {
+        BufferedReader fentrada = null;
+        String mensRebut = "";
+        while (!desconectar) {
+            try {
+                //FLUX D'ENTRADA AL SERVIDOR
+                fentrada = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                mensRebut = fentrada.readLine();
+                
+                if (mensRebut == "//sortir") {
+                    desconectar = true;
+                } else if (!mensRebut.startsWith(name) || mensRebut == null) {
+                    System.out.println(mensRebut);
+                    
+                }
+            } catch (SocketException e) { 
+                desconectar = true;
+            } catch (IOException ex) {
+                Logger.getLogger(ClientCodi.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }
+    
     public static void main (String[] args) throws Exception {
         String host = "localhost";
         int port = 60000;//Port remot
@@ -45,16 +69,17 @@ public class ClientCodi implements Runnable {
         //FLUX PER A ENTRADA ESTÀNDARD
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         
-        System.out.println("//name --> Per iniciar sessio \n "
-                + "//message --> Per enviar missatges \n "
-                + "//sortir --> Desconectarse \n");
+        System.out.println("***** BENVINGUT AL CHAT *****\n"
+                + "//name --> Per iniciar sessio\n "
+                + "//message --> Per enviar missatges\n"
+                + "//sortir --> Desconectarse\n");
         
         System.out.println("Introdueix el teu nom d'usuari: ");
         //Lectura teclat
         name = in.readLine();
         
         while (name == null || !name.startsWith("//name ")) {
-            System.out.println("Nom d'usuari no valid...");
+            System.out.println("***** Nom d'usuari no valid... Torna a intentar-ho*****");
             name = in.readLine();
         }
         
@@ -65,60 +90,29 @@ public class ClientCodi implements Runnable {
         fsortida.println(name);
         
         name = name.subSequence(7, name.length()).toString();
-        System.out.println("Connectat correctament... Hola " + name + "\n");
+        System.out.println("***** Connectat correctament... Hola " + name + " *****\n");
                
-        System.out.println("//message --> Per enviar missatges \n "
-                + "//sortir --> Desconectarse");        
+        System.out.println("***** Comença a xatejar: *****");   
         cadena = in.readLine();
-        while (cadena != null && !cadena.startsWith("//sortir")) {
+        while (cadena != null && (!cadena.equals("//sortir"))) {
             //Enviament cadena al servidor
-            cadena = cadena.subSequence(9, cadena.length()).toString();
-            fsortida.println(name + ": " + cadena);
-            //Rebuda cadena del servidor
-//            mensRebut = fentrada.readLine();
-            //Lectura del teclat
+            if (!cadena.startsWith("//message ")) {
+                System.out.println("***** ERROR!!! Torna a enviar el missatge *****");
+                cadena = in.readLine();
+                cadena = cadena.replace("//message ", "");
+                fsortida.println(name + ": " + cadena);
+            } else {
+                cadena = cadena.replace("//message ", "");
+                fsortida.println(name + ": " + cadena);
+            }
             cadena = in.readLine();
         }
+        //fsortida.println(cadena);
+        System.out.println("***** Finalització de l'enviament... Sessió Tancada *****");
         
-        System.out.println("Finalització de l'enviament...");
-        fsortida.println(cadena);
         fsortida.close();
         fentrada.close();
         in.close();
         client.close();
     }
-
-    @Override
-    public void run() {
-        BufferedReader fentrada = null;
-        String mensRebut = "";
-        try {
-            //FLUX D'ENTRADA AL SERVIDOR
-            fentrada = new BufferedReader(new InputStreamReader(client.getInputStream()));
-            while (desconectar == false) {
-                try {
-                    mensRebut = fentrada.readLine();
-                    
-                    if (mensRebut == null) {
-                        desconectar = true;
-                    } else {
-                        if (!mensRebut.startsWith(name)) {
-                            System.out.println(mensRebut);
-                        }
-                    }
-                } catch (IOException ex) {
-                    Logger.getLogger(ClientCodi.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(ClientCodi.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                fentrada.close();
-            } catch (IOException ex) {
-                Logger.getLogger(ClientCodi.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
 }
-

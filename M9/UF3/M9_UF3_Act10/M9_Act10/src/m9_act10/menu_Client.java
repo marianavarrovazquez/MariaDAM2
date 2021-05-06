@@ -207,14 +207,14 @@ public class menu_Client extends javax.swing.JFrame {
 //            String cadena2 = tfText.getText().subSequence(11, tfText.getText().length()).toString();
             fsortida.println(name + ": " + cadena + "\n");
             jTextArea.append(name + ": " + cadena + "\n");
+            try {
+                mensRebut = fentrada.readLine();
+            } catch (IOException ex) {
+                Logger.getLogger(menu_Client.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
             if (!mensRebut.startsWith(arrayName[1])) {            
-                try {
-                    mensRebut = fentrada.readLine();
-                    jTextArea.append(mensRebut + "\n");
-                } catch (IOException ex) {
-                    Logger.getLogger(menu_Client.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                jTextArea.append(mensRebut + "\n");
             }
         } else if (cadena.equals("//sortir")) {
             JOptionPane.showMessageDialog(null,"Finalització de l'enviament...");
